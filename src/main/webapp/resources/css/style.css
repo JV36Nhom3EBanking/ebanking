@@ -96,7 +96,6 @@ nav {
     padding: 0px 0;
     border: none;
     font-weight: 600;
-    text-transform: capitalize;
 }
 #logo a span.fa {
     color: #fff;
@@ -149,7 +148,6 @@ nav li.last-grid a {
     letter-spacing: 1px;
     padding: 7px 25px;
     display: inline-block;
-    text-transform: capitalize;
     margin-top: -10px;
     border-radius: 5px;
 }
@@ -382,7 +380,6 @@ li > a:only-child:after { content: ''; }
 .w3ls_banner_txt p {
     font-size: 15px;
     color: #eee;
-    text-transform: capitalize;
 }
 .banner-text-w3pvt {
     padding: 16vw 0 11vw;
@@ -501,7 +498,6 @@ ul.list-w3 i {
     line-height: 35px;
     letter-spacing: 1px;
     color: #343a40;
-    text-transform: capitalize;
 }
 .prodct1 a span.fa {
     color: #888;
@@ -543,7 +539,7 @@ ul.list-w3 i {
     letter-spacing: 1px;
     padding: 10px 30px;
     display: inline-block;
-    text-transform: capitalize;
+    
 }
 h4.progress-tittle {
     color: #bbb;
@@ -562,7 +558,6 @@ h4.progress-tittle {
 }
 .statistics h3.heading {
     font-size: 40px;
-    text-transform: capitalize;
     color: #eee;
     font-weight: 100;
     letter-spacing: 3px;
@@ -572,7 +567,6 @@ h4.progress-tittle {
 /*-- products --*/
 h2.heading,h3.heading {
     font-size: 40px;
-    text-transform: capitalize;
     color: #343a40;
     font-weight: 100;
     letter-spacing: 3px;
@@ -777,7 +771,6 @@ button.btn1 {
     border: 2px solid #f8f9fa;
     color: #fff;
     width: 20%;
-    text-transform: capitalize;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -790,7 +783,6 @@ button.btn1 {
     text-align: center;
     letter-spacing: 3px;
     margin-bottom: 5px;
-    text-transform: capitalize;
 }
 .subscribe p.toppara {
     font-size: 14px;
@@ -871,7 +863,6 @@ button.btn1 {
     color: #fff;
     background: #663300;
     border: #663300;
-    text-transform: capitalize;
 }
 .c-left .info {
     float: left;
@@ -891,7 +882,6 @@ button.btn1 {
     color: #fff;
     font-weight: 700;
     padding-top: 2.5em;
-    text-transform: capitalize;
 }
 .statistics a i {
     font-size: 13px;
@@ -1017,7 +1007,6 @@ ul.list-social li a.linkedin {
 .w3-w3pvt-news-img h4 a {
     font-size: 22px;
     line-height: 33px;
-    text-transform: capitalize;
     color: #343a40;
 }
 /*-- //blog --*/
@@ -1144,7 +1133,6 @@ ul.blog-icons span.fa{
     border: none;
     width: 100%;
     cursor: pointer;
-    text-transform: capitalize;
     color: #fff;
     font-size: 18px;
     letter-spacing: 1px;
@@ -1164,7 +1152,6 @@ ul.blog-icons span.fa{
     line-height: 30px;
 	margin-bottom: 10px;
     padding: 10px 20px;
-    text-transform: capitalize;
     width: 100%;
 }
 .widget_social li a:hover{

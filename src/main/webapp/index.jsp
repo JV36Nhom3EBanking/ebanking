@@ -53,10 +53,10 @@
                             <ul class="banner_slide_bg">
                                 <li>
                                     <div class="w3ls_banner_txt">
-                                        <h2 class="b-w3ltxt text-capitalize mt-md-4">
-                                            Chuyển Khoản <span>Trực Tiếp.</span>
+                                        <h2 class="b-w3ltxt mt-md-4">
+                                            Chuyển khoản <span>trực tiếp.</span>
                                         </h2>
-                                        <h4 class="b-w3ltxt text-capitalize">Đáp ứng nhu cầu của bạn</h4>
+                                        <h4 class="b-w3ltxt ">Đáp ứng nhu cầu của bạn</h4>
                                         <p class="w3ls_pvt-title my-3">Bạn có thể chuyển tiền cho bất kì 
                                             tài khoản nào thuộc bất kì ngân hàng nào bạn muốn ngay lập tức. Chỉ với vài
                                             bước đơn giản bạn đã có thể sử dụng dịch vụ này. Việc chuyển tiền của bạn 
@@ -68,10 +68,10 @@
                                 </li>
                                 <li>
                                     <div class="w3ls_banner_txt">
-                                        <h3 class="b-w3ltxt text-capitalize mt-md-4">
-                                            Tài khoản <span>Tiết Kiệm.</span>
+                                        <h3 class="b-w3ltxt mt-md-4">
+                                            Tài khoản <span>tiết kiệm.</span>
                                         </h3>
-                                        <h4 class="b-w3ltxt text-capitalize">Bảo đảm tương lai của bạn</h4>
+                                        <h4 class="b-w3ltxt">Bảo đảm tương lai của bạn</h4>
                                         <p class="w3ls_pvt-title my-3">Bạn không cần phải lo lắng tương lai khi về
                                             hưu của bản thân mình. Tạo một tài khoản và bắt đầu tiết kiệm tài sản ngày bây giờ.
                                             Tham gia ngay với lãi suất hấp dẫn.</p>
@@ -81,10 +81,10 @@
                                 </li>
                                 <li>
                                     <div class="w3ls_banner_txt">
-                                        <h3 class="b-w3ltxt text-capitalize mt-md-4">
-                                            Theo Dõi <span>Thông tin</span>
+                                        <h3 class="b-w3ltxt mt-md-4">
+                                            Theo dõi <span>thông tin</span>
                                         </h3>
-                                        <h4 class="b-w3ltxt text-capitalize">Quản lý lịch sử giao dịch</h4>
+                                        <h4 class="b-w3ltxt ">Quản lý lịch sử giao dịch</h4>
                                         <p class="w3ls_pvt-title my-3">Xem thông tin tài khoản trực tiếp của bạn.
                                             Thống kê các giao dịch, xem số dư nhanh chóng tiện lợi. Bạn không cần phải đến
                                             ATM hay ngân hàng để xem các thông tin này giờ đây bạn có thể thực hiện nó tại mọi nơi.</p>
@@ -157,7 +157,7 @@
         <section class="products py-5">
             <div class="container py-lg-5 py-3">
                 <h3 class="heading mb-sm-5 mb-4">
-                    Cải Thiện Cuộc Sống <strong>Của Bạn</strong>
+                    Cải thiện cuộc sống <strong>của bạn</strong>
                 </h3>
                 <div class="row products_grids text-center mt-5">
                     <div class="col-md-3 col-6 grid4">
