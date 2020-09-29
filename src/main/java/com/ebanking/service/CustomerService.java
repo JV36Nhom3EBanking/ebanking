@@ -9,6 +9,8 @@ import com.ebanking.dao.CustomerDaoIF;
 import com.ebanking.entity.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
  * @author Huy Hoang
  */
 @Service
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CustomerService implements CustomerServiceIF {
 
     @Autowired

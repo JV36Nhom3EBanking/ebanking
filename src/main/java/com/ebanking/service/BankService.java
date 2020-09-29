@@ -5,14 +5,10 @@
  */
 package com.ebanking.service;
 
-import org.springframework.stereotype.Service;
-
 /**
  *
- * @author Huy Hoang
+ * @author Huy
  */
-@Service
-public class AccountService implements AccountServiceIF {
-
+public class BankService implements BankServiceIF {
     
 }

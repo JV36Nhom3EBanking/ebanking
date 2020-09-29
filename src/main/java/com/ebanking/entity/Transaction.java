@@ -5,6 +5,7 @@
  */
 package com.ebanking.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "transaction")
-public class Transaction {
+public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -30,8 +31,7 @@ public class Transaction {
     
     private Double amount;
     
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate transactionDate;
+    private String transactionDate;
     
     @ManyToOne
     @JoinColumn(name = "accountIdFrom")
@@ -44,7 +44,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int id, String type, Double amount, LocalDate transactionDate, Account account1, Account account2) {
+    public Transaction(int id, String type, Double amount, String transactionDate, Account account1, Account account2) {
         this.id = id;
         this.type = type;
         this.amount = amount;
@@ -93,11 +93,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public LocalDate getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(LocalDate transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
     

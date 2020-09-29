@@ -10,6 +10,7 @@ import com.ebanking.service.CustomerServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,19 @@ public class LoginController {
     @Autowired
     CustomerServiceIF customerService;
     
+    @GetMapping
+    public String Default(Model model) {
+        LoginModel loginModel = new LoginModel();
+        model.addAttribute("loginModel", loginModel);
+        return "login";
+    }
+    
     @PostMapping(value = "/confirmLogin")
     public String Login(@ModelAttribute("loginModel") LoginModel loginModel, Model model) {
         boolean flag = customerService.login(loginModel.getUsername(), loginModel.getPassword());
         System.out.println(flag);
         if(customerService.login(loginModel.getUsername(), loginModel.getPassword())) {
-            return "redirect:/";
+            return "redirect:/trangchu";
         }
         else {
             return "redirect:/login";

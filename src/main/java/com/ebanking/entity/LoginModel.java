@@ -5,11 +5,13 @@
  */
 package com.ebanking.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Huy Hoang
  */
-public class LoginModel {
+public class LoginModel implements Serializable {
     private String username;
     
     private String password;
