@@ -655,12 +655,12 @@ p.para-text-w3ls{
     -o-background-size: cover;
     -ms-background-size: cover;
     background-size: cover;
-	min-height: 250px;
+	min-height: 80px;
 }
 
 .inner-layer {
     background: rgba(0, 0, 0, 0.3);
-	min-height: 250px;
+	min-height: 80px;
 }
 .breadcrumb-w3pvt{
 	background: #f8f9fa;
@@ -889,6 +889,11 @@ button.btn1 {
 /*-- //clients --*/
 
 /*-- contact --*/
+.contact-form {
+    margin: auto;
+    width: 400px;
+}
+
 .contact-form label {
     font-weight: 500;
     letter-spacing: 1px;
@@ -1346,6 +1351,10 @@ h5.mt-0 {
 
 .comment-top {
     margin-top: 2em;
+}
+
+.title_center {
+	text-align: center;
 }
 
 /* //blog responsive code */
