@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
  * @author Huy Hoang
  */
 @Service
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CustomerService implements CustomerServiceIF {
 
     @Autowired
@@ -40,5 +39,11 @@ public class CustomerService implements CustomerServiceIF {
         }
         return false;
     }
+
+    @Override
+    public Customer findByUsername(String username) {
+        return customerDao.findByUsername(username);
+    }
+
     
 }

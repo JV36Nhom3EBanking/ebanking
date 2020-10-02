@@ -15,4 +15,5 @@ import java.util.List;
 public interface CustomerServiceIF {
     public List<Customer> getCustomers();
     public boolean login(String username, String password);
+    public Customer findByUsername(String username);
 }

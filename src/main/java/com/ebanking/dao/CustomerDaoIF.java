@@ -13,5 +13,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author Huy Hoang
  */
 public interface CustomerDaoIF extends CrudRepository<Customer, Integer>{
-    
+    public Customer findByUsername(String username);
 }

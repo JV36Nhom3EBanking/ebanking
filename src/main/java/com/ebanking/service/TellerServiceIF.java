@@ -5,10 +5,14 @@
  */
 package com.ebanking.service;
 
+import com.ebanking.entity.Teller;
+import java.util.List;
+
 /**
  *
  * @author Huy Hoang
  */
 public interface TellerServiceIF {
-    
+    public List<Teller> getTellers();
+    public boolean login(String username, String password);
 }

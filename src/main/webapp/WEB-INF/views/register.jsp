@@ -1,3 +1,8 @@
+<%-- 
+    Document   : register
+    Created on : Sep 30, 2020, 4:14:22 PM
+    Author     : Huy Hoang
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -61,28 +66,44 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Welcome</li>
+                        <li class="breadcrumb-item" aria-current="page">Đăng nhập</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- //breadcrumb -->
 
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-sm-3">
-                    <div class="sidebar">
-                        <a class="active" href="#home">Home</a>
-                        <a href="<c:url value="/account/info"/>">View Account Profile</a>
-                        <a href="#" >Change Account Password</a>
-                        <a href="#contact">View Customer Profile</a>
-                        <a href="#about">View Transaction</a>
-                        <a href="#" >Internal Transfer Money</a>
-                        <a href="#" >External Transfer Money</a>
-                    </div>
-                </div>
                 <div class="contact-form mt-md-0 mt-sm-5 mt-4">
-                    <h4 class="mb-4 w3f_title title_center">Welcome To E-Banking</h4>
+                    <h4 class="mb-4 w3f_title title_center">ĐĂNG KÝ</h4>
+                    <form:form name="contactform" id="contactform" method="POST" action="register/confirmRegister" modelAttribute="registerModel">
+                        <div class="form-group">
+                            <label>Username</label> <form:input type="text" class="form-control" path="username"
+                                        id="username" placeholder="Enter Username" name="username"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label> <form:input type="password" class="form-control" path="password"
+                                        id="password" placeholder="Enter Password" name="password"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Re - Password</label> <form:input type="re-password" class="form-control" path="re-password"
+                                        id="re-password" placeholder="Enter Re - Password" name="re-password"/>
+                        </div>
+                        <div class="form-group">
+                            <label>OTP</label> <form:input type="text" class="form-control" path="otp"
+                                        id="otp" placeholder="Enter OTP" name="otp"/>
+                            <a href="/sendOTP"></a>
+                        </div>
+                        <div class="g-recaptcha"
+                             data-sitekey="6LdUudEZAAAAANaMlbIsFaIruRC8bZy3v1xAWwgT"></div>
+                        <div style="margin-bottom: 20px;">
+                            <form:button type="submit" class="btn btn-default">Submit</form:button>
+                            <form:button type="button" class="btn btn-primary" style="margin-left: 20px;">Cancel</form:button>
+                            </div>
+
+                            <p style="margin-bottom: 20px;">Chưa có tài khoản? <a href="#">Đăng kí ngay</a></p>
+                    </form:form>
                 </div>
             </div>
         </div>
@@ -157,6 +178,6 @@
             </a>
         </div>
         <!-- move top -->
-
+        <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
     </body>
 </html>

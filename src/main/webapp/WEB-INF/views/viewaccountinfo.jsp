@@ -1,3 +1,8 @@
+<%-- 
+    Document   : viewaccountinfo
+    Created on : Oct 1, 2020, 7:47:41 PM
+    Author     : Huy Hoang
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -60,8 +65,8 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Welcome</li>
+                        <li class="breadcrumb-item"><a href="index.html">Welcome, </a></li>
+                        <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
                     </ol>
                 </nav>
             </div>
@@ -73,7 +78,7 @@
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
                         <a class="active" href="#home">Home</a>
-                        <a href="<c:url value="/account/info"/>">View Account Profile</a>
+                        <a href="#news">View Account Profile</a>
                         <a href="#" >Change Account Password</a>
                         <a href="#contact">View Customer Profile</a>
                         <a href="#about">View Transaction</a>
@@ -82,7 +87,16 @@
                     </div>
                 </div>
                 <div class="contact-form mt-md-0 mt-sm-5 mt-4">
-                    <h4 class="mb-4 w3f_title title_center">Welcome To E-Banking</h4>
+                    <h4 class="mb-4 w3f_title title_center">Danh sách tài khoản của bạn</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Số tài khoản</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
