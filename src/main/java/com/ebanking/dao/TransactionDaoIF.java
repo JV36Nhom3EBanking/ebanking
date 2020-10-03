@@ -6,6 +6,8 @@
 package com.ebanking.dao;
 
 import com.ebanking.entity.Transaction;
+import java.util.Date;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,5 +15,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author Huy Hoang
  */
 public interface TransactionDaoIF extends CrudRepository<Transaction, Integer>{
-    
+    public List<Transaction> findByTransactionDateBetween(Date transactionDate1, Date transactionDate2);
 }

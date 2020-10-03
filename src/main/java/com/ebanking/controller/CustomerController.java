@@ -10,12 +10,15 @@ import com.ebanking.entity.Customer;
 import com.ebanking.entity.SearchTransactionModel;
 import com.ebanking.service.AccountServiceIF;
 import com.ebanking.service.CustomerServiceIF;
+import com.ebanking.service.TransactionServiceIF;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -31,6 +34,9 @@ public class CustomerController {
     
     @Autowired
     CustomerServiceIF customerService;
+    
+    @Autowired
+    TransactionServiceIF transactionService;
 
     @GetMapping("/info")
     public String getInfo(HttpSession httpSession, ModelMap modelMap) {
@@ -63,5 +69,11 @@ public class CustomerController {
         modelMap.addAttribute("searchTransaction", searchTransactionModel);
         
         return "viewaccountinfo";
+    }
+    
+    @PostMapping("/account/searchTransaction")
+    public String getTransaction(@ModelAttribute SearchTransactionModel searchTransactionModel, ModelMap modelMap) {
+        
+        return "";
     }
 }
