@@ -6,16 +6,18 @@
 package com.ebanking.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,7 +30,12 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private double balance;
+    private int accountNo;
+    
+    @Temporal(TemporalType.DATE)
+    private Date openDate; 
+    
+    private int balance;
     
     private String type;
     
@@ -51,8 +58,10 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(int id, double balance, String type, String status, Customer customer, Bank bank, List<Transaction> transactionFrom, List<Transaction> transactionTo) {
+    public Account(int id, int accountNo, Date openDate, int balance, String type, String status, Customer customer, Bank bank, List<Transaction> transactionFrom, List<Transaction> transactionTo) {
         this.id = id;
+        this.accountNo = accountNo;
+        this.openDate = openDate;
         this.balance = balance;
         this.type = type;
         this.status = status;
@@ -61,7 +70,7 @@ public class Account implements Serializable {
         this.transactionFrom = transactionFrom;
         this.transactionTo = transactionTo;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -70,11 +79,11 @@ public class Account implements Serializable {
         this.id = id;
     }
 
-    public double getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 
@@ -124,6 +133,22 @@ public class Account implements Serializable {
 
     public void setTransactionTo(List<Transaction> transactionTo) {
         this.transactionTo = transactionTo;
+    }
+
+    public int getAccountNo() {
+        return accountNo;
+    }
+
+    public void setAccountNo(int accountNo) {
+        this.accountNo = accountNo;
+    }
+
+    public Date getOpenDate() {
+        return openDate;
+    }
+
+    public void setOpenDate(Date openDate) {
+        this.openDate = openDate;
     }
     
     

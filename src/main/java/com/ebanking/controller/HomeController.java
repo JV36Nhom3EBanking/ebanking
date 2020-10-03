@@ -5,7 +5,10 @@
  */
 package com.ebanking.controller;
 
+import com.ebanking.entity.Customer;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,7 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     
     @GetMapping
-    public String Default() {
+    public String Default(HttpSession httpSession, ModelMap modelMap) {
+        if (httpSession.getAttribute("user") != null) {
+            Customer customer = (Customer) httpSession.getAttribute("user");
+            modelMap.addAttribute("customer", customer);
+            String name = customer.getName();
+            modelMap.addAttribute("name", name);
+            String chucaidau = customer.getEmail().substring(0,1);
+            modelMap.addAttribute("chucaidau", chucaidau);
+        }
         return "home";
     }
 }

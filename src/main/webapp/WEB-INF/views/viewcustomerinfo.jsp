@@ -1,3 +1,8 @@
+<%-- 
+    Document   : viewaccountinfo
+    Created on : Oct 1, 2020, 7:47:41 PM
+    Author     : Huy Hoang
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -39,7 +44,7 @@
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                            <c:choose>
+                        <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
                                 </c:when>
@@ -47,7 +52,6 @@
                                 <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
                                 </c:otherwise>
                             </c:choose>
-
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -68,8 +72,8 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Welcome, ${name}</li>
+                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
                     </ol>
                 </nav>
             </div>
@@ -80,8 +84,8 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a class="active" href="#home">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
+                        <a href="#home">Home</a>
+                        <a class="active" href="#news">View Customer Profile</a>
                         <a href="">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a href="#about">View Transaction</a>
@@ -89,8 +93,75 @@
                         <a href="#" >External Transfer Money</a>
                     </div>
                 </div>
-                <div class="contact-form mt-md-0 mt-sm-5 mt-4">
-                    <h4 class="mb-4 w3f_title title_center">Welcome To E-Banking</h4>
+                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
+                    <h4 class="mb-4 w3f_title title_center">Danh sách tài khoản của bạn</h4>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>
+                        </tr>
+                        <tr>
+                            <td>Tên khách hàng</td>
+                            <td>${customer.getName()}</td>
+                            <td>Ngày sinh</td>
+                            <td>${customer.getBirthdate()}</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td>${customer.getAddress()}</td>
+                            <td>Quận</td>
+                            <td>${customer.getDistrict()}</td>
+                        </tr>
+                        <tr>
+                            <td>Thành phố</td>
+                            <td>${customer.getCity()}</td>
+                            <td>Giới tính</td>
+                            <td>${customer.getGender()}</td>
+                        </tr>
+                        <tr>
+                            <td>Quốc tịch</td>
+                            <td>${customer.getNationality()}</td>
+                            <td>Chứng minh nhân dân</td>
+                            <td>${customer.getCmnd()}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>${customer.getEmail()}</td>
+                            <td>Số điện thoại</td>
+                            <td>${customer.getPhone()}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
+                        </tr>
+                        <tr>
+                            <td>Số tài khoản</td>
+                            <td>Ngày mở</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>                            
+                            <c:forEach var="value" items="${customer.getAccounts() }">
+                            <tr>
+                                <td>${value.getAccountNo()}</td>
+                                <td>${value.getOpenDate()}</td>
+                                <td>
+                                    <button id="myBtn">Xem số dư</button>
+                                    <div id="myModal" class="modal">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2>Số dư hiện tại</h2>
+                                                <span class="close"></span>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Số dư hiện tại của bạn : ${value.getBalance()}</p>
+                                            </div>
+                                        </div>
+                                    </div                                
+                                </td>
+                                <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
+                            </tr>
+
+                        </c:forEach>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -165,6 +236,6 @@
             </a>
         </div>
         <!-- move top -->
-
+        <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>

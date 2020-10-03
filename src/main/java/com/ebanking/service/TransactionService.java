@@ -5,12 +5,10 @@
  */
 package com.ebanking.service;
 
-import com.ebanking.entity.Account;
-
 /**
  *
- * @author Huy Hoang
+ * @author Huy
  */
-public interface AccountServiceIF {
-    public Account getAccount(int id);
+public class TransactionService {
+    
 }

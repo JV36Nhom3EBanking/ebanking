@@ -6,7 +6,7 @@
 package com.ebanking.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -33,7 +32,7 @@ public class Teller implements Serializable {
     
     private String password;
     
-    private String birthdate;
+    private Date birthdate;
     
     private String address;
     
@@ -56,7 +55,7 @@ public class Teller implements Serializable {
 
     
     
-    public Teller(int id, String name, String username, String password, String birthdate, String address, String gender, String cmnd, String email, String phone, String role, Bank bank) {
+    public Teller(int id, String name, String username, String password, Date birthdate, String address, String gender, String cmnd, String email, String phone, String role, Bank bank) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -103,11 +102,11 @@ public class Teller implements Serializable {
         this.password = password;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

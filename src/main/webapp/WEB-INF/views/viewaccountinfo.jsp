@@ -1,7 +1,7 @@
 <%-- 
     Document   : viewaccountinfo
-    Created on : Oct 1, 2020, 7:47:41 PM
-    Author     : Huy Hoang
+    Created on : Oct 3, 2020, 2:24:23 PM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -44,7 +44,14 @@
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                        <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
+                        <c:choose>
+                                <c:when test="${chucaidau != null}">
+                                <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
+                                </c:otherwise>
+                            </c:choose>
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -65,8 +72,8 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Welcome, </a></li>
-                        <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
+                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Thông tin tài khoản</li>
                     </ol>
                 </nav>
             </div>
@@ -77,25 +84,56 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a class="active" href="#home">Home</a>
-                        <a href="#news">View Account Profile</a>
-                        <a href="#" >Change Account Password</a>
-                        <a href="#contact">View Customer Profile</a>
+                        <a href="#home">Home</a>
+                        <a href="#news">View Customer Profile</a>
+                        <a class="active" href="">View Account Information</a>
+                        <a href="#" >Change Password</a>
                         <a href="#about">View Transaction</a>
                         <a href="#" >Internal Transfer Money</a>
                         <a href="#" >External Transfer Money</a>
                     </div>
                 </div>
-                <div class="contact-form mt-md-0 mt-sm-5 mt-4">
-                    <h4 class="mb-4 w3f_title title_center">Danh sách tài khoản của bạn</h4>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Số tài khoản</th>
-                                <th></th>
-                            </tr>
-                        </thead>
+                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
+                    <h4 class="mb-4 w3f_title title_center">Thông tin tài khoản của bạn</h4>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Thông tin tài khoản</td>
+                        </tr>
+                        <tr>
+                            <td>Số tài khoản</td>
+                            <td>${account.getAccountNo()}</td>
+                            <td>Ngày mở tài khoản</td>
+                            <td>${account.getOpenDate()}</td>
+                        </tr>
+                        <tr>
+                            <td>Số dư</td>
+                            <td>${account.getBalance()} VNĐ</td>
+                            <td>Loại thẻ</td>
+                            <td>${account.getType()}</td>
+                        </tr>
+                        <tr>
+                            <td>Tình trạng</td>
+                            <td>${account.getStatus()}</td>
+                            <td>Ngân hàng quản lý</td>
+                            <td>${account.getBank().getBranch()}, ${account.getBank().getDistrict()}, ${account.getBank().getCity()}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Chi tiết giao dịch</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <form:form name="contactform" id="contactform" method="POST" modelAttribute="searchTransaction">
+                                    <form:hidden path="id" value="${account.getId()}"/>
+                                    <div class="form-group">
+                                        <label>Từ ngày</label> <form:input type="date" class="form-control" path="dateFrom"
+                                                    id="dateFrom" placeholder="Enter DateFrom" name="dateFrom"/>
+                                        <label>Đến ngày</label> <form:input type="date" class="form-control" path="dateTo"
+                                                    id="dateTo" placeholder="Enter DateTo" name="dateTo"/>
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Tìm kiếm</form:button>
+                                    </div>
+                                </form:form>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -171,6 +209,6 @@
             </a>
         </div>
         <!-- move top -->
-
+        <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>

@@ -6,7 +6,7 @@
 package com.ebanking.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -33,7 +34,8 @@ public class Customer implements Serializable {
     
     private String password;
     
-    private String birthdate;
+    @Temporal(TemporalType.DATE)
+    private Date birthdate;
     
     private String address;
     
@@ -59,7 +61,7 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
-    public Customer(int id, String name, String username, String password, String birthdate, String address, String district, String city, String gender, String nationality, String cmnd, String email, String phone, String role, List<Account> accounts) {
+    public Customer(int id, String name, String username, String password, Date birthdate, String address, String district, String city, String gender, String nationality, String cmnd, String email, String phone, String role, List<Account> accounts) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -109,11 +111,11 @@ public class Customer implements Serializable {
         this.password = password;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

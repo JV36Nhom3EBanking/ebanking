@@ -5,6 +5,10 @@
  */
 package com.ebanking.service;
 
+import com.ebanking.dao.AccountDaoIF;
+import com.ebanking.entity.Account;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +17,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AccountService implements AccountServiceIF {
+
+    @Autowired
+    AccountDaoIF accountDao;
+    
+    @Override
+    public Account getAccount(int id) {
+       Optional<Account> account = accountDao.findById(id);
+	return account.isPresent() ? account.get() : null;
+    }
 
     
 }

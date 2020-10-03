@@ -5,6 +5,7 @@
 
 <link href='<c:url value = "/resources/css/css_slider.css"/>' rel="stylesheet"><!-- Slider css -->
 <link href='<c:url value = "/resources/css/bootstrap.css"/>'rel='stylesheet' type='text/css' /><!-- bootstrap css -->
+<link href='<c:url value = "/resources/bootstrap/css/bootstrap.min.css"/>'rel='stylesheet' type='text/css' /><!-- bootstrap css -->
 <link href='<c:url value = "/resources/css/style.css"/>' rel='stylesheet' type='text/css' /><!-- custom css -->
 <link href='<c:url value = "/resources/css/slidebarcss.css"/>' rel='stylesheet' type='text/css' /><!-- custom css -->
 <link href='<c:url value = "/resources/css/font-awesome.min.css"/>' rel="stylesheet"><!-- fontawesome css -->

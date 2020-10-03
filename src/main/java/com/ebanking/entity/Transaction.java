@@ -6,7 +6,7 @@
 package com.ebanking.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -31,7 +32,8 @@ public class Transaction implements Serializable {
     
     private Double amount;
     
-    private String transactionDate;
+    @Temporal(TemporalType.DATE)
+    private Date transactionDate;
     
     @ManyToOne
     @JoinColumn(name = "accountIdFrom")
@@ -44,7 +46,7 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public Transaction(int id, String type, Double amount, String transactionDate, Account account1, Account account2) {
+    public Transaction(int id, String type, Double amount, Date transactionDate, Account account1, Account account2) {
         this.id = id;
         this.type = type;
         this.amount = amount;
@@ -93,11 +95,11 @@ public class Transaction implements Serializable {
         this.amount = amount;
     }
 
-    public String getTransactionDate() {
+    public Date getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(String transactionDate) {
+    public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
     }
     
