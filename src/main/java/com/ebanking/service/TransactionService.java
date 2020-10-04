@@ -7,6 +7,7 @@ package com.ebanking.service;
 
 import com.ebanking.dao.TransactionDaoIF;
 import com.ebanking.entity.Transaction;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class TransactionService implements TransactionServiceIF {
     TransactionDaoIF transactionDao;
 
     @Override
-    public List<Transaction> getTransactionsByDate(Date transactionDate1, Date transactionDate2) {
+    public List<Transaction> getTransactionsByDate(LocalDate transactionDate1, LocalDate transactionDate2) {
         return transactionDao.findByTransactionDateBetween(transactionDate1, transactionDate2);
     }
 }

@@ -5,7 +5,8 @@
  */
 package com.ebanking.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -13,13 +14,17 @@ import java.util.Date;
  */
 public class SearchTransactionModel {
     private int id;
-    private Date dateFrom;
-    private Date dateTo;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateFrom;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateTo;
 
     public SearchTransactionModel() {
     }
     
-    public SearchTransactionModel(int id, Date dateFrom, Date dateTo) {
+    public SearchTransactionModel(int id, LocalDate dateFrom, LocalDate dateTo) {
         this.id = id;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
@@ -33,19 +38,19 @@ public class SearchTransactionModel {
         this.id = id;
     }
 
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public Date getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(Date dateTo) {
+    public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
     }
     

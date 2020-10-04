@@ -73,7 +73,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
+                        <li class="breadcrumb-item" aria-current="page">Thông tin cá nhân</li>
                     </ol>
                 </nav>
             </div>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Danh sách tài khoản của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Thông tin cá nhân của bạn</h4>
                     <table class="table table-bordered">
                         <tr>
                             <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>

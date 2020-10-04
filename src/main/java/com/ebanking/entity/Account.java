@@ -6,6 +6,7 @@
 package com.ebanking.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -32,8 +34,8 @@ public class Account implements Serializable {
     
     private int accountNo;
     
-    @Temporal(TemporalType.DATE)
-    private Date openDate; 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate openDate; 
     
     private int balance;
     
@@ -58,7 +60,7 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(int id, int accountNo, Date openDate, int balance, String type, String status, Customer customer, Bank bank, List<Transaction> transactionFrom, List<Transaction> transactionTo) {
+    public Account(int id, int accountNo, LocalDate openDate, int balance, String type, String status, Customer customer, Bank bank, List<Transaction> transactionFrom, List<Transaction> transactionTo) {
         this.id = id;
         this.accountNo = accountNo;
         this.openDate = openDate;
@@ -143,11 +145,11 @@ public class Account implements Serializable {
         this.accountNo = accountNo;
     }
 
-    public Date getOpenDate() {
+    public LocalDate getOpenDate() {
         return openDate;
     }
 
-    public void setOpenDate(Date openDate) {
+    public void setOpenDate(LocalDate openDate) {
         this.openDate = openDate;
     }
     

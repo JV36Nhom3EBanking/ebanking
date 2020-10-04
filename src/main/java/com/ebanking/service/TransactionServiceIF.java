@@ -6,7 +6,7 @@
 package com.ebanking.service;
 
 import com.ebanking.entity.Transaction;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,5 +14,5 @@ import java.util.List;
  * @author Huy Hoang
  */
 public interface TransactionServiceIF {
-    public List<Transaction> getTransactionsByDate(Date transactionDate1, Date transactionDate2);
+    public List<Transaction> getTransactionsByDate(LocalDate transactionDate1, LocalDate transactionDate2);
 }

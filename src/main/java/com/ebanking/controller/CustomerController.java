@@ -8,14 +8,20 @@ package com.ebanking.controller;
 import com.ebanking.entity.Account;
 import com.ebanking.entity.Customer;
 import com.ebanking.entity.SearchTransactionModel;
+import com.ebanking.entity.Transaction;
 import com.ebanking.service.AccountServiceIF;
 import com.ebanking.service.CustomerServiceIF;
 import com.ebanking.service.TransactionServiceIF;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +44,11 @@ public class CustomerController {
     @Autowired
     TransactionServiceIF transactionService;
 
+    @InitBinder
+    public void dataBinding(WebDataBinder binder) {
+        
+    }
+    
     @GetMapping("/info")
     public String getInfo(HttpSession httpSession, ModelMap modelMap) {
         if (httpSession.getAttribute("user") != null) {
@@ -73,7 +84,12 @@ public class CustomerController {
     
     @PostMapping("/account/searchTransaction")
     public String getTransaction(@ModelAttribute SearchTransactionModel searchTransactionModel, ModelMap modelMap) {
+        int id = searchTransactionModel.getId();
+        LocalDate date1 = searchTransactionModel.getDateFrom();
+        LocalDate date2 = searchTransactionModel.getDateTo();
         
-        return "";
+        List<Transaction> transactions = transactionService.getTransactionsByDate(date1, date2);
+        modelMap.addAttribute("transactions", transactions);
+        return "viewtransactioninfo";
     }
 }
