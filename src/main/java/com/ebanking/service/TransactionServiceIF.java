@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface TransactionServiceIF {
     public List<Transaction> getTransactionsByDate(LocalDate transactionDate1, LocalDate transactionDate2);
+    public Transaction getTransaction(int id);
 }

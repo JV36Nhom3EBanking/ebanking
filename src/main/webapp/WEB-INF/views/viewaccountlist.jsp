@@ -1,7 +1,7 @@
 <%-- 
-    Document   : viewaccountinfo
-    Created on : Oct 1, 2020, 7:47:41 PM
-    Author     : Huy Hoang
+    Document   : viewaccountlist
+    Created on : Oct 5, 2020, 12:57:38 AM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -44,7 +44,7 @@
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                            <c:choose>
+                        <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
                                 </c:when>
@@ -73,7 +73,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thông tin cá nhân</li>
+                        <li class="breadcrumb-item" aria-current="page">Thông tin tài khoản</li>
                     </ol>
                 </nav>
             </div>
@@ -85,8 +85,8 @@
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
                         <a href="#home">Home</a>
-                        <a class="active" href="#news">View Customer Profile</a>
-                        <a href="">View Account Information</a>
+                        <a href="#news">View Customer Profile</a>
+                        <a class="active" href="">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a href="#about">View Transaction</a>
                         <a href="#" >Internal Transfer Money</a>
@@ -94,50 +94,12 @@
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Thông tin cá nhân của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Danh sách tài khoản của bạn</h4>
                     <table class="table table-bordered">
-                        <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>
-                        </tr>
-                        <tr>
-                            <td>Tên khách hàng</td>
-                            <td>${customer.getName()}</td>
-                            <td>Ngày sinh</td>
-                            <td>${customer.getBirthdate()}</td>
-                        </tr>
-                        <tr>
-                            <td>Địa chỉ</td>
-                            <td>${customer.getAddress()}</td>
-                            <td>Quận</td>
-                            <td>${customer.getDistrict()}</td>
-                        </tr>
-                        <tr>
-                            <td>Thành phố</td>
-                            <td>${customer.getCity()}</td>
-                            <td>Giới tính</td>
-                            <td>${customer.getGender()}</td>
-                        </tr>
-                        <tr>
-                            <td>Quốc tịch</td>
-                            <td>${customer.getNationality()}</td>
-                            <td>Chứng minh nhân dân</td>
-                            <td>${customer.getCmnd()}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>${customer.getEmail()}</td>
-                            <td>Số điện thoại</td>
-                            <td>${customer.getPhone()}</td>
-                        </tr>
                         <tr>
                             <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
                         </tr>
-                        <tr>
-                            <td>Số tài khoản</td>
-                            <td>Ngày mở</td>
-                            <td colspan="2"></td>
-                        </tr>                       
-                        <c:forEach var="value" items="${customer.getAccounts() }">
+                        <c:forEach var="value" items="${listAccount }">
                             <tr>
                                 <td>${value.getAccountNo()}</td>
                                 <td>${value.getOpenDate()}</td>
@@ -236,3 +198,4 @@
         <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
+

@@ -35,7 +35,7 @@
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
+                        <li class="active"><a href="<c:url value="/trangchu"/>">Trang chủ</a></li>
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
@@ -80,11 +80,11 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a class="active" href="#home">Home</a>
+                        <a class="active" href="<c:url value="/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a href="">View Account Information</a>
+                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="#" >Change Password</a>
-                        <a href="#about">View Transaction</a>
+                        <a href="<c:url value="/customer/account/transaction/search"/>"">View Transaction</a>
                         <a href="#" >Internal Transfer Money</a>
                         <a href="#" >External Transfer Money</a>
                     </div>

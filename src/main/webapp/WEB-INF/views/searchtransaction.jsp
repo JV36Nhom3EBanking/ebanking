@@ -1,11 +1,11 @@
 <%-- 
-    Document   : viewaccountinfo
-    Created on : Oct 1, 2020, 7:47:41 PM
-    Author     : Huy Hoang
+    Document   : searchtransaction
+    Created on : Oct 5, 2020, 10:17:47 AM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +73,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thông tin cá nhân</li>
+                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
                     </ol>
                 </nav>
             </div>
@@ -85,8 +85,8 @@
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
                         <a href="#home">Home</a>
-                        <a class="active" href="#news">View Customer Profile</a>
-                        <a href="">View Account Information</a>
+                        <a href="#news">View Customer Profile</a>
+                        <a class="active" href="">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a href="#about">View Transaction</a>
                         <a href="#" >Internal Transfer Money</a>
@@ -94,70 +94,33 @@
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Thông tin cá nhân của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Tìm kiếm giao dịch</h4>
                     <table class="table table-bordered">
                         <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>
+                            <td colspan="4" style="background-color: greenyellow;">Lựa chọn thông tin</td>
                         </tr>
                         <tr>
-                            <td>Tên khách hàng</td>
-                            <td>${customer.getName()}</td>
-                            <td>Ngày sinh</td>
-                            <td>${customer.getBirthdate()}</td>
-                        </tr>
-                        <tr>
-                            <td>Địa chỉ</td>
-                            <td>${customer.getAddress()}</td>
-                            <td>Quận</td>
-                            <td>${customer.getDistrict()}</td>
-                        </tr>
-                        <tr>
-                            <td>Thành phố</td>
-                            <td>${customer.getCity()}</td>
-                            <td>Giới tính</td>
-                            <td>${customer.getGender()}</td>
-                        </tr>
-                        <tr>
-                            <td>Quốc tịch</td>
-                            <td>${customer.getNationality()}</td>
-                            <td>Chứng minh nhân dân</td>
-                            <td>${customer.getCmnd()}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>${customer.getEmail()}</td>
-                            <td>Số điện thoại</td>
-                            <td>${customer.getPhone()}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
-                        </tr>
-                        <tr>
-                            <td>Số tài khoản</td>
-                            <td>Ngày mở</td>
-                            <td colspan="2"></td>
-                        </tr>                       
-                        <c:forEach var="value" items="${customer.getAccounts() }">
-                            <tr>
-                                <td>${value.getAccountNo()}</td>
-                                <td>${value.getOpenDate()}</td>
-                                <td>
-                                    <button id="myBtn">Xem số dư</button>
-                                    <div id="myModal" class="modal">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h2>Số dư hiện tại</h2>
-                                                <span class="close"></span>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Số dư hiện tại của bạn : ${value.getBalance()}</p>
-                                            </div>
+                            <td colspan="4">
+                                <form:form name="contactform" method="POST" modelAttribute="searchTransaction" action="/ebanking/customer/account/searchTransaction">
+                                    <div class="form-group">
+                                        <label>Số tài khoản</label>
+                                        <form:select path="id">
+                                            <form:option value="0">--Please select an account--</form:option>
+                                            <form:options items="${listAccount}" itemValue="id"
+                                                          itemLabel="accountNo" />
+                                        </form:select>
+                                        <br>
+                                        <label>Từ ngày</label> 
+                                        <form:input type="date" class="form-control" path="dateFrom"
+                                                    id="dateFrom" placeholder="Enter DateFrom" name="dateFrom"/>
+                                        <label>Đến ngày</label> 
+                                        <form:input type="date" class="form-control" path="dateTo"
+                                                    id="dateTo" placeholder="Enter DateTo" name="dateTo"/>
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Tìm kiếm</form:button>
                                         </div>
-                                    </div                                
-                                </td>
-                                <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
-                            </tr>
-                        </c:forEach>
+                                </form:form>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -236,3 +199,4 @@
         <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
+

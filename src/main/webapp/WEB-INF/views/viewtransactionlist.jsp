@@ -1,6 +1,6 @@
 <%-- 
-    Document   : viewaccountinfo
-    Created on : Oct 1, 2020, 7:47:41 PM
+    Document   : viewtransactioninfo
+    Created on : Oct 3, 2020, 6:16:35 PM
     Author     : Huy Hoang
 --%>
 
@@ -73,7 +73,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thông tin cá nhân</li>
+                        <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
                     </ol>
                 </nav>
             </div>
@@ -86,7 +86,7 @@
                     <div class="sidebar">
                         <a href="#home">Home</a>
                         <a class="active" href="#news">View Customer Profile</a>
-                        <a href="">View Account Information</a>
+                        <a href="#">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a href="#about">View Transaction</a>
                         <a href="#" >Internal Transfer Money</a>
@@ -94,68 +94,22 @@
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Thông tin cá nhân của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Danh sách giao dịch của bạn</h4>
                     <table class="table table-bordered">
                         <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>
+                            <td style="background-color: greenyellow;">Số tài khoản</td>
+                            <td colspan="2">${account.getAccountNo()}</td>
                         </tr>
-                        <tr>
-                            <td>Tên khách hàng</td>
-                            <td>${customer.getName()}</td>
-                            <td>Ngày sinh</td>
-                            <td>${customer.getBirthdate()}</td>
-                        </tr>
-                        <tr>
-                            <td>Địa chỉ</td>
-                            <td>${customer.getAddress()}</td>
-                            <td>Quận</td>
-                            <td>${customer.getDistrict()}</td>
-                        </tr>
-                        <tr>
-                            <td>Thành phố</td>
-                            <td>${customer.getCity()}</td>
-                            <td>Giới tính</td>
-                            <td>${customer.getGender()}</td>
-                        </tr>
-                        <tr>
-                            <td>Quốc tịch</td>
-                            <td>${customer.getNationality()}</td>
-                            <td>Chứng minh nhân dân</td>
-                            <td>${customer.getCmnd()}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>${customer.getEmail()}</td>
-                            <td>Số điện thoại</td>
-                            <td>${customer.getPhone()}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
-                        </tr>
-                        <tr>
-                            <td>Số tài khoản</td>
-                            <td>Ngày mở</td>
-                            <td colspan="2"></td>
-                        </tr>                       
-                        <c:forEach var="value" items="${customer.getAccounts() }">
+                        <tr style="background-color: greenyellow;">
+                            <td>Mã giao dịch</td>
+                            <td>Ngày giao dịch</td>
+                            <td></td>   
+                        </tr>              
+                        <c:forEach var="value" items="${transactions }">
                             <tr>
-                                <td>${value.getAccountNo()}</td>
-                                <td>${value.getOpenDate()}</td>
-                                <td>
-                                    <button id="myBtn">Xem số dư</button>
-                                    <div id="myModal" class="modal">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h2>Số dư hiện tại</h2>
-                                                <span class="close"></span>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Số dư hiện tại của bạn : ${value.getBalance()}</p>
-                                            </div>
-                                        </div>
-                                    </div                                
-                                </td>
-                                <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
+                                <td>${value.getId()}</td>
+                                <td>${value.getTransactionDate()}</td>
+                                <td><a href="<c:url value="/customer/account/transaction/${value.getId()}"/>">Xem chi tiết</a></td>
                             </tr>
                         </c:forEach>
                     </table>

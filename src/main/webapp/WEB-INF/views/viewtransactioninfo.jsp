@@ -1,7 +1,7 @@
 <%-- 
     Document   : viewtransactioninfo
-    Created on : Oct 3, 2020, 6:16:35 PM
-    Author     : Huy Hoang
+    Created on : Oct 4, 2020, 11:25:54 PM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -94,21 +94,28 @@
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Danh sách giao dịch của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Thông tin chi tiết giao dịch</h4>
                     <table class="table table-bordered">
-                        <tr style="background-color: greenyellow;">
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Chi tiết giao dịch</td>
+                        </tr>
+                        <tr>
                             <td>Mã giao dịch</td>
+                            <td>${transaction.getId()}</td>
+                            <td>Loại giao dịch</td>
+                            <td>${transaction.getType()}</td>
+                        </tr>
+                        <tr>
+                            <td>Tài khoản thực hiện</td>
+                            <td>${transaction.getAccount1().getAccountNo()}</td>
+                            <td>Tài khoản thụ hưởng</td>
+                            <td>${transaction.getAccount2().getAccountNo()}</td>
+                        </tr>
+                        <tr>
+                            <td>Số tiền</td>
+                            <td>${transaction.getAmount()} VNĐ</td>
                             <td>Ngày giao dịch</td>
-                            <td></td>   
-                        </tr>              
-                        <c:forEach var="value" items="${transactions }">
-                            <tr>
-                                <td>${transactions.getId()}</td>
-                                <td>${transactions.getTransactionDate()}</td>
-                                <td><a href="<c:url value="/customer/account/searchTransaction/${transactions.getId()}"/>">Xem chi tiết</a></td>
-                            </tr>
-
-                        </c:forEach>
+                            <td>${transaction.getTransactionDate()}</td>
                         </tr>
                     </table>
                 </div>
@@ -188,3 +195,4 @@
         <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
+
