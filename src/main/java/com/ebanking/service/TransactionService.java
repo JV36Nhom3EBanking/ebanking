@@ -8,7 +8,6 @@ package com.ebanking.service;
 import com.ebanking.dao.TransactionDaoIF;
 import com.ebanking.entity.Transaction;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +32,10 @@ public class TransactionService implements TransactionServiceIF {
     public Transaction getTransaction(int id) {
         Optional<Transaction> transaction = transactionDao.findById(id);
 	return transaction.isPresent() ? transaction.get() : null;
+    }
+
+    @Override
+    public List<Transaction> getTransactionsByDateAndAccountId(LocalDate transactionDate1, LocalDate transactionDate2, int id) {
+        return transactionDao.getTransactionByDateAndAccountId(transactionDate1, transactionDate2, id, id);
     }
 }

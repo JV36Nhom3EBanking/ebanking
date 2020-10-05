@@ -13,16 +13,12 @@ import com.ebanking.service.AccountServiceIF;
 import com.ebanking.service.CustomerServiceIF;
 import com.ebanking.service.TransactionServiceIF;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,11 +40,6 @@ public class CustomerController {
 
     @Autowired
     TransactionServiceIF transactionService;
-
-    @InitBinder
-    public void dataBinding(WebDataBinder binder) {
-
-    }
 
     @GetMapping("/info")
     public String getInfo(HttpSession httpSession, ModelMap modelMap) {
@@ -84,7 +75,14 @@ public class CustomerController {
     }
 
     @PostMapping("/account/searchTransaction")
-    public String getTransaction(@ModelAttribute SearchTransactionModel searchTransactionModel, ModelMap modelMap) {
+    public String getTransaction(@ModelAttribute SearchTransactionModel searchTransactionModel, ModelMap modelMap, HttpSession httpSession) {
+        Customer customer = (Customer) httpSession.getAttribute("user");
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+        
         int id = searchTransactionModel.getId();
         LocalDate date1 = searchTransactionModel.getDateFrom();
         LocalDate date2 = searchTransactionModel.getDateTo();
@@ -92,19 +90,19 @@ public class CustomerController {
         Account account = accountService.getAccount(id);
         modelMap.addAttribute("account", account);
 
-        List<Transaction> listTransaction = transactionService.getTransactionsByDate(date1, date2);
-        List<Transaction> transactions = new ArrayList<>();
-        for (Transaction value : listTransaction) {
-            if (value.getAccount1().equals(account) || value.getAccount2().equals(account)) {
-                transactions.add(value);
-            }
-        }
+        List<Transaction> transactions = transactionService.getTransactionsByDateAndAccountId(date1, date2, id);
         modelMap.addAttribute("transactions", transactions);
         return "viewtransactionlist";
     }
 
     @GetMapping("/account/transaction/{id}")
-    public String getTransactionInfo(@PathVariable int id, ModelMap modelMap) {
+    public String getTransactionInfo(@PathVariable int id, ModelMap modelMap, HttpSession httpSession) {
+        Customer customer = (Customer) httpSession.getAttribute("user");
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
         Transaction transaction = transactionService.getTransaction(id);
         modelMap.addAttribute("transaction", transaction);
 

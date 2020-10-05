@@ -84,11 +84,11 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="#home">Home</a>
-                        <a href="#news">View Customer Profile</a>
-                        <a class="active" href="">View Account Information</a>
+                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
+                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="#" >Change Password</a>
-                        <a href="#about">View Transaction</a>
+                        <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
                         <a href="#" >Internal Transfer Money</a>
                         <a href="#" >External Transfer Money</a>
                     </div>
