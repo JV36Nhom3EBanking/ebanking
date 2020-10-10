@@ -74,20 +74,26 @@
                     <h4 class="mb-4 w3f_title title_center">ĐĂNG NHẬP</h4>
                     <form:form name="contactform" id="contactform" method="POST" action="${pageContext.request.contextPath}/login/confirmLogin" modelAttribute="loginModel">
                         <div class="form-group">
-                            <label>Username</label> <form:input type="text" class="form-control" path="username"
+                            <label>Username</label> <form:input type="text" class="form-control" path="username" required="required"
                                         id="username" placeholder="Enter Username" name="username"/>
                         </div>
                         <div class="form-group">
-                            <label>Password</label> <form:input type="password" class="form-control" path="password"
+                            <label>Password</label> <form:input type="password" class="form-control" path="password" required="required"
                                         id="password" placeholder="Enter Password" name="password"/>
                         </div>
-                        <div style="margin-bottom: 20px;" class="g-recaptcha"
-                             data-sitekey="6LdUudEZAAAAANaMlbIsFaIruRC8bZy3v1xAWwgT"></div>
+                        <div class="form-group">
+                            <label>Captcha</label> 
+                            <img src="${pageContext.request.contextPath }/captcha">
+                            <br>
+                            <form:input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
+                            <br>
+                        </div>
+
                         <p style=" color: red;">${error}</p>
                         <div style="margin-bottom: 20px;">
                             <form:button type="submit" class="btn btn-default">Submit</form:button>
                             <form:button type="button" class="btn btn-primary" style="margin-left: 20px;">Cancel</form:button>
-                            </div>
+                        </div>
 
                             <p style="margin-bottom: 20px;">Chưa có tài khoản? <a href="<c:url value="/register"/>">Đăng kí ngay</a></p>
                     </form:form>

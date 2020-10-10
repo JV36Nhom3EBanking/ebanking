@@ -13,15 +13,16 @@ import java.io.Serializable;
  */
 public class LoginModel implements Serializable {
     private String username;
-    
     private String password;
+    private String captcha;
 
     public LoginModel() {
     }
 
-    public LoginModel(String username, String password) {
+    public LoginModel(String username, String password, String captcha) {
         this.username = username;
         this.password = password;
+        this.captcha = captcha;
     }
 
     public String getUsername() {
@@ -39,6 +40,12 @@ public class LoginModel implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
 }

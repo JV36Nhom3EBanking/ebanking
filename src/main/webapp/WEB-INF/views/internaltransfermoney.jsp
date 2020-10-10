@@ -1,11 +1,11 @@
 <%-- 
-    Document   : viewtransactioninfo
-    Created on : Oct 3, 2020, 6:16:35 PM
-    Author     : Huy Hoang
+    Document   : internaltransfermoney
+    Created on : Oct 6, 2020, 1:02:07 PM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +73,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
+                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
                     </ol>
                 </nav>
             </div>
@@ -89,30 +89,76 @@
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="<c:url value="/customer/internaltransfermoney"/>">Internal Transfer Money</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="#" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Danh sách giao dịch của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Chuyển tiền nội bộ</h4>
                     <table class="table table-bordered">
                         <tr>
-                            <td style="background-color: greenyellow;">Số tài khoản</td>
-                            <td colspan="2">${account.getAccountNo()}</td>
+                            <td colspan="4" style="background-color: greenyellow;">Chuyển khoản</td>
                         </tr>
-                        <tr style="background-color: greenyellow;">
-                            <td>Mã giao dịch</td>
-                            <td>Ngày giao dịch</td>
-                            <td></td>   
-                        </tr>              
-                        <c:forEach var="value" items="${transactions }">
+                        <form:form name="contactform" method="POST" modelAttribute="internalTransferModel" action="${pageContext.request.contextPath}/customer/enterTransactionInformation">
                             <tr>
-                                <td>${value.getId()}</td>
-                                <td>${value.getTransactionDate()}</td>
-                                <td><a href="<c:url value="/customer/account/transaction/${value.getId()}"/>">Xem chi tiết</a></td>
+                                <td>
+                                    <label>Tài khoản chuyển tiền</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:select path="accountFromNo">
+                                        <form:option value="0">--Please select an account--</form:option>
+                                        <form:options items="${listAccount}" itemValue="id"
+                                                      itemLabel="accountNo" />
+                                    </form:select>
+                                </td>
                             </tr>
-                        </c:forEach>
+                            <tr>
+                                <td>
+                                    <label>Số tài khoản thụ hưởng</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:input type="text" class="form-control" path="accountToNo"
+                                                id="accountToNo" placeholder="Nhập số tài khoản thụ hưởng" name="accountToNo"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Số tiền</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:input type="text" class="form-control" path="amount"
+                                                id="amount" placeholder="Nhập số tiền cần chuyển" name="amount"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Nội dung thanh toán</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:textarea type="text" rows="5" class="form-control" path="message"
+                                                   id="message" placeholder="Nhập tin nhắn" name="message"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Phí</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:select path="feeCarier">
+                                        <form:option value="nguoichuyen">Phí người chuyển trả</form:option>
+                                        <form:option value="nguoinhan">Phí người nhận trả</form:option>
+                                    </form:select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Xác nhận</form:button>
+                                    <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
+                                </td>
+                            </tr>
+                        </form:form>
                     </table>
+                    <p style=" color: red;">${error}</p>
                 </div>
             </div>
         </div>

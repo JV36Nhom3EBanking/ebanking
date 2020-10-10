@@ -7,14 +7,15 @@ package com.ebanking.controller;
 
 import com.ebanking.entity.Customer;
 import com.ebanking.entity.LoginModel;
-import com.ebanking.recaptcha.VerifyCaptcha;
 import com.ebanking.service.CustomerServiceIF;
 import com.ebanking.service.TellerServiceIF;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,16 +38,29 @@ public class LoginController {
     TellerServiceIF tellerService;
 
     @GetMapping
-    public String Default(Model model) {
-        LoginModel loginModel = new LoginModel();
-        model.addAttribute("loginModel", loginModel);
-        return "login";
+    public String Default(Model model, HttpSession httpSession, ModelMap modelMap) {
+        if (httpSession.getAttribute("user") != null) {
+            Customer customer = (Customer) httpSession.getAttribute("user");
+            modelMap.addAttribute("customer", customer);
+            String name = customer.getName();
+            modelMap.addAttribute("name", name);
+            String chucaidau = customer.getEmail().substring(0, 1);
+            modelMap.addAttribute("chucaidau", chucaidau);
+            System.out.println(customer.getAccounts().get(0).getBalance());
+            return "redirect:/trangchu";
+        }
+        else {
+            LoginModel loginModel = new LoginModel();
+            model.addAttribute("loginModel", loginModel);
+            return "login";
+        }   
     }
 
     @PostMapping(value = "/confirmLogin")
-    public String Login(@ModelAttribute("loginModel") LoginModel loginModel, Model model, HttpServletRequest request, HttpServletResponse response) {
-        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-        if (VerifyCaptcha.verify(gRecaptchaResponse)) {
+    public String Login(@ModelAttribute("loginModel") LoginModel loginModel, Model model, HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
+        String captcha = httpSession.getAttribute("captcha_security").toString();
+	String verifyCaptcha = loginModel.getCaptcha();
+        if (verifyCaptcha.equals(captcha)) {
             if (customerService.login(loginModel.getUsername(), loginModel.getPassword()) || tellerService.login(loginModel.getUsername(), loginModel.getPassword())) {
                 Customer customer = customerService.findByUsername(loginModel.getUsername());
                 model.addAttribute("user", customer);
@@ -59,7 +73,7 @@ public class LoginController {
             }
         } else {
 
-            String error = "You don't check the captcha. Please check the captcha and try again!";
+            String error = "Wrong input captcha. Please check your input captcha and try again!";
             model.addAttribute("error", error);
             return "login";
         }

@@ -29,7 +29,9 @@ public class Transaction implements Serializable {
     
     private String type;
     
-    private Double amount;
+    private int amount;
+    
+    private String message;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate transactionDate;
@@ -45,14 +47,17 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public Transaction(int id, String type, Double amount, LocalDate transactionDate, Account account1, Account account2) {
+    public Transaction(int id, String type, int amount, String message, LocalDate transactionDate, Account account1, Account account2) {
         this.id = id;
         this.type = type;
         this.amount = amount;
+        this.message = message;
         this.transactionDate = transactionDate;
         this.account1 = account1;
         this.account2 = account2;
     }
+
+    
 
     public int getId() {
         return id;
@@ -86,11 +91,11 @@ public class Transaction implements Serializable {
         this.account2 = account2;
     }
 
-    public Double getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -101,7 +106,13 @@ public class Transaction implements Serializable {
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
     }
-    
-    
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
     
 }

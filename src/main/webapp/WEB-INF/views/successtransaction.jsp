@@ -1,11 +1,11 @@
 <%-- 
-    Document   : viewtransactioninfo
-    Created on : Oct 3, 2020, 6:16:35 PM
-    Author     : Huy Hoang
+    Document   : successtransaction
+    Created on : Oct 9, 2020, 9:28:49 PM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +73,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
+                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
                     </ol>
                 </nav>
             </div>
@@ -89,30 +89,15 @@
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="<c:url value="/customer/internaltransfermoney"/>">Internal Transfer Money</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="#" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Danh sách giao dịch của bạn</h4>
-                    <table class="table table-bordered">
-                        <tr>
-                            <td style="background-color: greenyellow;">Số tài khoản</td>
-                            <td colspan="2">${account.getAccountNo()}</td>
-                        </tr>
-                        <tr style="background-color: greenyellow;">
-                            <td>Mã giao dịch</td>
-                            <td>Ngày giao dịch</td>
-                            <td></td>   
-                        </tr>              
-                        <c:forEach var="value" items="${transactions }">
-                            <tr>
-                                <td>${value.getId()}</td>
-                                <td>${value.getTransactionDate()}</td>
-                                <td><a href="<c:url value="/customer/account/transaction/${value.getId()}"/>">Xem chi tiết</a></td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+                    <h4 class="mb-4 w3f_title title_center">Giao dịch thành công</h4>
+                    <h5>Chuyển tiền</h5>
+                    <a>Quay lại trang chủ</a>
+                    <a>Tiếp tục </a>
                 </div>
             </div>
         </div>

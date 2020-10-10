@@ -7,6 +7,7 @@ package com.ebanking.dao;
 import org.springframework.data.repository.CrudRepository;
 
 import com.ebanking.entity.Account;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -14,4 +15,8 @@ import com.ebanking.entity.Account;
  */
 public interface AccountDaoIF extends CrudRepository<Account, Integer> {
     
+    @Query(value = "SELECT * FROM account WHERE accountNo = ?1 AND bankId = ?2", nativeQuery = true)
+    public Account getAccountByAccountNoAndBankId(int accountNo, int bankId);
+    
+    public Account findByAccountNo(int accountno);
 }

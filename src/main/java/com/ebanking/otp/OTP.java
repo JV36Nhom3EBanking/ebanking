@@ -20,6 +20,6 @@ public class OTP {
             sb.append(otp.nextInt(10));
         }
         
-        return otp.toString();
+        return sb.toString();
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Huy Hoang
  */
-@Service ("emailService")
+@Service
 public class EmailService {
     
     @Autowired

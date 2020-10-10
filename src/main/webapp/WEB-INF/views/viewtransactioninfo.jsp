@@ -89,7 +89,7 @@
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="#" >Internal Transfer Money</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="#" >External Transfer Money</a>
                     </div>
                 </div>
@@ -112,10 +112,20 @@
                             <td>${transaction.getAccount2().getAccountNo()}</td>
                         </tr>
                         <tr>
+                            <td>Chủ tài khoản thực hiện</td>
+                            <td>${transaction.getAccount1().getCustomer().getName()}</td>
+                            <td>Chủ tài khoản thụ hưởng</td>
+                            <td>${transaction.getAccount2().getCustomer().getName()}</td>
+                        </tr>
+                        <tr>
                             <td>Số tiền</td>
                             <td>${transaction.getAmount()} VNĐ</td>
                             <td>Ngày giao dịch</td>
                             <td>${transaction.getTransactionDate()}</td>
+                        </tr>
+                        <tr>
+                            <td>Tin nhắn</td>
+                            <td colspan="3">${transaction.getMessage()}</td>
                         </tr>
                     </table>
                 </div>

@@ -89,7 +89,7 @@
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="#" >Change Password</a>
                         <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="#" >Internal Transfer Money</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="#" >External Transfer Money</a>
                     </div>
                 </div>
