@@ -5,10 +5,24 @@
  */
 package com.ebanking.service;
 
+import com.ebanking.dao.BankDaoIF;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author Huy
  */
+@Service
 public class BankService implements BankServiceIF {
+
+    @Autowired
+    BankDaoIF bankDao;
+    
+    @Override
+    public List<String> getListBranches() {
+        return bankDao.getListBranches();
+    }
     
 }

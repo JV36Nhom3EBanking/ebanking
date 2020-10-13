@@ -153,7 +153,7 @@
                                                 <p>Số dư hiện tại của bạn : ${value.getBalance()}</p>
                                             </div>
                                         </div>
-                                    </div                                
+                                    </div>                                
                                 </td>
                                 <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
                             </tr>

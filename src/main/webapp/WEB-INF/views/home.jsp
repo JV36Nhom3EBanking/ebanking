@@ -86,7 +86,7 @@
                         <a href="#" >Change Password</a>
                         <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
                         <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="#" >External Transfer Money</a>
+                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="contact-form mt-md-0 mt-sm-5 mt-4">

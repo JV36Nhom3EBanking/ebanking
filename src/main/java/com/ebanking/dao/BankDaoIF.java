@@ -6,6 +6,8 @@
 package com.ebanking.dao;
 
 import com.ebanking.entity.Bank;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -14,4 +16,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface BankDaoIF extends CrudRepository<Bank, Integer>{
     
+    @Query(value = "SELECT DISTINCT bank.branch FROM bank", nativeQuery = true)
+    public List<String> getListBranches();
 }

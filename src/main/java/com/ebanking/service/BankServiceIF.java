@@ -5,10 +5,12 @@
  */
 package com.ebanking.service;
 
+import java.util.List;
+
 /**
  *
  * @author Huy Hoang
  */
 public interface BankServiceIF {
-    
+    public List<String> getListBranches();
 }

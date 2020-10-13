@@ -6,6 +6,7 @@
 package com.ebanking.service;
 
 import com.ebanking.entity.Account;
+import com.ebanking.entity.Transaction;
 
 /**
  *
@@ -13,7 +14,7 @@ import com.ebanking.entity.Account;
  */
 public interface AccountServiceIF {
     public Account getAccount(int id);
-    public Account getAccountByAccountNoAndBankId(int accountNo, int bankId);
-    public Account getAccountByAccountNo(int accountNo);
-    public void TransferMoney(Account accountFrom, Account accountTo, int amount, String message, String type, String feeCarier, int fee);
+    public Account getAccountByAccountNoAndBankBranch(int accountNo, String bankBranch);
+    public Account getInternalAccount(int accountNo);
+    public Transaction TransferMoney(Account accountFrom, Account accountTo, int amount, String message, String type, String feeCarier, int fee);
 }

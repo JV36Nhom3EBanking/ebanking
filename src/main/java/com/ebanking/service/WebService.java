@@ -10,41 +10,27 @@ import com.ebanking.dao.TransactionDaoIF;
 import com.ebanking.entity.Account;
 import com.ebanking.entity.Transaction;
 import java.time.LocalDate;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Huy Hoang
+ * @author Huy
  */
 @Service
-public class AccountService implements AccountServiceIF {
-
+public class WebService {
+    
     @Autowired
     AccountDaoIF accountDao;
     
     @Autowired
     TransactionDaoIF transactionDao;
-
-    @Override
-    public Account getAccount(int id) {
-        Optional<Account> account = accountDao.findById(id);
-        return account.isPresent() ? account.get() : null;
+    
+    public Account verifyAccount(int accountNo, String bankBranch) {
+         return accountDao.getAccountByAccountNoAndBankBranch(accountNo, bankBranch);
     }
-
-    @Override
-    public Account getAccountByAccountNoAndBankBranch(int accountNo, String bankBranch) {
-        return accountDao.getAccountByAccountNoAndBankBranch(accountNo, bankBranch);
-    }
-
-     @Override
-    public Account getInternalAccount(int accountNo) {
-        return accountDao.getInternalAccount(accountNo);
-    }
-
-    @Override
+    
     @Transactional(rollbackFor = Exception.class)
     public Transaction TransferMoney(Account accountFrom, Account accountTo, int amout, String message, String type, String feeCarier, int fee) {
         if(feeCarier.equals("nguoichuyen")) {
@@ -81,7 +67,4 @@ public class AccountService implements AccountServiceIF {
             return transaction;
         }
     }
-
-   
-
 }

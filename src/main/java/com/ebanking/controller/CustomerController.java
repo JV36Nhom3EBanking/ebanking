@@ -7,14 +7,17 @@ package com.ebanking.controller;
 
 import com.ebanking.entity.Account;
 import com.ebanking.entity.Customer;
+import com.ebanking.entity.ExternalTransferModel;
 import com.ebanking.entity.InternalTransferModel;
 import com.ebanking.entity.SearchTransactionModel;
 import com.ebanking.entity.Transaction;
 import com.ebanking.otp.OTP;
 import com.ebanking.service.AccountServiceIF;
+import com.ebanking.service.BankServiceIF;
 import com.ebanking.service.CustomerServiceIF;
 import com.ebanking.service.EmailService;
 import com.ebanking.service.TransactionServiceIF;
+import com.ebanking.service.WebService;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -48,6 +51,12 @@ public class CustomerController {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    BankServiceIF bankService;
+
+    @Autowired
+    WebService webService;
 
     @GetMapping("/info")
     public String getInfo(HttpSession httpSession, ModelMap modelMap) {
@@ -166,8 +175,8 @@ public class CustomerController {
         return "internaltransfermoney";
     }
 
-    @PostMapping("/enterTransactionInformation")
-    public String enterInformation(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
+    @PostMapping("/enterInternalTransactionInformation")
+    public String enterInternalInformation(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
         Customer customer = (Customer) httpSession.getAttribute("user");
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
@@ -176,7 +185,7 @@ public class CustomerController {
         modelMap.addAttribute("chucaidau", chucaidau);
 
         Account accountFrom = accountService.getAccount(internalTransferModel.getAccountFromNo());
-        Account accountTo = accountService.getAccountByAccountNoAndBankId(internalTransferModel.getAccountToNo(), accountFrom.getBank().getId());
+        Account accountTo = accountService.getAccountByAccountNoAndBankBranch(internalTransferModel.getAccountToNo(), accountFrom.getBank().getBranch());
         internalTransferModel.setFee(10000);
         internalTransferModel.setAccountFrom(accountFrom);
         internalTransferModel.setAccountTo(accountTo);
@@ -195,7 +204,7 @@ public class CustomerController {
             return "internaltransfermoney";
         } else if (accountTo != null) {
             modelMap.addAttribute("internalTransferModel", internalTransferModel);
-            return "confirmtransactioninformation";
+            return "confirminternaltransactioninformation";
         } else {
             modelMap.addAttribute("error", "Không tìm thấy tài khoản thụ hưởng chỉ định. Vui lòng kiểm tra lại thông tin. Cảm ơn quý khách");
             List<Account> accounts = customer.getAccounts();
@@ -205,8 +214,8 @@ public class CustomerController {
 
     }
 
-    @PostMapping("/confirmTransactionInformation")
-    public String confirmInformation(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
+    @PostMapping("/confirmInternalTransactionInformation")
+    public String confirmInternalInformation(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
         Customer customer = (Customer) httpSession.getAttribute("user");
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
@@ -217,8 +226,8 @@ public class CustomerController {
         String captcha = httpSession.getAttribute("captcha_security").toString();
         String verifyCaptcha = internalTransferModel.getCaptcha();
         if (verifyCaptcha.equals(captcha)) {
-            Account accountFrom = accountService.getAccountByAccountNo(internalTransferModel.getAccountFromNo());
-            Account accountTo = accountService.getAccountByAccountNo(internalTransferModel.getAccountToNo());
+            Account accountFrom = accountService.getInternalAccount(internalTransferModel.getAccountFromNo());
+            Account accountTo = accountService.getInternalAccount(internalTransferModel.getAccountToNo());
 
             internalTransferModel.setAccountFrom(accountFrom);
             internalTransferModel.setAccountTo(accountTo);
@@ -228,17 +237,17 @@ public class CustomerController {
             String otp = OTP.createOTP();
             modelMap.addAttribute("otp", otp);
 //            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
-            return "confirmtransaction";
+            return "confirminternaltransaction";
         } else {
             String error = "Wrong input captcha. Please check your input captcha and try again!";
             modelMap.addAttribute("internalTransferModel", internalTransferModel);
             modelMap.addAttribute("error", error);
-            return "confirmtransactioninformation";
+            return "confirminternaltransactioninformation";
         }
     }
 
-    @PostMapping("/confirmTransaction")
-    public String confirmTransaction(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
+    @PostMapping("/confirmInternalTransaction")
+    public String confirmInternalTransaction(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
         Customer customer = (Customer) httpSession.getAttribute("user");
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
@@ -266,18 +275,152 @@ public class CustomerController {
 //            modelMap.addAttribute("error", error);
 //            return "confirmtransaction";
 //        }
-        Account accountFrom = accountService.getAccountByAccountNo(internalTransferModel.getAccountFromNo());
-        Account accountTo = accountService.getAccountByAccountNo(internalTransferModel.getAccountToNo());
+        Account accountFrom = accountService.getInternalAccount(internalTransferModel.getAccountFromNo());
+        Account accountTo = accountService.getInternalAccount(internalTransferModel.getAccountToNo());
 
-        System.out.println(internalTransferModel.getFeeCarier());
-        
         int amount = internalTransferModel.getAmount();
         String message = internalTransferModel.getMessage();
         String type = "internal";
         String feeCarier = internalTransferModel.getFeeCarier();
         int fee = internalTransferModel.getFee();
 
-        accountService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
+        Transaction transaction = accountService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
+        modelMap.addAttribute("transaction", transaction);
+        return "successtransaction";
+    }
+
+    @GetMapping("/externaltransfermoney")
+    public String getETMPage(ModelMap modelMap, HttpSession httpSession) {
+        Customer customer = (Customer) httpSession.getAttribute("user");
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+
+        List<Account> accounts = customer.getAccounts();
+        modelMap.addAttribute("listAccount", accounts);
+        List<String> listBranches = bankService.getListBranches();
+        listBranches.remove("VietComBank");
+        modelMap.addAttribute("branches", listBranches);
+        ExternalTransferModel externalTransferModel = new ExternalTransferModel();
+        modelMap.addAttribute("externalTransferModel", externalTransferModel);
+
+        return "externaltransfermoney";
+    }
+
+    @PostMapping("/enterExternalTransactionInformation")
+    public String enterExternalInformation(@ModelAttribute ExternalTransferModel externalTransferModel, ModelMap modelMap, HttpSession httpSession) {
+        Customer customer = (Customer) httpSession.getAttribute("user");
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+
+        Account accountFrom = accountService.getAccount(externalTransferModel.getAccountFromNo());
+        Account accountTo = webService.verifyAccount(externalTransferModel.getAccountToNo(), externalTransferModel.getBankBranch());
+
+        externalTransferModel.setFee(25000);
+        externalTransferModel.setAccountFrom(accountFrom);
+        externalTransferModel.setAccountTo(accountTo);
+
+        int remain = accountFrom.getBalance() - externalTransferModel.getAmount() - externalTransferModel.getFee();
+        if (externalTransferModel.getAmount() > 50000000) {
+            modelMap.addAttribute("error", "Số tiền chuyển trong một giao dịch không được vượt quá 50.000.000 VNĐ. Xin quý khách vui lòng thử lại. Chân thành cảm ơn quý khách.");
+            List<Account> accounts = customer.getAccounts();
+            modelMap.addAttribute("listAccount", accounts);
+            return "externaltransfermoney";
+        }
+        if (remain < 50000) {
+            modelMap.addAttribute("error", "Tài khoản của quý khách không đủ để thực hiện giao dịch này. Quý khách vui lòng chuyển thêm tiền vào thẻ để tiếp tục sử dụng dịch vụ này của chúng tôi. Chân thành cảm ơn quý khách.");
+            List<Account> accounts = customer.getAccounts();
+            modelMap.addAttribute("listAccount", accounts);
+            return "externaltransfermoney";
+        } else if (accountTo != null) {
+            modelMap.addAttribute("externalTransferModel", externalTransferModel);
+            return "confirmexternaltransactioninformation";
+        } else {
+            modelMap.addAttribute("error", "Không tìm thấy tài khoản thụ hưởng chỉ định. Vui lòng kiểm tra lại thông tin. Cảm ơn quý khách");
+            List<Account> accounts = customer.getAccounts();
+            modelMap.addAttribute("listAccount", accounts);
+            return "externaltransfermoney";
+        }
+
+    }
+
+    @PostMapping("/confirmExternalTransactionInformation")
+    public String confirmExternalInformation(@ModelAttribute ExternalTransferModel externalTransferModel, ModelMap modelMap, HttpSession httpSession) {
+        Customer customer = (Customer) httpSession.getAttribute("user");
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+
+        String captcha = httpSession.getAttribute("captcha_security").toString();
+        String verifyCaptcha = externalTransferModel.getCaptcha();
+        if (verifyCaptcha.equals(captcha)) {
+            Account accountFrom = accountService.getInternalAccount(externalTransferModel.getAccountFromNo());
+            Account accountTo = webService.verifyAccount(externalTransferModel.getAccountToNo(), externalTransferModel.getBankBranch());
+
+            externalTransferModel.setAccountFrom(accountFrom);
+            externalTransferModel.setAccountTo(accountTo);
+
+            modelMap.addAttribute("externalTransferModel", externalTransferModel);
+
+            String otp = OTP.createOTP();
+            modelMap.addAttribute("otp", otp);
+//            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
+            return "confirmexternaltransaction";
+        } else {
+            String error = "Wrong input captcha. Please check your input captcha and try again!";
+            modelMap.addAttribute("externalTransferModel", externalTransferModel);
+            modelMap.addAttribute("error", error);
+            return "confirmexternaltransactioninformation";
+        }
+    }
+
+    @PostMapping("/confirmExternalTransaction")
+    public String confirmTransaction(@ModelAttribute ExternalTransferModel externalTransferModel, ModelMap modelMap, HttpSession httpSession) {
+        Customer customer = (Customer) httpSession.getAttribute("user");
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+
+//        String otp = (String) httpSession.getAttribute("otp");
+//        if(internalTransferModel.getOtp().equals(otp)) {
+//            Account accountFrom = accountService.getAccountByAccountNo(internalTransferModel.getAccountFromNo());
+//            Account accountTo = accountService.getAccountByAccountNo(internalTransferModel.getAccountToNo());
+//            
+//            int amount = internalTransferModel.getAmount();
+//            String message = internalTransferModel.getMessage();
+//            String type = "internal";
+//            String feeCarier = internalTransferModel.getFeeCarier();
+//            int fee = internalTransferModel.getFee();
+//            
+//            accountService.TransferMoney(accountTo, accountTo, amount, message, type, feeCarier, fee);
+//            return "successtransaction";
+//        }
+//        else {
+//            String error = "Wrong otp. Please check your input captcha and try again!";
+//            modelMap.addAttribute("internalTransferModel", internalTransferModel);
+//            modelMap.addAttribute("error", error);
+//            return "confirmtransaction";
+//        }
+        Account accountFrom = accountService.getInternalAccount(externalTransferModel.getAccountFromNo());
+        Account accountTo = webService.verifyAccount(externalTransferModel.getAccountToNo(), externalTransferModel.getBankBranch());
+
+        int amount = externalTransferModel.getAmount();
+        String message = externalTransferModel.getMessage();
+        String type = "external";
+        String feeCarier = externalTransferModel.getFeeCarier();
+        int fee = externalTransferModel.getFee();
+
+        Transaction transaction = webService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
+        modelMap.addAttribute("transaction", transaction);
         return "successtransaction";
     }
 }
