@@ -31,7 +31,7 @@
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                        <li class="last-grid"><a href="<c:url value="/login" />">Bắt đầu ngay</a></li>
+                        <li class="last-grid"><a href="<c:url value="/login"/>">Bắt đầu ngay</a></li>
                     </ul>
                 </nav>
                 <!-- //nav -->

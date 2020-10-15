@@ -44,7 +44,7 @@
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                        <c:choose>
+                            <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
                                 </c:when>
@@ -99,24 +99,17 @@
                         <tr>
                             <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
                         </tr>
+                        <tr>
+                            <td>Số tài khoản</td>
+                            <td>Ngày mở tài khoản</td>
+                            <td>Số dư hiện tại</td>
+                            <td></td>
+                        </tr>
                         <c:forEach var="value" items="${listAccount }">
                             <tr>
                                 <td>${value.getAccountNo()}</td>
                                 <td>${value.getOpenDate()}</td>
-                                <td>
-                                    <button id="myBtn">Xem số dư</button>
-                                    <div id="myModal" class="modal">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h2>Số dư hiện tại</h2>
-                                                <span class="close"></span>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Số dư hiện tại của bạn : ${value.getBalance()}</p>
-                                            </div>
-                                        </div>
-                                    </div>                                
-                                </td>
+                                <td>${value.getBalance()} VNĐ
                                 <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
                             </tr>
                         </c:forEach>

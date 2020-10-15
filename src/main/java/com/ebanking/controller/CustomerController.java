@@ -236,7 +236,7 @@ public class CustomerController {
 
             String otp = OTP.createOTP();
             modelMap.addAttribute("otp", otp);
-//            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
+            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
             return "confirminternaltransaction";
         } else {
             String error = "Wrong input captcha. Please check your input captcha and try again!";
@@ -255,38 +255,26 @@ public class CustomerController {
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
 
-//        String otp = (String) httpSession.getAttribute("otp");
-//        if(internalTransferModel.getOtp().equals(otp)) {
-//            Account accountFrom = accountService.getAccountByAccountNo(internalTransferModel.getAccountFromNo());
-//            Account accountTo = accountService.getAccountByAccountNo(internalTransferModel.getAccountToNo());
-//            
-//            int amount = internalTransferModel.getAmount();
-//            String message = internalTransferModel.getMessage();
-//            String type = "internal";
-//            String feeCarier = internalTransferModel.getFeeCarier();
-//            int fee = internalTransferModel.getFee();
-//            
-//            accountService.TransferMoney(accountTo, accountTo, amount, message, type, feeCarier, fee);
-//            return "successtransaction";
-//        }
-//        else {
-//            String error = "Wrong otp. Please check your input captcha and try again!";
-//            modelMap.addAttribute("internalTransferModel", internalTransferModel);
-//            modelMap.addAttribute("error", error);
-//            return "confirmtransaction";
-//        }
-        Account accountFrom = accountService.getInternalAccount(internalTransferModel.getAccountFromNo());
-        Account accountTo = accountService.getInternalAccount(internalTransferModel.getAccountToNo());
+        String otp = (String) httpSession.getAttribute("otp");
+        if (internalTransferModel.getOtp().equals(otp)) {
+            Account accountFrom = accountService.getInternalAccount(internalTransferModel.getAccountFromNo());
+            Account accountTo = accountService.getInternalAccount(internalTransferModel.getAccountToNo());
 
-        int amount = internalTransferModel.getAmount();
-        String message = internalTransferModel.getMessage();
-        String type = "internal";
-        String feeCarier = internalTransferModel.getFeeCarier();
-        int fee = internalTransferModel.getFee();
+            int amount = internalTransferModel.getAmount();
+            String message = internalTransferModel.getMessage();
+            String type = "internal";
+            String feeCarier = internalTransferModel.getFeeCarier();
+            int fee = internalTransferModel.getFee();
 
-        Transaction transaction = accountService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
-        modelMap.addAttribute("transaction", transaction);
-        return "successtransaction";
+            Transaction transaction = accountService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
+            modelMap.addAttribute("transaction", transaction);
+            return "successinternaltransaction";
+        } else {
+            String error = "Wrong otp. Please check your input captcha and try again!";
+            modelMap.addAttribute("internalTransferModel", internalTransferModel);
+            modelMap.addAttribute("error", error);
+            return "confirmtransaction";
+        }
     }
 
     @GetMapping("/externaltransfermoney")
@@ -371,7 +359,7 @@ public class CustomerController {
 
             String otp = OTP.createOTP();
             modelMap.addAttribute("otp", otp);
-//            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
+            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
             return "confirmexternaltransaction";
         } else {
             String error = "Wrong input captcha. Please check your input captcha and try again!";
@@ -390,37 +378,25 @@ public class CustomerController {
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
 
-//        String otp = (String) httpSession.getAttribute("otp");
-//        if(internalTransferModel.getOtp().equals(otp)) {
-//            Account accountFrom = accountService.getAccountByAccountNo(internalTransferModel.getAccountFromNo());
-//            Account accountTo = accountService.getAccountByAccountNo(internalTransferModel.getAccountToNo());
-//            
-//            int amount = internalTransferModel.getAmount();
-//            String message = internalTransferModel.getMessage();
-//            String type = "internal";
-//            String feeCarier = internalTransferModel.getFeeCarier();
-//            int fee = internalTransferModel.getFee();
-//            
-//            accountService.TransferMoney(accountTo, accountTo, amount, message, type, feeCarier, fee);
-//            return "successtransaction";
-//        }
-//        else {
-//            String error = "Wrong otp. Please check your input captcha and try again!";
-//            modelMap.addAttribute("internalTransferModel", internalTransferModel);
-//            modelMap.addAttribute("error", error);
-//            return "confirmtransaction";
-//        }
-        Account accountFrom = accountService.getInternalAccount(externalTransferModel.getAccountFromNo());
-        Account accountTo = webService.verifyAccount(externalTransferModel.getAccountToNo(), externalTransferModel.getBankBranch());
+        String otp = (String) httpSession.getAttribute("otp");
+        if (externalTransferModel.getOtp().equals(otp)) {
+            Account accountFrom = accountService.getInternalAccount(externalTransferModel.getAccountFromNo());
+            Account accountTo = webService.verifyAccount(externalTransferModel.getAccountToNo(), externalTransferModel.getBankBranch());
 
-        int amount = externalTransferModel.getAmount();
-        String message = externalTransferModel.getMessage();
-        String type = "external";
-        String feeCarier = externalTransferModel.getFeeCarier();
-        int fee = externalTransferModel.getFee();
+            int amount = externalTransferModel.getAmount();
+            String message = externalTransferModel.getMessage();
+            String type = "external";
+            String feeCarier = externalTransferModel.getFeeCarier();
+            int fee = externalTransferModel.getFee();
 
-        Transaction transaction = webService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
-        modelMap.addAttribute("transaction", transaction);
-        return "successtransaction";
+            Transaction transaction = webService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
+            modelMap.addAttribute("transaction", transaction);
+            return "successexternaltransaction";
+        } else {
+            String error = "Wrong otp. Please check your input captcha and try again!";
+            modelMap.addAttribute("externalTransferModel", externalTransferModel);
+            modelMap.addAttribute("error", error);
+            return "confirmexternaltransaction";
+        }
     }
 }
