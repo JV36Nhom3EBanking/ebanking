@@ -107,7 +107,7 @@
                         </tr>
                         <tr>
                             <td>Số dư</td>
-                            <td>${account.getBalance()} VNĐ</td>
+                            <td><span class="currency">${account.getBalance()}</span> VNĐ</td>
                             <td>Loại thẻ</td>
                             <td>${account.getType()}</td>
                         </tr>

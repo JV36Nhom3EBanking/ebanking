@@ -21,6 +21,9 @@
             function hideURLbar() {
                 window.scrollTo(0, 1);
             }
+            function format_currency(a) {
+                a.value = a.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+            }
         </script>
         <jsp:include page="/WEB-INF/views/header.jsp" />
 
@@ -107,7 +110,7 @@
                                 <td colspan="3">
                                     <form:select path="accountFromNo">
                                         <form:option value="0">--Please select an account--</form:option>
-                                        <form:options items="${listAccount}" itemValue="id"
+                                        <form:options items="${listAccount}" itemValue="accountNo"
                                                       itemLabel="accountNo" />
                                     </form:select>
                                 </td>
@@ -138,7 +141,7 @@
                                     <label>Số tiền</label>
                                 </td>
                                 <td colspan="3">
-                                    <form:input type="text" class="form-control" path="amount"
+                                    <form:input type="text" class="form-control" path="amountFormat" onChange="format_currency(this);"
                                                 id="amount" placeholder="Nhập số tiền cần chuyển" name="amount"/>
                                 </td>
                             </tr>
@@ -164,8 +167,10 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Xác nhận</form:button>
-                                    <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
+                                    <div style="float: right;">
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Xác nhận</form:button>
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
+                                    </div>
                                 </td>
                             </tr>
                         </form:form>

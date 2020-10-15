@@ -16,6 +16,8 @@ public class ExternalTransferModel {
     private int accountFromNo;
     private int accountToNo;
     private String bankBranch;
+    private String amountFormat;
+    private String amountByText;
     private int amount;
     private String message;
     private String feeCarier;
@@ -26,12 +28,14 @@ public class ExternalTransferModel {
     public ExternalTransferModel() {
     }
 
-    public ExternalTransferModel(Account accountFrom, Account accountTo, int accountFromNo, int accountToNo, String bankBranch, int amount, String message, String feeCarier, int fee, String captcha, String otp) {
+    public ExternalTransferModel(Account accountFrom, Account accountTo, int accountFromNo, int accountToNo, String bankBranch, String amountFormat, String amountByText, int amount, String message, String feeCarier, int fee, String captcha, String otp) {
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
         this.accountFromNo = accountFromNo;
         this.accountToNo = accountToNo;
         this.bankBranch = bankBranch;
+        this.amountFormat = amountFormat;
+        this.amountByText = amountByText;
         this.amount = amount;
         this.message = message;
         this.feeCarier = feeCarier;
@@ -39,6 +43,8 @@ public class ExternalTransferModel {
         this.captcha = captcha;
         this.otp = otp;
     }
+
+    
 
     public Account getAccountFrom() {
         return accountFrom;
@@ -127,4 +133,22 @@ public class ExternalTransferModel {
     public void setOtp(String otp) {
         this.otp = otp;
     }    
+
+    public String getAmountFormat() {
+        return amountFormat;
+    }
+
+    public void setAmountFormat(String amountFormat) {
+        this.amountFormat = amountFormat;
+    }
+
+    public String getAmountByText() {
+        return amountByText;
+    }
+
+    public void setAmountByText(String amountByText) {
+        this.amountByText = amountByText;
+    }
+    
+    
 }

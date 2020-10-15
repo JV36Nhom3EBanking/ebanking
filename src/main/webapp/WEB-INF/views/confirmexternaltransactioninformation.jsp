@@ -103,6 +103,7 @@
                             <form:hidden path="accountFromNo" value="${externalTransferModel.getAccountFrom().getAccountNo()}" />
                             <form:hidden path="accountToNo" value="${externalTransferModel.getAccountTo().getAccountNo()}" />
                             <form:hidden path="bankBranch" value="${externalTransferModel.getBankBranch()}"/>
+                            <form:hidden path="amountByText" value="${externalTransferModel.getAmountByText()}" />
                             <form:hidden path="amount" value="${externalTransferModel.getAmount()}" />
                             <form:hidden path="message" value="${externalTransferModel.getMessage()}" />
                             <form:hidden path="feeCarier" value="${externalTransferModel.getFeeCarier()}" />
@@ -118,7 +119,7 @@
                                     <label>Số dư tài khoản chuyển tiền</label>
                                 </td>
                                 <td colspan="3">
-                                    ${externalTransferModel.getAccountFrom().getBalance()} VNĐ
+                                    <span class="currency">${externalTransferModel.getAccountFrom().getBalance()}</span> VNĐ
                                 </td>
                             </tr>
                             <tr>
@@ -126,7 +127,7 @@
                                     <label>Số tiền chuyển khoản</label>
                                 </td>
                                 <td colspan="3">
-                                    ${externalTransferModel.getAmount()} VNĐ
+                                    <span class="currency">${externalTransferModel.getAmount()}</span> VNĐ
                                 </td>
                             </tr>
                             <tr>
@@ -134,7 +135,7 @@
                                     <label>Số tiền bằng chữ</label>
                                 </td>
                                 <td colspan="3">
-
+                                    ${externalTransferModel.getAmountByText()}
                                 </td>
                             </tr>
                             <tr>
@@ -192,7 +193,7 @@
                                     <label>Số tiền phí</label>
                                 </td>
                                 <td colspan="3">
-                                    25000 VNĐ
+                                    <span class="currency">25000</span> VNĐ
                                 </td>
                             </tr>
                             <tr>
@@ -232,8 +233,10 @@
 
                             <tr>
                                 <td colspan="4">
-                                    <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Xác nhận</form:button>
-                                    <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
+                                    <div style="float: right;">
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Xác nhận</form:button>
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
+                                    </div>
                                 </td>
                             </tr>
                         </form:form>

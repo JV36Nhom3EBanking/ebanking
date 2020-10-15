@@ -15,6 +15,8 @@ public class InternalTransferModel {
     private Account accountTo;
     private int accountFromNo;
     private int accountToNo;
+    private String amountFormat;
+    private String amountByText;
     private int amount;
     private String message;
     private String feeCarier;
@@ -25,11 +27,13 @@ public class InternalTransferModel {
     public InternalTransferModel() {
     }
 
-    public InternalTransferModel(Account accountFrom, Account accountTo, int accountFromNo, int accountToNo, int amount, String message, String feeCarier, int fee, String captcha, String otp) {
+    public InternalTransferModel(Account accountFrom, Account accountTo, int accountFromNo, int accountToNo, String amountFormat, String amountByText, int amount, String message, String feeCarier, int fee, String captcha, String otp) {
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
         this.accountFromNo = accountFromNo;
         this.accountToNo = accountToNo;
+        this.amountFormat = amountFormat;
+        this.amountByText = amountByText;
         this.amount = amount;
         this.message = message;
         this.feeCarier = feeCarier;
@@ -37,10 +41,6 @@ public class InternalTransferModel {
         this.captcha = captcha;
         this.otp = otp;
     }
-
-    
-
-    
 
     public int getAccountFromNo() {
         return accountFromNo;
@@ -120,6 +120,22 @@ public class InternalTransferModel {
 
     public void setOtp(String otp) {
         this.otp = otp;
+    }
+
+    public String getAmountFormat() {
+        return amountFormat;
+    }
+
+    public void setAmountFormat(String amountFormat) {
+        this.amountFormat = amountFormat;
+    }
+
+    public String getAmountByText() {
+        return amountByText;
+    }
+
+    public void setAmountByText(String amountByText) {
+        this.amountByText = amountByText;
     }
     
     

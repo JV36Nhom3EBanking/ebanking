@@ -109,7 +109,7 @@
                             <tr>
                                 <td>${value.getAccountNo()}</td>
                                 <td>${value.getOpenDate()}</td>
-                                <td>${value.getBalance()} VNĐ
+                                <td><span class="currency">${value.getBalance()}</span> VNĐ</td>
                                 <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
                             </tr>
                         </c:forEach>

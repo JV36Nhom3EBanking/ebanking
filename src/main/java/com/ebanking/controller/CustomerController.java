@@ -16,8 +16,10 @@ import com.ebanking.service.AccountServiceIF;
 import com.ebanking.service.BankServiceIF;
 import com.ebanking.service.CustomerServiceIF;
 import com.ebanking.service.EmailService;
+import com.ebanking.service.MoneyFormatter;
 import com.ebanking.service.TransactionServiceIF;
 import com.ebanking.service.WebService;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -57,6 +59,9 @@ public class CustomerController {
 
     @Autowired
     WebService webService;
+
+    @Autowired
+    MoneyFormatter moneyFormatter;
 
     @GetMapping("/info")
     public String getInfo(HttpSession httpSession, ModelMap modelMap) {
@@ -184,12 +189,15 @@ public class CustomerController {
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
 
-        Account accountFrom = accountService.getAccount(internalTransferModel.getAccountFromNo());
-        Account accountTo = accountService.getAccountByAccountNoAndBankBranch(internalTransferModel.getAccountToNo(), accountFrom.getBank().getBranch());
+        Account accountFrom = accountService.getInternalAccount(internalTransferModel.getAccountFromNo());
+        Account accountTo = accountService.getInternalAccount(internalTransferModel.getAccountToNo());
+        
+        internalTransferModel.setAmount(moneyFormatter.readAmount(internalTransferModel.getAmountFormat()));
+        internalTransferModel.setAmountByText(moneyFormatter.numberToString(new BigDecimal(internalTransferModel.getAmount())));
         internalTransferModel.setFee(10000);
         internalTransferModel.setAccountFrom(accountFrom);
         internalTransferModel.setAccountTo(accountTo);
-
+        
         int remain = accountFrom.getBalance() - internalTransferModel.getAmount() - internalTransferModel.getFee();
         if (internalTransferModel.getAmount() > 50000000) {
             modelMap.addAttribute("error", "Số tiền chuyển trong một giao dịch không được vượt quá 50.000.000 VNĐ. Xin quý khách vui lòng thử lại. Chân thành cảm ơn quý khách.");
@@ -231,7 +239,7 @@ public class CustomerController {
 
             internalTransferModel.setAccountFrom(accountFrom);
             internalTransferModel.setAccountTo(accountTo);
-
+            System.out.println(internalTransferModel.getAmountByText());
             modelMap.addAttribute("internalTransferModel", internalTransferModel);
 
             String otp = OTP.createOTP();
@@ -306,9 +314,11 @@ public class CustomerController {
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
 
-        Account accountFrom = accountService.getAccount(externalTransferModel.getAccountFromNo());
+        Account accountFrom = accountService.getInternalAccount(externalTransferModel.getAccountFromNo());
         Account accountTo = webService.verifyAccount(externalTransferModel.getAccountToNo(), externalTransferModel.getBankBranch());
 
+        externalTransferModel.setAmount(moneyFormatter.readAmount(externalTransferModel.getAmountFormat()));
+        externalTransferModel.setAmountByText(moneyFormatter.numberToString(new BigDecimal(externalTransferModel.getAmount())));
         externalTransferModel.setFee(25000);
         externalTransferModel.setAccountFrom(accountFrom);
         externalTransferModel.setAccountTo(accountTo);

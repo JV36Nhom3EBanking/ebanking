@@ -171,6 +171,6 @@
             </a>
         </div>
         <!-- move top -->
-        <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+        <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>

@@ -119,7 +119,7 @@
                         </tr>
                         <tr>
                             <td>Số tiền</td>
-                            <td>${transaction.getAmount()} VNĐ</td>
+                            <td><span class="currency">${transaction.getAmount()}</span> VNĐ</td>
                             <td>Ngày giao dịch</td>
                             <td>${transaction.getTransactionDate()}</td>
                         </tr>
