@@ -66,7 +66,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Đăng nhập</li>
+                        <li class="breadcrumb-item" aria-current="page">Đăng ký</li>
                     </ol>
                 </nav>
             </div>
@@ -75,35 +75,111 @@
 
         <div class="container">
             <div class="row">
-                <div class="contact-form mt-md-0 mt-sm-5 mt-4">
-                    <h4 class="mb-4 w3f_title title_center">ĐĂNG KÝ</h4>
-                    <form:form name="contactform" id="contactform" method="POST" action="register/confirmRegister" modelAttribute="registerModel">
-                        <div class="form-group">
-                            <label>Username</label> <form:input type="text" class="form-control" path="username"
-                                        id="username" placeholder="Enter Username" name="username"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label> <form:input type="password" class="form-control" path="password"
-                                        id="password" placeholder="Enter Password" name="password"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Re - Password</label> <form:input type="re-password" class="form-control" path="re-password"
-                                        id="re-password" placeholder="Enter Re - Password" name="re-password"/>
-                        </div>
-                        <div class="form-group">
-                            <label>OTP</label> <form:input type="text" class="form-control" path="otp"
-                                        id="otp" placeholder="Enter OTP" name="otp"/>
-                            <a href="/sendOTP"></a>
-                        </div>
-                        <div class="g-recaptcha"
-                             data-sitekey="6LdUudEZAAAAANaMlbIsFaIruRC8bZy3v1xAWwgT"></div>
-                        <div style="margin-bottom: 20px;">
-                            <form:button type="submit" class="btn btn-default">Submit</form:button>
-                            <form:button type="button" class="btn btn-primary" style="margin-left: 20px;">Cancel</form:button>
-                            </div>
-
-                            <p style="margin-bottom: 20px;">Chưa có tài khoản? <a href="#">Đăng kí ngay</a></p>
-                    </form:form>
+                <div class="contact-form mt-md-0 mt-sm-5 mt-4" style="width: 100%;">
+                    <h4 class="mb-4 w3f_title title_center">ĐĂNG KÝ TÀI KHOẢN</h4>
+                    <table class="table">
+                        <form:form name="contactform" id="contactform" method="POST" action="${pageContext.request.contextPath}/register/confirmRegister" modelAttribute="registerModel">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>Họ</label> <form:input type="text" class="form-control" path="firstname" required="required"
+                                                    id="firstname" placeholder="Enter First Name" name="firstname"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label>Tên</label> <form:input type="text" class="form-control" path="lastname" required="required"
+                                                    id="lastname" placeholder="Enter Last Name" name="lastname"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Giới tính</label> 
+                                    <div>
+                                        <form:radiobutton path="gender" required="required"
+                                                          value="Nam"/> Nam
+                                        <form:radiobutton path="gender" required="required" style="margin-left: 50px;"
+                                                          value="Nu"/> Nữ
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label>Ngày sinh</label> <form:input type="date" class="form-control" path="birthdate" required="required"
+                                                    id="birthdate" placeholder="Enter Password" name="birthdate"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>Địa chỉ</label> <form:input type="text" class="form-control" path="address" required="required"
+                                                    id="address" placeholder="Enter Address" name="address"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label>Quận</label> <form:input type="text" class="form-control" path="district" required="required"
+                                                    id="district" placeholder="Enter District" name="district"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>Thành phố</label> <form:input type="text" class="form-control" path="city" required="required"
+                                                    id="city" placeholder="Enter City" name="city"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <label>Quốc tịch</label> <form:input type="text" class="form-control" path="nationality" required="required"
+                                                id="nationality" placeholder="Enter Nationality" name="nationality"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>CMND</label> <form:input type="text" class="form-control" path="cmnd" required="required"
+                                                    id="cmnd" placeholder="Enter CMND" name="cmnd"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label>Số điện thoại</label> <form:input type="text" class="form-control" path="phone" required="required"
+                                                    id="phone" placeholder="Enter Phone" name="phone"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label style="margin-top: 9px; margin-bottom: 26px;">Email</label> <form:input type="text" class="form-control" path="email" required="required"
+                                                    id="email" placeholder="Enter Email" name="email"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label>Captcha</label> 
+                                        <img src="${pageContext.request.contextPath }/captcha">
+                                        <br>
+                                        <form:input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
+                                        <br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="margin-top: 50px; float: right;">
+                                        <form:button type="submit" class="btn btn-default" style="margin-right: 20px;">Đăng ký</form:button>
+                                        <form:button type="button" class="btn btn-primary">Cancel</form:button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><p style=" color: red;">${error}</p></td>
+                            </tr>
+                        </form:form>
+                    </table>
                 </div>
             </div>
         </div>

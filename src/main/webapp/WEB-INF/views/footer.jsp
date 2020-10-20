@@ -5,3 +5,5 @@
 <script src='<c:url value="/resources/js/bootstrap.min.js"/>'></script>
 <script src='<c:url value="/resources/js/jquery.min.js"/>'></script>
 <script src='<c:url value="/resources/js/custom.js"/>'></script>
+<script src='<c:url value="/resources/js/main.js"/>'></script>
+<script src='<c:url value="/resources/js/popper.js"/>'></script>

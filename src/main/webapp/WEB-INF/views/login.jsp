@@ -16,6 +16,10 @@
             function hideURLbar() {
                 window.scrollTo(0, 1);
             }
+            
+            function cancel() {
+                window.location.href = 'http://localhost:8080/ebanking/';
+            }
         </script>
         <jsp:include page="/WEB-INF/views/header.jsp" />
 
@@ -28,18 +32,18 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
+                        <li class="active"><a href="<c:url value="/"/>">Trang chủ</a></li>
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                        <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
+                        <li class="last-grid"><a href="<c:url value="/login"/>">Bắt đầu ngay</a></li>
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -92,7 +96,7 @@
                         <p style=" color: red;">${error}</p>
                         <div style="margin-bottom: 20px;">
                             <form:button type="submit" class="btn btn-default">Submit</form:button>
-                            <form:button type="button" class="btn btn-primary" style="margin-left: 20px;">Cancel</form:button>
+                            <form:button type="button" class="btn btn-primary" onclick="cancel()" style="margin-left: 20px;">Cancel</form:button>
                         </div>
 
                             <p style="margin-bottom: 20px;">Chưa có tài khoản? <a href="<c:url value="/register"/>">Đăng kí ngay</a></p>

@@ -1,11 +1,11 @@
 <%-- 
-    Document   : successexternaltransaction
-    Created on : Oct 13, 2020, 4:03:05 PM
-    Author     : Huy Hoang
+    Document   : registersuccess
+    Created on : Oct 18, 2020, 8:14:53 AM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,15 +44,7 @@
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                            <c:choose>
-                                <c:when test="${chucaidau != null}">
-                                <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
-                                <li><a href="<c:url value="/logout"></c:url>">Đăng xuất</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
-                                </c:otherwise>
-                            </c:choose>
+                        <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -73,69 +65,22 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
+                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Đăng ký</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- //breadcrumb -->
 
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-sm-3">
-                    <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a class="active" href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                <div class="contact-form mt-md-0 mt-sm-5 mt-4" style="width: 100%;">
+                    <h4 class="mb-4 w3f_title title_center">ĐĂNG KÝ TÀI KHOẢN THÀNH CÔNG</h4>
+                    <div style="text-align: center;">
+                        <h5>Đăng ký tài khoản thành công. Chào mừng bạn đến với hệ thống e-Banking</h5>
+                        <p><a href="<c:url value="/login"></c:url>">Bấm vào đây để đăng nhập</a></p>
                     </div>
-                </div>
-                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Giao dịch thành công</h4>
-                    <table class="table table-bordered">
-                        <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Chi tiết giao dịch</td>
-                        </tr>
-                        <tr>
-                            <td>Mã giao dịch</td>
-                            <td>${transaction.getId()}</td>
-                            <td>Loại giao dịch</td>
-                            <td>${transaction.getType()}</td>
-                        </tr>
-                        <tr>
-                            <td>Tài khoản thực hiện</td>
-                            <td>${transaction.getAccount1().getAccountNo()}</td>
-                            <td>Tài khoản thụ hưởng</td>
-                            <td>${transaction.getAccount2().getAccountNo()}</td>
-                        </tr>
-                        <tr>
-                            <td>Chủ tài khoản thực hiện</td>
-                            <td>${transaction.getAccount1().getCustomer().getName()}</td>
-                            <td>Chủ tài khoản thụ hưởng</td>
-                            <td>${transaction.getAccount2().getCustomer().getName()}</td>
-                        </tr>
-                        <tr>
-                            <td>Số tiền</td>
-                            <td><span class="currency">${transaction.getAmount()}</span> VNĐ</td>
-                            <td>Ngày giao dịch</td>
-                            <td>${transaction.getTransactionDate()}</td>
-                        </tr>
-                        <tr>
-                            <td>Tin nhắn</td>
-                            <td colspan="3">${transaction.getMessage()}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Tiếp tục giao dịch</a>
-                                <a href="<c:url value="/downloadPDF/${transaction.getId()}"></c:url>" class="btn btn-default" style="margin-left: 50px;">In biên lai</a>
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Trở về trang chủ</a>
-                            </td>
-                        </tr>
-                    </table>
                 </div>
             </div>
         </div>
@@ -210,6 +155,6 @@
             </a>
         </div>
         <!-- move top -->
-        <jsp:include page="/WEB-INF/views/footer.jsp" />
+        <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
     </body>
 </html>

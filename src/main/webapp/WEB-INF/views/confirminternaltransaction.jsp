@@ -87,7 +87,7 @@
                         <a href="<c:url value="/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a href="#" >Change Password</a>
+                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
                         <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
                         <a class="active" href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>

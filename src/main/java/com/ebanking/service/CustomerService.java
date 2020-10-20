@@ -9,8 +9,6 @@ import com.ebanking.dao.CustomerDaoIF;
 import com.ebanking.entity.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,6 +41,29 @@ public class CustomerService implements CustomerServiceIF {
     @Override
     public Customer findByUsername(String username) {
         return customerDao.findByUsername(username);
+    }
+
+    @Override
+    public boolean saveCustomer(Customer customer) {
+        customerDao.save(customer);
+        if(customer.getId() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+        
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        customerDao.save(customer);
+    }
+
+    @Override
+    public void changePassword(Customer customer, String password) {
+        customer.setPassword(password);
+        customerDao.save(customer);
     }
 
     

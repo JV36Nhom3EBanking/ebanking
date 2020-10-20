@@ -50,6 +50,7 @@
                             <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
+                                <li><a href="<c:url value="/logout"></c:url>">Đăng xuất</a></li>
                                 </c:when>
                                 <c:otherwise>
                                 <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
@@ -90,7 +91,7 @@
                         <a href="<c:url value="/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a href="#" >Change Password</a>
+                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
                         <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
                         <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a class="active" href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>

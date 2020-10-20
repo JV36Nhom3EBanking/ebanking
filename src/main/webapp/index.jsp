@@ -20,14 +20,14 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
+                        <li class="active"><a href="<c:url value="/"/>">Trang chủ</a></li>
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
@@ -63,7 +63,7 @@
                                             sẽ không còn gặp khó khăn vì lịch làm việc của ngân hàng.
                                         </p>
                                         <a href="services.html" class="btn btn-banner my-3 mr-2">Tìm hiểu thêm
-                                        </a> <a href="contact.html" class="btn btn-banner1 my-3">Bắt đầu ngay</a>
+                                        </a> <a href="<c:url value="/login"/>" class="btn btn-banner1 my-3">Bắt đầu ngay</a>
                                     </div>
                                 </li>
                                 <li>
@@ -76,7 +76,7 @@
                                             hưu của bản thân mình. Tạo một tài khoản và bắt đầu tiết kiệm tài sản ngày bây giờ.
                                             Tham gia ngay với lãi suất hấp dẫn.</p>
                                         <a href="services.html" class="btn btn-banner my-3 mr-2">Tìm hiểu thêm</a>
-                                        <a href="contact.html" class="btn btn-banner1 my-3">Bắt đầu ngay</a>
+                                        <a href="<c:url value="/login"/>" class="btn btn-banner1 my-3">Bắt đầu ngay</a>
                                     </div>
                                 </li>
                                 <li>
@@ -89,7 +89,7 @@
                                             Thống kê các giao dịch, xem số dư nhanh chóng tiện lợi. Bạn không cần phải đến
                                             ATM hay ngân hàng để xem các thông tin này giờ đây bạn có thể thực hiện nó tại mọi nơi.</p>
                                         <a href="services.html" class="btn btn-banner my-3 mr-2">Tìm hiểu thêm</a> 
-                                        <a href="contact.html" class="btn btn-banner1 my-3">Bắt đầu ngay</a>
+                                        <a href="<c:url value="/login"/>" class="btn btn-banner1 my-3">Bắt đầu ngay</a>
                                     </div>
                                 </li>
                             </ul>

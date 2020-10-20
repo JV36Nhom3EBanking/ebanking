@@ -54,13 +54,15 @@ public class Customer implements Serializable {
     
     private String role;
     
+    private String status;
+    
     @OneToMany(mappedBy = "customer")
     private List<Account> accounts;
 
     public Customer() {
     }
 
-    public Customer(int id, String name, String username, String password, LocalDate birthdate, String address, String district, String city, String gender, String nationality, String cmnd, String email, String phone, String role, List<Account> accounts) {
+    public Customer(int id, String name, String username, String password, LocalDate birthdate, String address, String district, String city, String gender, String nationality, String cmnd, String email, String phone, String role, String status, List<Account> accounts) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -75,8 +77,11 @@ public class Customer implements Serializable {
         this.email = email;
         this.phone = phone;
         this.role = role;
+        this.status = status;
         this.accounts = accounts;
     }
+
+    
 
     public int getId() {
         return id;
@@ -190,6 +195,14 @@ public class Customer implements Serializable {
         this.role = role;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     public List<Account> getAccounts() {
         return accounts;
     }

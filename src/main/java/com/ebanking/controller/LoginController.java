@@ -38,7 +38,7 @@ public class LoginController {
     TellerServiceIF tellerService;
 
     @GetMapping
-    public String Default(Model model, HttpSession httpSession, ModelMap modelMap) {
+    public String Default(HttpSession httpSession, ModelMap modelMap) {
         if (httpSession.getAttribute("user") != null) {
             Customer customer = (Customer) httpSession.getAttribute("user");
             modelMap.addAttribute("customer", customer);
@@ -51,7 +51,7 @@ public class LoginController {
         }
         else {
             LoginModel loginModel = new LoginModel();
-            model.addAttribute("loginModel", loginModel);
+            modelMap.addAttribute("loginModel", loginModel);
             return "login";
         }   
     }
@@ -63,8 +63,14 @@ public class LoginController {
         if (verifyCaptcha.equals(captcha)) {
             if (customerService.login(loginModel.getUsername(), loginModel.getPassword()) || tellerService.login(loginModel.getUsername(), loginModel.getPassword())) {
                 Customer customer = customerService.findByUsername(loginModel.getUsername());
-                model.addAttribute("user", customer);
-                return "redirect:/trangchu";
+                if(customer.getStatus().equals("actived")) {
+                    model.addAttribute("user", customer);
+                    return "redirect:/trangchu";
+                }
+                else {
+                    model.addAttribute("user", customer);
+                    return "activation";
+                }
             } else {
 
                 String error = "Wrong username or password. Please check again!";
