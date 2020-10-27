@@ -141,7 +141,7 @@
                         </tr>                       
                         <c:forEach var="value" items="${customer.getAccounts() }">
                             <tr>
-                                <td>${value.getAccountNo()}</td>
+                                <td>${value.getId()}</td>
                                 <td>${value.getOpenDate()}</td>
                                 <td><span class="currency">${value.getBalance()}</span> VNĐ</td>
                                 <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>

@@ -28,13 +28,7 @@ public class TellerService implements TellerServiceIF {
 
     @Override
     public boolean login(String username, String password) {
-        for (Teller teller : getTellers()) {
-            if (teller.getUsername().equals(username)) {
-                if (teller.getPassword().equals(password)) {
-                    return true;
-                }
-            }
-        }
+        
         return false;
     }
     

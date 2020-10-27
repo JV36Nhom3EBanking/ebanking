@@ -16,7 +16,7 @@
             function hideURLbar() {
                 window.scrollTo(0, 1);
             }
-            
+
             function cancel() {
                 window.location.href = 'http://localhost:8080/ebanking/';
             }
@@ -76,31 +76,35 @@
             <div class="row">
                 <div class="contact-form mt-md-0 mt-sm-5 mt-4">
                     <h4 class="mb-4 w3f_title title_center">ĐĂNG NHẬP</h4>
-                    <form:form name="contactform" id="contactform" method="POST" action="${pageContext.request.contextPath}/login/confirmLogin" modelAttribute="loginModel">
+                    <form name="contactform" id="contactform" method="POST" action="j_spring_security_check">
                         <div class="form-group">
-                            <label>Username</label> <form:input type="text" class="form-control" path="username" required="required"
-                                        id="username" placeholder="Enter Username" name="username"/>
+                            <label>Username</label> <input type="text" class="form-control" required="required"
+                                                           id="username" placeholder="Enter Username" name="username"/>
                         </div>
                         <div class="form-group">
-                            <label>Password</label> <form:input type="password" class="form-control" path="password" required="required"
-                                        id="password" placeholder="Enter Password" name="password"/>
+                            <label>Password</label> <input type="password" class="form-control" required="required"
+                                                           id="password" placeholder="Enter Password" name="password"/>
                         </div>
                         <div class="form-group">
                             <label>Captcha</label> 
                             <img src="${pageContext.request.contextPath }/captcha">
                             <br>
-                            <form:input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
+                            <input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
                             <br>
                         </div>
-
-                        <p style=" color: red;">${error}</p>
+                        <input type="hidden" name="${_csrf.parameterName}" 
+                               value="${_csrf.token}"/>
+                        <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+                            <p style="color:red;">Error:
+                                <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/></p>
+                            </c:if>  
                         <div style="margin-bottom: 20px;">
-                            <form:button type="submit" class="btn btn-default">Submit</form:button>
-                            <form:button type="button" class="btn btn-primary" onclick="cancel()" style="margin-left: 20px;">Cancel</form:button>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                            <button type="button" class="btn btn-primary" onclick="cancel()" style="margin-left: 20px;">Cancel</button>
                         </div>
 
-                            <p style="margin-bottom: 20px;">Chưa có tài khoản? <a href="<c:url value="/register"/>">Đăng kí ngay</a></p>
-                    </form:form>
+                        <p style="margin-bottom: 20px;">Chưa có tài khoản? <a href="<c:url value="/register"/>">Đăng kí ngay</a></p>
+                    </form>
                 </div>
             </div>
         </div>

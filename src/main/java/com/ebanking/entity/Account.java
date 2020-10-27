@@ -29,7 +29,6 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private int accountNo;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate openDate; 
@@ -57,9 +56,8 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(int id, int accountNo, LocalDate openDate, int balance, String type, String status, Customer customer, Bank bank, List<Transaction> transactionFrom, List<Transaction> transactionTo) {
+    public Account(int id, LocalDate openDate, int balance, String type, String status, Customer customer, Bank bank, List<Transaction> transactionFrom, List<Transaction> transactionTo) {
         this.id = id;
-        this.accountNo = accountNo;
         this.openDate = openDate;
         this.balance = balance;
         this.type = type;
@@ -132,14 +130,6 @@ public class Account implements Serializable {
 
     public void setTransactionTo(List<Transaction> transactionTo) {
         this.transactionTo = transactionTo;
-    }
-
-    public int getAccountNo() {
-        return accountNo;
-    }
-
-    public void setAccountNo(int accountNo) {
-        this.accountNo = accountNo;
     }
 
     public LocalDate getOpenDate() {

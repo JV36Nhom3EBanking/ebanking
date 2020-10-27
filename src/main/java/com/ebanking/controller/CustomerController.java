@@ -11,6 +11,7 @@ import com.ebanking.entity.ExternalTransferModel;
 import com.ebanking.entity.InternalTransferModel;
 import com.ebanking.entity.SearchTransactionModel;
 import com.ebanking.entity.Transaction;
+import com.ebanking.entity.User;
 import com.ebanking.otp.OTP;
 import com.ebanking.service.AccountServiceIF;
 import com.ebanking.service.BankServiceIF;
@@ -63,31 +64,42 @@ public class CustomerController {
     @Autowired
     MoneyFormatter moneyFormatter;
 
+    @GetMapping("/trangchu")
+    public String Default(HttpSession httpSession, ModelMap modelMap) {
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+        
+        return "home";
+    }
+
     @GetMapping("/info")
     public String getInfo(HttpSession httpSession, ModelMap modelMap) {
-        if (httpSession.getAttribute("user") != null) {
-            Customer customer = (Customer) httpSession.getAttribute("user");
-            modelMap.addAttribute("customer", customer);
-            String name = customer.getName();
-            modelMap.addAttribute("name", name);
-            String chucaidau = customer.getEmail().substring(0, 1);
-            modelMap.addAttribute("chucaidau", chucaidau);
-            System.out.println(customer.getAccounts().get(0).getBalance());
-        }
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+        
         return "viewcustomerinfo";
     }
 
     @GetMapping("/account/{id}")
     public String getInfoAccount(@PathVariable int id, ModelMap modelMap, HttpSession httpSession) {
-        if (httpSession.getAttribute("user") != null) {
-            Customer customer = (Customer) httpSession.getAttribute("user");
-            modelMap.addAttribute("customer", customer);
-            String name = customer.getName();
-            modelMap.addAttribute("name", name);
-            String chucaidau = customer.getEmail().substring(0, 1);
-            modelMap.addAttribute("chucaidau", chucaidau);
-            System.out.println(customer.getAccounts().get(0).getBalance());
-        }
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+        
         Account account = accountService.getAccount(id);
         modelMap.addAttribute("account", account);
         SearchTransactionModel searchTransactionModel = new SearchTransactionModel();
@@ -98,7 +110,8 @@ public class CustomerController {
 
     @PostMapping("/account/searchTransaction")
     public String getTransaction(@ModelAttribute SearchTransactionModel searchTransactionModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -119,12 +132,14 @@ public class CustomerController {
 
     @GetMapping("/account/transaction/{id}")
     public String getTransactionInfo(@PathVariable int id, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
+        
         Transaction transaction = transactionService.getTransaction(id);
         modelMap.addAttribute("transaction", transaction);
 
@@ -133,7 +148,8 @@ public class CustomerController {
 
     @GetMapping("/account/list")
     public String getListAccount(ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -148,7 +164,8 @@ public class CustomerController {
 
     @GetMapping("/account/transaction/search")
     public String searchTransaction(ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -165,14 +182,15 @@ public class CustomerController {
 
     @GetMapping("/internaltransfermoney")
     public String getITMPage(ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
 
-        List<Account> accounts = customer.getAccounts();
+        List<Account> accounts = accountService.getCustomerAccount(customer.getId());
         modelMap.addAttribute("listAccount", accounts);
         InternalTransferModel internalTransferModel = new InternalTransferModel();
         modelMap.addAttribute("internalTransferModel", internalTransferModel);
@@ -182,7 +200,8 @@ public class CustomerController {
 
     @PostMapping("/enterInternalTransactionInformation")
     public String enterInternalInformation(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -191,23 +210,23 @@ public class CustomerController {
 
         Account accountFrom = accountService.getInternalAccount(internalTransferModel.getAccountFromNo());
         Account accountTo = accountService.getInternalAccount(internalTransferModel.getAccountToNo());
-        
+
         internalTransferModel.setAmount(moneyFormatter.readAmount(internalTransferModel.getAmountFormat()));
         internalTransferModel.setAmountByText(moneyFormatter.numberToString(new BigDecimal(internalTransferModel.getAmount())));
         internalTransferModel.setFee(10000);
         internalTransferModel.setAccountFrom(accountFrom);
         internalTransferModel.setAccountTo(accountTo);
-        
+
         int remain = accountFrom.getBalance() - internalTransferModel.getAmount() - internalTransferModel.getFee();
         if (internalTransferModel.getAmount() > 50000000) {
             modelMap.addAttribute("error", "Số tiền chuyển trong một giao dịch không được vượt quá 50.000.000 VNĐ. Xin quý khách vui lòng thử lại. Chân thành cảm ơn quý khách.");
-            List<Account> accounts = customer.getAccounts();
+            List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
             return "internaltransfermoney";
         }
         if (remain < 50000) {
             modelMap.addAttribute("error", "Tài khoản của quý khách không đủ để thực hiện giao dịch này. Quý khách vui lòng chuyển thêm tiền vào thẻ để tiếp tục sử dụng dịch vụ này của chúng tôi. Chân thành cảm ơn quý khách.");
-            List<Account> accounts = customer.getAccounts();
+            List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
             return "internaltransfermoney";
         } else if (accountTo != null) {
@@ -215,7 +234,7 @@ public class CustomerController {
             return "confirminternaltransactioninformation";
         } else {
             modelMap.addAttribute("error", "Không tìm thấy tài khoản thụ hưởng chỉ định. Vui lòng kiểm tra lại thông tin. Cảm ơn quý khách");
-            List<Account> accounts = customer.getAccounts();
+            List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
             return "internaltransfermoney";
         }
@@ -224,7 +243,8 @@ public class CustomerController {
 
     @PostMapping("/confirmInternalTransactionInformation")
     public String confirmInternalInformation(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -239,7 +259,6 @@ public class CustomerController {
 
             internalTransferModel.setAccountFrom(accountFrom);
             internalTransferModel.setAccountTo(accountTo);
-            System.out.println(internalTransferModel.getAmountByText());
             modelMap.addAttribute("internalTransferModel", internalTransferModel);
 
             String otp = OTP.createOTP();
@@ -256,7 +275,8 @@ public class CustomerController {
 
     @PostMapping("/confirmInternalTransaction")
     public String confirmInternalTransaction(@ModelAttribute InternalTransferModel internalTransferModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -287,14 +307,15 @@ public class CustomerController {
 
     @GetMapping("/externaltransfermoney")
     public String getETMPage(ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
 
-        List<Account> accounts = customer.getAccounts();
+        List<Account> accounts = accountService.getCustomerAccount(customer.getId());
         modelMap.addAttribute("listAccount", accounts);
         List<String> listBranches = bankService.getListBranches();
         listBranches.remove("VietComBank");
@@ -307,7 +328,8 @@ public class CustomerController {
 
     @PostMapping("/enterExternalTransactionInformation")
     public String enterExternalInformation(@ModelAttribute ExternalTransferModel externalTransferModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -326,22 +348,31 @@ public class CustomerController {
         int remain = accountFrom.getBalance() - externalTransferModel.getAmount() - externalTransferModel.getFee();
         if (externalTransferModel.getAmount() > 50000000) {
             modelMap.addAttribute("error", "Số tiền chuyển trong một giao dịch không được vượt quá 50.000.000 VNĐ. Xin quý khách vui lòng thử lại. Chân thành cảm ơn quý khách.");
-            List<Account> accounts = customer.getAccounts();
+            List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
+            List<String> listBranches = bankService.getListBranches();
+            listBranches.remove("VietComBank");
+            modelMap.addAttribute("branches", listBranches);
             return "externaltransfermoney";
         }
         if (remain < 50000) {
             modelMap.addAttribute("error", "Tài khoản của quý khách không đủ để thực hiện giao dịch này. Quý khách vui lòng chuyển thêm tiền vào thẻ để tiếp tục sử dụng dịch vụ này của chúng tôi. Chân thành cảm ơn quý khách.");
-            List<Account> accounts = customer.getAccounts();
+            List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
+            List<String> listBranches = bankService.getListBranches();
+            listBranches.remove("VietComBank");
+            modelMap.addAttribute("branches", listBranches);
             return "externaltransfermoney";
         } else if (accountTo != null) {
             modelMap.addAttribute("externalTransferModel", externalTransferModel);
             return "confirmexternaltransactioninformation";
         } else {
             modelMap.addAttribute("error", "Không tìm thấy tài khoản thụ hưởng chỉ định. Vui lòng kiểm tra lại thông tin. Cảm ơn quý khách");
-            List<Account> accounts = customer.getAccounts();
+            List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
+            List<String> listBranches = bankService.getListBranches();
+            listBranches.remove("VietComBank");
+            modelMap.addAttribute("branches", listBranches);
             return "externaltransfermoney";
         }
 
@@ -349,7 +380,8 @@ public class CustomerController {
 
     @PostMapping("/confirmExternalTransactionInformation")
     public String confirmExternalInformation(@ModelAttribute ExternalTransferModel externalTransferModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -381,7 +413,8 @@ public class CustomerController {
 
     @PostMapping("/confirmExternalTransaction")
     public String confirmTransaction(@ModelAttribute ExternalTransferModel externalTransferModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);

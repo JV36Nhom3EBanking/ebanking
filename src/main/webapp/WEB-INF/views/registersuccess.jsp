@@ -78,7 +78,7 @@
                 <div class="contact-form mt-md-0 mt-sm-5 mt-4" style="width: 100%;">
                     <h4 class="mb-4 w3f_title title_center">ĐĂNG KÝ TÀI KHOẢN THÀNH CÔNG</h4>
                     <div style="text-align: center;">
-                        <h5>Đăng ký tài khoản thành công. Chào mừng bạn đến với hệ thống e-Banking</h5>
+                        <h5>Đăng ký tài khoản thành công. Chào mừng bạn đến với hệ thống e-Banking. Link kích hoạt tài khoản đã được gửi đến email của bạn.</h5>
                         <p><a href="<c:url value="/login"></c:url>">Bấm vào đây để đăng nhập</a></p>
                     </div>
                 </div>

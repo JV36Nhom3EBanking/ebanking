@@ -7,7 +7,10 @@ package com.ebanking.controller;
 
 import com.ebanking.entity.ChangePasswordModel;
 import com.ebanking.entity.Customer;
+import com.ebanking.entity.User;
 import com.ebanking.service.CustomerServiceIF;
+import com.ebanking.service.EncrytedPassword;
+import com.ebanking.service.UserServiceIF;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +31,16 @@ public class ChangePasswordController {
     @Autowired
     CustomerServiceIF customerService;
     
+    @Autowired
+    EncrytedPassword encrytedPassword;
+    
+    @Autowired
+    UserServiceIF userService;
+    
     @GetMapping("/changePassword")
     public String getChangePasswordPage(HttpSession httpSession, ModelMap modelMap) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
         modelMap.addAttribute("customer", customer);
         String name = customer.getName();
         modelMap.addAttribute("name", name);
@@ -45,13 +55,14 @@ public class ChangePasswordController {
     
     @PostMapping("/confirmChangePassword")
     public String changePassword(@ModelAttribute ChangePasswordModel changePasswordModel, ModelMap modelMap, HttpSession httpSession) {
-        Customer customer = (Customer) httpSession.getAttribute("user");
+        User user = (User) httpSession.getAttribute("user");
         String captcha = httpSession.getAttribute("captcha_security").toString();
         String verifyCaptcha = changePasswordModel.getCaptcha();
         if(captcha.equals(verifyCaptcha)) {
-            if(changePasswordModel.getPassword().equals(customer.getPassword())) {
+            if(encrytedPassword.comparePassword(changePasswordModel.getPassword(), user.getPassword())) {
                 if(changePasswordModel.getNewPassword().equals(changePasswordModel.getReNewPassword())) {
-                    customerService.changePassword(customer, changePasswordModel.getNewPassword());
+                    String newPassword = encrytedPassword.encrytePassword(changePasswordModel.getNewPassword());
+                    userService.changePassword(user, newPassword);
                     return "changepasswordsuccess";
                 }
                 else {

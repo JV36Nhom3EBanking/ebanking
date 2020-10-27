@@ -6,6 +6,7 @@
 package com.ebanking.service;
 
 import com.ebanking.dao.BankDaoIF;
+import com.ebanking.entity.Bank;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,23 @@ public class BankService implements BankServiceIF {
     public List<String> getListBranches() {
         return bankDao.getListBranches();
     }
+
+    @Override
+    public List<String> getListInternalDistrict() {
+        return bankDao.getListInternalDistrict();
+    }
+
+    @Override
+    public List<String> getListInternalCity() {
+        return bankDao.getListInternalCity();
+    }
+
+    @Override
+    public Bank getBank(String district, String city) {
+        return bankDao.getBank(district, city);
+    }
+    
+    
+    
     
 }

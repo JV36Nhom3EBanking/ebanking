@@ -1,11 +1,11 @@
 <%-- 
-    Document   : successtransaction
-    Created on : Oct 9, 2020, 9:28:49 PM
+    Document   : transactionlist
+    Created on : Oct 26, 2020, 2:29:53 PM
     Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,8 +73,8 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/admin/trangchu"/>">Welcome, Admin : ${name}</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Thông tin giao dịch</li>
                     </ol>
                 </nav>
             </div>
@@ -85,17 +85,16 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a class="active" href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a href="<c:url value="/admin/trangchu"/>">Home</a>
+                        <a href="<c:url value="/admin/customer"/>">View List Customer</a>
+                        <a href="<c:url value="/admin/account"/>">View List Account</a>
+                        <a class="active" href="<c:url value="/admin/transaction"/>">View List Transaction</a>
+                        <a href="<c:url value="/admin/openAccount"/>">Open Account</a>
+                        <a href="<c:url value="/admin/changeBalance"/>">Change Balance</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Giao dịch thành công</h4>
+                    <h4 class="mb-4 w3f_title title_center">Thông tin chi tiết giao dịch</h4>
                     <table class="table table-bordered">
                         <tr>
                             <td colspan="4" style="background-color: greenyellow;">Chi tiết giao dịch</td>
@@ -127,13 +126,6 @@
                         <tr>
                             <td>Tin nhắn</td>
                             <td colspan="3">${transaction.getMessage()}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Tiếp tục giao dịch</a>
-                                <a href="<c:url value="/downloadPDF/${transaction.getId()}"></c:url>" class="btn btn-default" style="margin-left: 50px;">In biên lai</a>
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Trở về trang chủ</a>
-                            </td>
                         </tr>
                     </table>
                 </div>

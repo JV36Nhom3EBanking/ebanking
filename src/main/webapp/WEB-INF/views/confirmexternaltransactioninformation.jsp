@@ -101,8 +101,8 @@
                             <td colspan="4" style="background-color: greenyellow;">Chuyển khoản</td>
                         </tr>
                         <form:form name="contactform" method="POST" modelAttribute="externalTransferModel" action="${pageContext.request.contextPath}/customer/confirmExternalTransactionInformation">
-                            <form:hidden path="accountFromNo" value="${externalTransferModel.getAccountFrom().getAccountNo()}" />
-                            <form:hidden path="accountToNo" value="${externalTransferModel.getAccountTo().getAccountNo()}" />
+                            <form:hidden path="accountFromNo" value="${externalTransferModel.getAccountFrom().getId()}" />
+                            <form:hidden path="accountToNo" value="${externalTransferModel.getAccountTo().getId()}" />
                             <form:hidden path="bankBranch" value="${externalTransferModel.getBankBranch()}"/>
                             <form:hidden path="amountByText" value="${externalTransferModel.getAmountByText()}" />
                             <form:hidden path="amount" value="${externalTransferModel.getAmount()}" />
@@ -113,7 +113,7 @@
                                 <td>
                                     <label>Tài khoản chuyển tiền</label>
                                 </td>
-                                <td colspan="3">${externalTransferModel.getAccountFrom().getAccountNo()}</td>
+                                <td colspan="3">${externalTransferModel.getAccountFrom().getId()}</td>
                             </tr>
                             <tr>
                                 <td>
@@ -144,7 +144,7 @@
                                     <label>Tài khoản thụ hưởng</label>
                                 </td>
                                 <td colspan="3">
-                                    ${externalTransferModel.getAccountTo().getAccountNo()}
+                                    ${externalTransferModel.getAccountTo().getId()}
                                 </td>
                             </tr>
                             <tr>

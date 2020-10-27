@@ -6,6 +6,7 @@
 package com.ebanking.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -28,11 +31,8 @@ public class Teller implements Serializable {
     
     private String name;
     
-    private String username;
-    
-    private String password;
-    
-    private Date birthdate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthdate;
     
     private String address;
     
@@ -43,30 +43,29 @@ public class Teller implements Serializable {
     private String email;
     
     private String phone;
-    
-    private String role;
+
     
     @ManyToOne
     @JoinColumn(name = "bankId")
     private Bank bank;
 
+    @OneToOne(mappedBy = "teller")
+    private User user;
+    
     public Teller() {
     }
 
     
     
-    public Teller(int id, String name, String username, String password, Date birthdate, String address, String gender, String cmnd, String email, String phone, String role, Bank bank) {
+    public Teller(int id, String name, LocalDate birthdate, String address, String gender, String cmnd, String email, String phone, Bank bank) {
         this.id = id;
         this.name = name;
-        this.username = username;
-        this.password = password;
         this.birthdate = birthdate;
         this.address = address;
         this.gender = gender;
         this.cmnd = cmnd;
         this.email = email;
         this.phone = phone;
-        this.role = role;
         this.bank = bank;
     }
 
@@ -86,27 +85,11 @@ public class Teller implements Serializable {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -150,20 +133,20 @@ public class Teller implements Serializable {
         this.phone = phone;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Bank getBank() {
         return bank;
     }
 
     public void setBank(Bank bank) {
         this.bank = bank;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     

@@ -1,11 +1,11 @@
 <%-- 
-    Document   : successtransaction
-    Created on : Oct 9, 2020, 9:28:49 PM
+    Document   : customerinfo
+    Created on : Oct 26, 2020, 1:48:07 PM
     Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +74,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
+                        <li class="breadcrumb-item" aria-current="page">Thông tin cá nhân khách hàng</li>
                     </ol>
                 </nav>
             </div>
@@ -85,56 +85,67 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a class="active" href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a href="<c:url value="/admin/trangchu"/>">Home</a>
+                        <a class="active" href="<c:url value="/admin/customer"/>">View List Customer</a>
+                        <a href="<c:url value="/admin/account"/>">View List Account</a>
+                        <a href="<c:url value="/admin/transaction"/>">View List Transaction</a>
+                        <a href="<c:url value="/admin/openAccount"/>">Open Account</a>
+                        <a href="<c:url value="/admin/changeBalance"/>">Change Balance</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Giao dịch thành công</h4>
+                    <h4 class="mb-4 w3f_title title_center">Thông tin cá nhân của khách hàng</h4>
                     <table class="table table-bordered">
                         <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Chi tiết giao dịch</td>
+                            <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>
                         </tr>
                         <tr>
-                            <td>Mã giao dịch</td>
-                            <td>${transaction.getId()}</td>
-                            <td>Loại giao dịch</td>
-                            <td>${transaction.getType()}</td>
+                            <td>Tên khách hàng</td>
+                            <td>${customer.getName()}</td>
+                            <td>Ngày sinh</td>
+                            <td>${customer.getBirthdate()}</td>
                         </tr>
                         <tr>
-                            <td>Tài khoản thực hiện</td>
-                            <td>${transaction.getAccount1().getId()}</td>
-                            <td>Tài khoản thụ hưởng</td>
-                            <td>${transaction.getAccount2().getId()}</td>
+                            <td>Địa chỉ</td>
+                            <td>${customer.getAddress()}</td>
+                            <td>Quận</td>
+                            <td>${customer.getDistrict()}</td>
                         </tr>
                         <tr>
-                            <td>Chủ tài khoản thực hiện</td>
-                            <td>${transaction.getAccount1().getCustomer().getName()}</td>
-                            <td>Chủ tài khoản thụ hưởng</td>
-                            <td>${transaction.getAccount2().getCustomer().getName()}</td>
+                            <td>Thành phố</td>
+                            <td>${customer.getCity()}</td>
+                            <td>Giới tính</td>
+                            <td>${customer.getGender()}</td>
                         </tr>
                         <tr>
-                            <td>Số tiền</td>
-                            <td><span class="currency">${transaction.getAmount()}</span> VNĐ</td>
-                            <td>Ngày giao dịch</td>
-                            <td>${transaction.getTransactionDate()}</td>
+                            <td>Quốc tịch</td>
+                            <td>${customer.getNationality()}</td>
+                            <td>Chứng minh nhân dân</td>
+                            <td>${customer.getCmnd()}</td>
                         </tr>
                         <tr>
-                            <td>Tin nhắn</td>
-                            <td colspan="3">${transaction.getMessage()}</td>
+                            <td>Email</td>
+                            <td>${customer.getEmail()}</td>
+                            <td>Số điện thoại</td>
+                            <td>${customer.getPhone()}</td>
                         </tr>
                         <tr>
-                            <td colspan="4">
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Tiếp tục giao dịch</a>
-                                <a href="<c:url value="/downloadPDF/${transaction.getId()}"></c:url>" class="btn btn-default" style="margin-left: 50px;">In biên lai</a>
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Trở về trang chủ</a>
-                            </td>
+                            <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
                         </tr>
+                        <tr>
+                            <td>Số tài khoản</td>
+                            <td>Ngày mở</td>
+                            <td>Số dư hiện tại</td>
+                            <td></td>
+                        </tr>                       
+                        <c:forEach var="value" items="${customer.getAccounts() }">
+                            <tr>
+                                <td>${value.getId()}</td>
+                                <td>${value.getOpenDate()}</td>
+                                <td><span class="currency">${value.getBalance()}</span> VNĐ</td>
+                                <td><a href="<c:url value="/admin/account/${value.getId()}"/>">Xem chi tiết</a></td>
+                            </tr>
+                        </c:forEach>
                     </table>
                 </div>
             </div>
@@ -213,3 +224,4 @@
         <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
+

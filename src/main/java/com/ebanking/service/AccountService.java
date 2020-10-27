@@ -10,6 +10,7 @@ import com.ebanking.dao.TransactionDaoIF;
 import com.ebanking.entity.Account;
 import com.ebanking.entity.Transaction;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,20 @@ public class AccountService implements AccountServiceIF {
         }
     }
 
-   
+    @Override
+    public List<Account> getAllInternalAccount() {
+        return accountDao.getAllInternalAccount();
+    }
 
+    @Override
+    public List<Account> getCustomerAccount(int id) {
+        return accountDao.getCustomerAccount(id);
+    }
+
+    @Override
+    public void saveAccount(Account account) {
+        accountDao.save(account);
+    }
+
+   
 }

@@ -6,6 +6,7 @@
 package com.ebanking.service;
 
 import com.ebanking.entity.Customer;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,9 +15,7 @@ import java.util.List;
  */
 public interface CustomerServiceIF {
     public List<Customer> getCustomers();
-    public boolean login(String username, String password);
-    public Customer findByUsername(String username);
-    public boolean saveCustomer(Customer customer);
-    public void updateCustomer(Customer customer);
-    public void changePassword(Customer customer, String password);
+    public void saveCustomer(Customer customer);
+    public Customer getCustomer(int id);
+    public Customer findCustomer(String name, LocalDate birthdate, String cmnd);
 }

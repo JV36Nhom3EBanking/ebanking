@@ -1,6 +1,6 @@
 <%-- 
-    Document   : activationprocess
-    Created on : Oct 18, 2020, 9:46:09 AM
+    Document   : listcustomer
+    Created on : Oct 26, 2020, 1:01:23 PM
     Author     : Huy
 --%>
 
@@ -73,21 +73,47 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Kích hoạt tài khoản</li>
+                        <li class="breadcrumb-item"><a href="index.html">Welcome, Admin : ${name}</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Danh sách khách hàng</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- //breadcrumb -->
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="contact-form mt-md-0 mt-sm-5 mt-4" style="width: 100%;">
-                    <h4 class="mb-4 w3f_title title_center">ĐĂNG KÝ TÀI KHOẢN THÀNH CÔNG</h4>
-                    <div style="text-align: center;">
-                        <h5>Bấm vào link trong email của bạn để kích hoạt tài khoản.</h5>
+                <div class="col-lg-3 col-sm-3">
+                    <div class="sidebar">
+                        <a href="<c:url value="/admin/trangchu"/>">Home</a>
+                        <a class="active" href="<c:url value="/admin/customer"/>">View List Customer</a>
+                        <a href="<c:url value="/admin/account"/>">View List Account</a>
+                        <a href="<c:url value="/admin/transaction"/>">View List Transaction</a>
+                        <a href="<c:url value="/admin/openAccount"/>">Open Account</a>
+                        <a href="<c:url value="/admin/changeBalance"/>">Change Balance</a>
                     </div>
+                </div>
+                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
+                    <h4 class="mb-4 w3f_title title_center">Danh sách khách hàng</h4>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>
+                        </tr>
+                        <tr>
+                            <td>Tên khách hàng</td>
+                            <td>Giới tính</td>
+                            <td>Địa chỉ</td>
+                            <td></td>
+                        </tr>
+                        <c:forEach var="value" items="${customers}">
+                            <tr>
+                                <td>${value.getName()}</td>
+                                <td>${value.getGender()}</td>
+                                <td>${value.getAddress()}, ${value.getDistrict()}, ${value.getCity()}</td>
+                                <td><a href="<c:url value="/admin/customer/${value.getId()}"/>">Xem chi tiết</a></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </div>
             </div>
         </div>
@@ -162,7 +188,6 @@
             </a>
         </div>
         <!-- move top -->
-        <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+        <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
-

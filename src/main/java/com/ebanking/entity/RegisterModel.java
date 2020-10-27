@@ -13,9 +13,13 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Huy
  */
 public class RegisterModel {
-    private String firstname;
+    private String name;
     
-    private String lastname;
+    private String username;
+    
+    private String password;
+    
+    private String rePassword;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
@@ -41,9 +45,11 @@ public class RegisterModel {
     public RegisterModel() {
     }
 
-    public RegisterModel(String firstname, String lastname, LocalDate birthdate, String address, String district, String city, String nationality, String gender, String cmnd, String email, String phone, String captcha) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public RegisterModel(String name, String username, String password, String rePassword, LocalDate birthdate, String address, String district, String city, String nationality, String gender, String cmnd, String email, String phone, String captcha) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.rePassword = rePassword;
         this.birthdate = birthdate;
         this.address = address;
         this.district = district;
@@ -56,20 +62,36 @@ public class RegisterModel {
         this.captcha = captcha;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
     }
 
     public LocalDate getBirthdate() {
@@ -151,7 +173,7 @@ public class RegisterModel {
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
     }
-    
+
     
     
 }

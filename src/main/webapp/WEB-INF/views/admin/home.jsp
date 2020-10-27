@@ -1,16 +1,16 @@
 <%-- 
-    Document   : successtransaction
-    Created on : Oct 9, 2020, 9:28:49 PM
+    Document   : home
+    Created on : Oct 21, 2020, 7:59:36 PM
     Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>E B@nking Login</title>
+        <title>E B@nking - Admin Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script>
@@ -33,14 +33,14 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
+                        <li class="active"><a href="<c:url value="/trangchu"/>">Trang chủ</a></li>
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
@@ -53,6 +53,7 @@
                                 <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
                                 </c:otherwise>
                             </c:choose>
+
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -73,8 +74,8 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
+                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Welcome, Admin : ${name}</li>
                     </ol>
                 </nav>
             </div>
@@ -85,57 +86,16 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a class="active" href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a class="active" href="<c:url value="/admin/trangchu"/>">Home</a>
+                        <a href="<c:url value="/admin/customer"/>">View List Customer</a>
+                        <a href="<c:url value="/admin/account"/>">View List Account</a>
+                        <a href="<c:url value="/admin/transaction"/>">View List Transaction</a>
+                        <a href="<c:url value="/admin/openAccount"/>">Open Account</a>
+                        <a href="<c:url value="/admin/changeBalance"/>">Change Balance</a>
                     </div>
                 </div>
-                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Giao dịch thành công</h4>
-                    <table class="table table-bordered">
-                        <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Chi tiết giao dịch</td>
-                        </tr>
-                        <tr>
-                            <td>Mã giao dịch</td>
-                            <td>${transaction.getId()}</td>
-                            <td>Loại giao dịch</td>
-                            <td>${transaction.getType()}</td>
-                        </tr>
-                        <tr>
-                            <td>Tài khoản thực hiện</td>
-                            <td>${transaction.getAccount1().getId()}</td>
-                            <td>Tài khoản thụ hưởng</td>
-                            <td>${transaction.getAccount2().getId()}</td>
-                        </tr>
-                        <tr>
-                            <td>Chủ tài khoản thực hiện</td>
-                            <td>${transaction.getAccount1().getCustomer().getName()}</td>
-                            <td>Chủ tài khoản thụ hưởng</td>
-                            <td>${transaction.getAccount2().getCustomer().getName()}</td>
-                        </tr>
-                        <tr>
-                            <td>Số tiền</td>
-                            <td><span class="currency">${transaction.getAmount()}</span> VNĐ</td>
-                            <td>Ngày giao dịch</td>
-                            <td>${transaction.getTransactionDate()}</td>
-                        </tr>
-                        <tr>
-                            <td>Tin nhắn</td>
-                            <td colspan="3">${transaction.getMessage()}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Tiếp tục giao dịch</a>
-                                <a href="<c:url value="/downloadPDF/${transaction.getId()}"></c:url>" class="btn btn-default" style="margin-left: 50px;">In biên lai</a>
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Trở về trang chủ</a>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="contact-form mt-md-0 mt-sm-5 mt-4">
+                    <h4 class="mb-4 w3f_title title_center">Welcome To E-Banking</h4>
                 </div>
             </div>
         </div>

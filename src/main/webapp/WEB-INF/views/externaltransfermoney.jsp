@@ -111,8 +111,8 @@
                                 <td colspan="3">
                                     <form:select path="accountFromNo">
                                         <form:option value="0">--Please select an account--</form:option>
-                                        <form:options items="${listAccount}" itemValue="accountNo"
-                                                      itemLabel="accountNo" />
+                                        <form:options items="${listAccount}" itemValue="id"
+                                                      itemLabel="id" />
                                     </form:select>
                                 </td>
                             </tr>

@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,10 +29,6 @@ public class Customer implements Serializable {
     private int id;
     
     private String name;
-    
-    private String username;
-    
-    private String password;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
@@ -52,21 +49,20 @@ public class Customer implements Serializable {
     
     private String phone;
     
-    private String role;
-    
     private String status;
     
     @OneToMany(mappedBy = "customer")
     private List<Account> accounts;
 
+    @OneToOne(mappedBy = "customer")
+    private User user;
+    
     public Customer() {
     }
 
-    public Customer(int id, String name, String username, String password, LocalDate birthdate, String address, String district, String city, String gender, String nationality, String cmnd, String email, String phone, String role, String status, List<Account> accounts) {
+    public Customer(int id, String name, LocalDate birthdate, String address, String district, String city, String gender, String nationality, String cmnd, String email, String phone, String status, List<Account> accounts) {
         this.id = id;
         this.name = name;
-        this.username = username;
-        this.password = password;
         this.birthdate = birthdate;
         this.address = address;
         this.district = district;
@@ -76,7 +72,6 @@ public class Customer implements Serializable {
         this.cmnd = cmnd;
         this.email = email;
         this.phone = phone;
-        this.role = role;
         this.status = status;
         this.accounts = accounts;
     }
@@ -97,22 +92,6 @@ public class Customer implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public LocalDate getBirthdate() {
@@ -187,14 +166,6 @@ public class Customer implements Serializable {
         this.phone = phone;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -209,6 +180,14 @@ public class Customer implements Serializable {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     

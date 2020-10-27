@@ -102,7 +102,7 @@
                         </tr>
                         <tr>
                             <td>Số tài khoản</td>
-                            <td>${account.getAccountNo()}</td>
+                            <td>${account.getId()}</td>
                             <td>Ngày mở tài khoản</td>
                             <td>${account.getOpenDate()}</td>
                         </tr>

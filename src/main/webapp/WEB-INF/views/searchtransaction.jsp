@@ -108,7 +108,7 @@
                                         <form:select path="id">
                                             <form:option value="0">--Please select an account--</form:option>
                                             <form:options items="${listAccount}" itemValue="id"
-                                                          itemLabel="accountNo" />
+                                                          itemLabel="id" />
                                         </form:select>
                                         <br>
                                         <label>Từ ngày</label> 

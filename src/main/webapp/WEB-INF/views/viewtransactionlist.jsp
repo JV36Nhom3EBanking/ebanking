@@ -99,7 +99,7 @@
                     <table class="table table-bordered">
                         <tr>
                             <td style="background-color: greenyellow;">Số tài khoản</td>
-                            <td colspan="2">${account.getAccountNo()}</td>
+                            <td colspan="2">${account.getId()}</td>
                         </tr>
                         <tr style="background-color: greenyellow;">
                             <td>Mã giao dịch</td>

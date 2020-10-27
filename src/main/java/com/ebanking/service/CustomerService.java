@@ -7,7 +7,9 @@ package com.ebanking.service;
 
 import com.ebanking.dao.CustomerDaoIF;
 import com.ebanking.entity.Customer;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,44 +29,19 @@ public class CustomerService implements CustomerServiceIF {
     }
 
     @Override
-    public boolean login(String username, String password) {
-        for (Customer customer : getCustomers()) {
-            if (customer.getUsername().equals(username)) {
-                if (customer.getPassword().equals(password)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Customer findByUsername(String username) {
-        return customerDao.findByUsername(username);
-    }
-
-    @Override
-    public boolean saveCustomer(Customer customer) {
-        customerDao.save(customer);
-        if(customer.getId() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-        
-    }
-
-    @Override
-    public void updateCustomer(Customer customer) {
+    public void saveCustomer(Customer customer) {
         customerDao.save(customer);
     }
 
     @Override
-    public void changePassword(Customer customer, String password) {
-        customer.setPassword(password);
-        customerDao.save(customer);
+    public Customer getCustomer(int id) {
+        Optional<Customer> customer = customerDao.findById(id);
+	return customer.isPresent() ? customer.get() : null;
     }
 
-    
+    @Override
+    public Customer findCustomer(String name, LocalDate birthdate, String cmnd) {
+        return customerDao.findCustomer(name, birthdate, cmnd);
+    }
+
 }

@@ -6,6 +6,8 @@
 package com.ebanking.dao;
 
 import com.ebanking.entity.Customer;
+import java.time.LocalDate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,5 +15,7 @@ import org.springframework.data.repository.CrudRepository;
  * @author Huy Hoang
  */
 public interface CustomerDaoIF extends CrudRepository<Customer, Integer>{
-    public Customer findByUsername(String username);
+    
+    @Query(value = "SELECT * FROM customer WHERE name = ?1 AND birthdate = ?2 AND cmnd = ?3", nativeQuery = true)
+    public Customer findCustomer(String name, LocalDate birthdate, String cmnd);
 }

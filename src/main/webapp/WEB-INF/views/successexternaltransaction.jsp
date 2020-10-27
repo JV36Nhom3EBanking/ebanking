@@ -108,9 +108,9 @@
                         </tr>
                         <tr>
                             <td>Tài khoản thực hiện</td>
-                            <td>${transaction.getAccount1().getAccountNo()}</td>
+                            <td>${transaction.getAccount1().getId()}</td>
                             <td>Tài khoản thụ hưởng</td>
-                            <td>${transaction.getAccount2().getAccountNo()}</td>
+                            <td>${transaction.getAccount2().getId()}</td>
                         </tr>
                         <tr>
                             <td>Chủ tài khoản thực hiện</td>

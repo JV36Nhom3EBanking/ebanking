@@ -1,6 +1,6 @@
 <%-- 
-    Document   : activation
-    Created on : Oct 18, 2020, 9:37:07 AM
+    Document   : opensuccess
+    Created on : Oct 26, 2020, 10:24:02 PM
     Author     : Huy
 --%>
 
@@ -44,7 +44,7 @@
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
-                            <c:choose>
+                        <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
                                 <li><a href="<c:url value="/logout"></c:url>">Đăng xuất</a></li>
@@ -73,22 +73,66 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Kích hoạt tài khoản</li>
+                        <li class="breadcrumb-item"><a href="index.html">Welcome, Admin : ${name}</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Mở tài khoản thành công</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- //breadcrumb -->
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="contact-form mt-md-0 mt-sm-5 mt-4" style="width: 100%;">
-                    <h4 class="mb-4 w3f_title title_center">ĐĂNG KÝ TÀI KHOẢN THÀNH CÔNG</h4>
-                    <div style="text-align: center;">
-                        <h5>Tài khoản của bạn chưa được kích hoạt. Vui lòng bấm vào link sau để kích hoạt tài khoản của bạn.</h5>
-                        <p><a href="<c:url value="/activation"></c:url>">Bấm vào đây để kích hoạt tài khoản.</a></p>
+                <div class="col-lg-3 col-sm-3">
+                    <div class="sidebar">
+                        <a href="<c:url value="/admin/trangchu"/>">Home</a>
+                        <a href="<c:url value="/admin/customer"/>">View List Customer</a>
+                        <a href="<c:url value="/admin/account"/>">View List Account</a>
+                        <a href="<c:url value="/admin/transaction"/>">View List Transaction</a>
+                        <a class="active" href="<c:url value="/admin/openAccount"/>">Open Account</a>
+                        <a href="<c:url value="/admin/changeBalance"/>">Change Balance</a>
                     </div>
+                </div>
+                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
+                    <h4 class="mb-4 w3f_title title_center">Mở tài khoản thành công. Thông tin tài khoản.</h4>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Thông tin tài khoản</td>
+                        </tr>
+                        <tr>
+                            <td>Số tài khoản</td>
+                            <td>${account.getId()}</td>
+                            <td>Ngày mở tài khoản</td>
+                            <td>${account.getOpenDate()}</td>
+                        </tr>
+                        <tr>
+                            <td>Số dư</td>
+                            <td><span class="currency">${account.getBalance()}</span> VNĐ</td>
+                            <td>Loại thẻ</td>
+                            <td>${account.getType()}</td>
+                        </tr>
+                        <tr>
+                            <td>Tình trạng</td>
+                            <td>${account.getStatus()}</td>
+                            <td>Ngân hàng quản lý</td>
+                            <td>${account.getBank().getBranch()}, ${account.getBank().getDistrict()}, ${account.getBank().getCity()}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Thông tin khách hàng</td>
+                        </tr>
+                        <tr>
+                            <td>Tên khách hàng</td>
+                            <td>${account.getCustomer().getName()}</td>
+                            <td>Ngày sinh</td>
+                            <td>${account.getCustomer().getBirthdate()}</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td>${account.getCustomer().getAddress()}, ${account.getCustomer().getDistrict()}, ${account.getCustomer().getCity()}</td>
+                            <td>CMND</td>
+                            <td>${account.getCustomer().getCmnd()}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -163,6 +207,6 @@
             </a>
         </div>
         <!-- move top -->
-        <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+        <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>

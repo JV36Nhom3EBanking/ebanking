@@ -82,31 +82,48 @@
                             <tr>
                                 <td>
                                     <div>
-                                        <label>Họ</label> <form:input type="text" class="form-control" path="firstname" required="required"
-                                                    id="firstname" placeholder="Enter First Name" name="firstname"/>
+                                        <label>Họ và tên</label> <form:input type="text" class="form-control" path="name" required="required"
+                                                    id="name" placeholder="Enter Name" name="name"/>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <label>Tên</label> <form:input type="text" class="form-control" path="lastname" required="required"
-                                                    id="lastname" placeholder="Enter Last Name" name="lastname"/>
+                                        <label>Giới tính</label> 
+                                        <div>
+                                            <form:radiobutton path="gender" required="required"
+                                                              value="Nam"/> Nam
+                                            <form:radiobutton path="gender" required="required" style="margin-left: 50px;"
+                                                              value="Nu"/> Nữ
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label>Giới tính</label> 
                                     <div>
-                                        <form:radiobutton path="gender" required="required"
-                                                          value="Nam"/> Nam
-                                        <form:radiobutton path="gender" required="required" style="margin-left: 50px;"
-                                                          value="Nu"/> Nữ
+                                        <label>Ngày sinh</label> <form:input type="date" class="form-control" path="birthdate" required="required"
+                                                    id="birthdate" placeholder="Enter Password" name="birthdate"/>
+                                        
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <label>Ngày sinh</label> <form:input type="date" class="form-control" path="birthdate" required="required"
-                                                    id="birthdate" placeholder="Enter Password" name="birthdate"/>
+                                        <label>Tên đăng nhập</label> <form:input type="text" class="form-control" path="username" required="required"
+                                                    id="username" placeholder="Enter Username" name="username"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label>Mật khẩu</label> <form:input type="password" class="form-control" path="password" required="required"
+                                                    id="password" placeholder="Enter Password" name="password"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label>Nhập lại mật khẩu</label> <form:input type="password" class="form-control" path="rePassword" required="required"
+                                                    id="rePassword" placeholder="Enter Password Again" name="rePassword"/>
                                     </div>
                                 </td>
                             </tr>
