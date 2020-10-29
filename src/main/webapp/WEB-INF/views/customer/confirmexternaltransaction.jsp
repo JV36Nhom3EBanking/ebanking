@@ -1,6 +1,6 @@
 <%-- 
-    Document   : confirmtransactioninformation
-    Created on : Oct 7, 2020, 5:59:03 PM
+    Document   : confirmexternaltransaction
+    Created on : Oct 13, 2020, 12:28:14 PM
     Author     : Huy
 --%>
 
@@ -85,13 +85,13 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
                         <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a class="active" href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
+                        <a class="active" href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
@@ -100,34 +100,35 @@
                         <tr>
                             <td colspan="4" style="background-color: greenyellow;">Chuyển khoản</td>
                         </tr>
-                        <form:form name="contactform" method="POST" modelAttribute="internalTransferModel" action="${pageContext.request.contextPath}/customer/confirmInternalTransactionInformation">
-                            <form:hidden path="accountFromNo" value="${internalTransferModel.getAccountFrom().getId()}" />
-                            <form:hidden path="accountToNo" value="${internalTransferModel.getAccountTo().getId()}" />
-                            <form:hidden path="amount" value="${internalTransferModel.getAmount()}" />
-                            <form:hidden path="amountByText" value="${internalTransferModel.getAmountByText()}" />
-                            <form:hidden path="message" value="${internalTransferModel.getMessage()}" />
-                            <form:hidden path="feeCarier" value="${internalTransferModel.getFeeCarier()}" />
-                            <form:hidden path="fee" value="${internalTransferModel.getFee()}" />
+                        <form:form name="contactform" method="POST" modelAttribute="externalTransferModel" action="${pageContext.request.contextPath}/customer/confirmExternalTransaction">
+                            <form:hidden path="accountFromNo" value="${externalTransferModel.getAccountFrom().getId()}" />
+                            <form:hidden path="accountToNo" value="${externalTransferModel.getAccountTo().getId()}" />
+                            <form:hidden path="bankBranch" value="${externalTransferModel.getBankBranch()}"/>
+                            <form:hidden path="amountByText" value="${externalTransferModel.getAmountByText()}" />
+                            <form:hidden path="amount" value="${externalTransferModel.getAmount()}" />
+                            <form:hidden path="message" value="${externalTransferModel.getMessage()}" />
+                            <form:hidden path="feeCarier" value="${externalTransferModel.getFeeCarier()}" />
+                            <form:hidden path="fee" value="${externalTransferModel.getFee()}" />
                             <tr>
                                 <td>
                                     <label>Tài khoản chuyển tiền</label>
                                 </td>
-                                <td colspan="3">${internalTransferModel.getAccountFrom().getId()}</td>
+                                <td colspan="3">${externalTransferModel.getAccountFrom().getId()}</td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Số dư tài khoản chuyển tiền</label>
                                 </td>
                                 <td colspan="3">
-                                    <span class="currency">${internalTransferModel.getAccountFrom().getBalance()}</span> VNĐ
+                                    <span class="currency">${externalTransferModel.getAccountFrom().getBalance()}</span> VNĐ
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Số tiền chuyển khoản</label>
                                 </td>
-                                <td colspan="3">
-                                    <span class="currency">${internalTransferModel.getAmount()}</span> VNĐ
+                                <td colspan="3" style="color: red;">
+                                    <span class="currency">${externalTransferModel.getAmount()}</span> VNĐ
                                 </td>
                             </tr>
                             <tr>
@@ -135,23 +136,31 @@
                                     <label>Số tiền bằng chữ</label>
                                 </td>
                                 <td colspan="3">
-                                    ${internalTransferModel.getAmountByText()}
+                                    ${externalTransferModel.getAmountByText()}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Tài khoản thụ hưởng</label>
                                 </td>
-                                <td colspan="3">
-                                    ${internalTransferModel.getAccountTo().getId()}
+                                <td colspan="3" style="color: red;">
+                                    ${externalTransferModel.getAccountTo().getId()}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Tên chủ tài khoản thụ hưởng</label>
                                 </td>
+                                <td colspan="3" style="color: red;">
+                                    ${externalTransferModel.getAccountTo().getCustomer().getName()}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Ngân hàng thụ hưởng</label>
+                                </td>
                                 <td colspan="3">
-                                    ${internalTransferModel.getAccountTo().getCustomer().getName()}
+                                    ${externalTransferModel.getBankBranch()}
                                 </td>
                             </tr>
                             <tr>
@@ -159,7 +168,7 @@
                                     <label>Nội dung chuyển tiền</label>
                                 </td>
                                 <td colspan="3">
-                                    ${internalTransferModel.getMessage()}
+                                    ${externalTransferModel.getMessage()}
                                 </td>
                             </tr>
                             <tr>
@@ -167,7 +176,7 @@
                                     <label>Phí</label>
                                 </td>
                                 <c:choose>
-                                    <c:when test='${internalTransferModel.getFeeCarier() == "nguoichuyen"}'>
+                                    <c:when test='${externalTransferModel.getFeeCarier() == "nguoichuyen"}'>
                                         <td colspan="3">
                                             Phí người chuyển trả
                                         </td>
@@ -185,44 +194,27 @@
                                     <label>Số tiền phí</label>
                                 </td>
                                 <td colspan="3">
-                                    <span class="currency">10000</span> VNĐ
+                                    <span class="currency">25000</span> VNĐ
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label>Hình thức nhận mã giao dịch</label>
+                                    <label>Email nhận mã giao dịch</label>
                                 </td>
                                 <td colspan="3">
-                                    Qua Email
+                                    ${externalTransferModel.getAccountFrom().getCustomer().getEmail()}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label>Email nhận OTP</label>
+                                    <label>Nhập mã giao dịch</label>
                                 </td>
                                 <td colspan="3">
-                                    ${internalTransferModel.getAccountFrom().getCustomer().getEmail()}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Mã kiểm tra</label>
-                                </td>
-                                <td colspan="3">
-                                    <img src="${pageContext.request.contextPath }/captcha">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Nhập lại mã kiểm tra</label>
-                                </td>
-                                <td colspan="3">
-                                    <form:input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
+                                    <form:input type="text" name="otp" class="form-control" required="required" style="margin-top: 20px;" path="otp"/>
                                     <br>
                                     <p style=" color: red;">${error}</p>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td colspan="4">
                                     <div style="float: right;">
@@ -230,6 +222,9 @@
                                         <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align: center;">Mã giao dịch đã được gửi đến email của quý khách.</td>
                             </tr>
                         </form:form>
                     </table>
@@ -311,3 +306,4 @@
         <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
+

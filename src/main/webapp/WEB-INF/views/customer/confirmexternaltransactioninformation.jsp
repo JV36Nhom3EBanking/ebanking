@@ -1,6 +1,6 @@
 <%-- 
-    Document   : confirmexternaltransaction
-    Created on : Oct 13, 2020, 12:28:14 PM
+    Document   : confirmexternaltransactioninformation
+    Created on : Oct 13, 2020, 12:05:55 PM
     Author     : Huy
 --%>
 
@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
@@ -100,7 +100,7 @@
                         <tr>
                             <td colspan="4" style="background-color: greenyellow;">Chuyển khoản</td>
                         </tr>
-                        <form:form name="contactform" method="POST" modelAttribute="externalTransferModel" action="${pageContext.request.contextPath}/customer/confirmExternalTransaction">
+                        <form:form name="contactform" method="POST" modelAttribute="externalTransferModel" action="${pageContext.request.contextPath}/customer/confirmExternalTransactionInformation">
                             <form:hidden path="accountFromNo" value="${externalTransferModel.getAccountFrom().getId()}" />
                             <form:hidden path="accountToNo" value="${externalTransferModel.getAccountTo().getId()}" />
                             <form:hidden path="bankBranch" value="${externalTransferModel.getBankBranch()}"/>
@@ -127,7 +127,7 @@
                                 <td>
                                     <label>Số tiền chuyển khoản</label>
                                 </td>
-                                <td colspan="3" style="color: red;">
+                                <td colspan="3">
                                     <span class="currency">${externalTransferModel.getAmount()}</span> VNĐ
                                 </td>
                             </tr>
@@ -143,7 +143,7 @@
                                 <td>
                                     <label>Tài khoản thụ hưởng</label>
                                 </td>
-                                <td colspan="3" style="color: red;">
+                                <td colspan="3">
                                     ${externalTransferModel.getAccountTo().getId()}
                                 </td>
                             </tr>
@@ -151,7 +151,7 @@
                                 <td>
                                     <label>Tên chủ tài khoản thụ hưởng</label>
                                 </td>
-                                <td colspan="3" style="color: red;">
+                                <td colspan="3">
                                     ${externalTransferModel.getAccountTo().getCustomer().getName()}
                                 </td>
                             </tr>
@@ -199,7 +199,15 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label>Email nhận mã giao dịch</label>
+                                    <label>Hình thức nhận mã giao dịch</label>
+                                </td>
+                                <td colspan="3">
+                                    Qua Email
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Email nhận OTP</label>
                                 </td>
                                 <td colspan="3">
                                     ${externalTransferModel.getAccountFrom().getCustomer().getEmail()}
@@ -207,14 +215,23 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label>Nhập mã giao dịch</label>
+                                    <label>Mã kiểm tra</label>
                                 </td>
                                 <td colspan="3">
-                                    <form:input type="text" name="otp" class="form-control" required="required" style="margin-top: 20px;" path="otp"/>
+                                    <img src="${pageContext.request.contextPath }/captcha">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Nhập lại mã kiểm tra</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
                                     <br>
                                     <p style=" color: red;">${error}</p>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td colspan="4">
                                     <div style="float: right;">
@@ -222,9 +239,6 @@
                                         <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="text-align: center;">Mã giao dịch đã được gửi đến email của quý khách.</td>
                             </tr>
                         </form:form>
                     </table>

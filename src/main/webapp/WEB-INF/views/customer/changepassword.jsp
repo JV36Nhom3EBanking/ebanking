@@ -1,6 +1,6 @@
 <%-- 
-    Document   : changepasswordsuccess
-    Created on : Oct 18, 2020, 2:48:34 PM
+    Document   : changepassword
+    Created on : Oct 18, 2020, 1:27:11 PM
     Author     : Huy
 --%>
 
@@ -40,7 +40,7 @@
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="<c:url value="/trangchu"/>">Trang chủ</a></li>
+                        <li class="active"><a href="index.html">Trang chủ</a></li>
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
@@ -53,7 +53,6 @@
                                 <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
                                 </c:otherwise>
                             </c:choose>
-
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -75,18 +74,18 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Welcome, ${name}</li>
+                        <li class="breadcrumb-item" aria-current="page">Đổi mật khẩu</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- //breadcrumb -->
-
+        
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a class="active" href="<c:url value="/customer/changePassword"/>" >Change Password</a>
@@ -95,11 +94,38 @@
                         <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
-                    <h4 style="margin: 0 auto;">Đổi mật khẩu thành công. Cảm ơn quý khách.</h4>
+                    
+                <div class="contact-form mt-md-0 mt-sm-5 mt-4">
+                    <h4 class="mb-4 w3f_title title_center">Đổi mật khẩu</h4>
+                    <form:form name="contactform" method="POST" action="${pageContext.request.contextPath}/customer/confirmChangePassword" modelAttribute="changePasswordModel">
+                        <div class="form-group">
+                            <label>Mật khẩu hiện tại</label> <form:input type="password" class="form-control" path="password" required="required"
+                                        placeholder="Enter Password" name="password"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Mật khẩu mới</label> <form:input type="password" class="form-control" path="newPassword" required="required"
+                                        placeholder="Enter New Password" name="newPassword"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Nhập lại mật khẩu mới</label> <form:input type="password" class="form-control" path="reNewPassword" required="required"
+                                        placeholder="Enter New Password Again" name="reNewPassword"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Captcha</label> 
+                            <img src="${pageContext.request.contextPath }/captcha">
+                            <br>
+                            <form:input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
+                            <br>
+                        </div>
+                        <p style=" color: red;">${error}</p>
+                        <div style="margin-bottom: 20px;">
+                            <form:button type="submit" class="btn btn-default">Xác nhận</form:button>
+                            <form:button type="button" class="btn btn-primary" style="margin-left: 20px;">Cancel</form:button>
+                            </div>
+                    </form:form>
+                </div>
             </div>
         </div>
-
-
 
         <!-- footer -->
         <footer class="footer py-5">

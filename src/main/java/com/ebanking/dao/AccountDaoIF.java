@@ -25,7 +25,7 @@ public interface AccountDaoIF extends CrudRepository<Account, Integer> {
     @Query(value = "SELECT account.* FROM account, bank WHERE account.bankId = bank.id AND bank.branch = 'VietComBank'", nativeQuery = true) 
     public List<Account> getAllInternalAccount();
     
-    @Query(value = "SELECT account.* FROM account, bank, customer WHERE account.bankId = bank.id AND customer.id = ?1 AND bank.branch = 'VietComBank'", nativeQuery = true)
+    @Query(value = "SELECT account.* FROM account, bank WHERE account.bankId = bank.id AND customerId = ?1 AND bank.branch = 'VietComBank'", nativeQuery = true)
     public List<Account> getCustomerAccount(int id);
     
 }

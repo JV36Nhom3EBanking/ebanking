@@ -1,6 +1,6 @@
 <%-- 
-    Document   : searchtransaction
-    Created on : Oct 5, 2020, 10:17:47 AM
+    Document   : externaltransfermoney
+    Created on : Oct 12, 2020, 9:45:03 PM
     Author     : Huy
 --%>
 
@@ -20,6 +20,9 @@
 
             function hideURLbar() {
                 window.scrollTo(0, 1);
+            }
+            function format_currency(a) {
+                a.value = a.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
             }
         </script>
         <jsp:include page="/WEB-INF/views/header.jsp" />
@@ -74,7 +77,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
+                        <li class="breadcrumb-item" aria-current="page">Chuyển tiền</li>
                     </ol>
                 </nav>
             </div>
@@ -85,44 +88,95 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
+                        <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
                         <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a class="active" href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Tìm kiếm giao dịch</h4>
+                    <h4 class="mb-4 w3f_title title_center">Chuyển tiền nội bộ</h4>
                     <table class="table table-bordered">
                         <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Lựa chọn thông tin</td>
+                            <td colspan="4" style="background-color: greenyellow;">Chuyển khoản</td>
                         </tr>
-                        <tr>
-                            <td colspan="4">
-                                <form:form name="contactform" method="POST" modelAttribute="searchTransaction" action="/ebanking/customer/account/searchTransaction">
-                                    <div class="form-group">
-                                        <label>Số tài khoản</label>
-                                        <form:select path="id">
-                                            <form:option value="0">--Please select an account--</form:option>
-                                            <form:options items="${listAccount}" itemValue="id"
-                                                          itemLabel="id" />
-                                        </form:select>
-                                        <br>
-                                        <label>Từ ngày</label> 
-                                        <form:input type="date" class="form-control" path="dateFrom"
-                                                    id="dateFrom" placeholder="Enter DateFrom" name="dateFrom"/>
-                                        <label>Đến ngày</label> 
-                                        <form:input type="date" class="form-control" path="dateTo"
-                                                    id="dateTo" placeholder="Enter DateTo" name="dateTo"/>
-                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Tìm kiếm</form:button>
-                                        </div>
-                                </form:form>
-                            </td>
-                        </tr>
+                        <form:form name="contactform" method="POST" modelAttribute="externalTransferModel" action="${pageContext.request.contextPath}/customer/enterExternalTransactionInformation">
+                            <tr>
+                                <td>
+                                    <label>Tài khoản chuyển tiền</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:select path="accountFromNo">
+                                        <form:option value="0">--Please select an account--</form:option>
+                                        <form:options items="${listAccount}" itemValue="id"
+                                                      itemLabel="id" />
+                                    </form:select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Số tài khoản thụ hưởng</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:input type="text" class="form-control" path="accountToNo"
+                                                id="accountToNo" placeholder="Nhập số tài khoản thụ hưởng" name="accountToNo"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Ngân hàng thụ hưởng</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:select path="bankBranch">
+                                        <c:forEach items="${branches}" var="value">
+                                            <form:option value="${value}">${value}</form:option>
+                                        </c:forEach>
+                                    </form:select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Số tiền</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:input type="text" class="form-control" path="amountFormat" onChange="format_currency(this);"
+                                                id="amount" placeholder="Nhập số tiền cần chuyển" name="amount"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Nội dung thanh toán</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:textarea type="text" rows="5" class="form-control" path="message"
+                                                   id="message" placeholder="Nhập tin nhắn" name="message"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Phí</label>
+                                </td>
+                                <td colspan="3">
+                                    <form:select path="feeCarier">
+                                        <form:option value="nguoichuyen">Phí người chuyển trả</form:option>
+                                        <form:option value="nguoinhan">Phí người nhận trả</form:option>
+                                    </form:select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div style="float: right;">
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Xác nhận</form:button>
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px; margin-left: 50px; "><a style="color: black;" href="<c:url value="/trangchu"/>">Cancel</a></form:button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </form:form>
                     </table>
+                    <p style=" color: red;">${error}</p>
                 </div>
             </div>
         </div>
@@ -200,4 +254,3 @@
         <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
-

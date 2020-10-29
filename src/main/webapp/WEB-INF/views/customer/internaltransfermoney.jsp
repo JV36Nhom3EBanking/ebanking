@@ -1,6 +1,6 @@
 <%-- 
-    Document   : externaltransfermoney
-    Created on : Oct 12, 2020, 9:45:03 PM
+    Document   : internaltransfermoney
+    Created on : Oct 6, 2020, 1:02:07 PM
     Author     : Huy
 --%>
 
@@ -88,13 +88,13 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
                         <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a class="active" href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a class="active" href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
+                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
@@ -103,7 +103,7 @@
                         <tr>
                             <td colspan="4" style="background-color: greenyellow;">Chuyển khoản</td>
                         </tr>
-                        <form:form name="contactform" method="POST" modelAttribute="externalTransferModel" action="${pageContext.request.contextPath}/customer/enterExternalTransactionInformation">
+                        <form:form name="contactform" method="POST" modelAttribute="internalTransferModel" action="${pageContext.request.contextPath}/customer/enterInternalTransactionInformation">
                             <tr>
                                 <td>
                                     <label>Tài khoản chuyển tiền</label>
@@ -123,18 +123,6 @@
                                 <td colspan="3">
                                     <form:input type="text" class="form-control" path="accountToNo"
                                                 id="accountToNo" placeholder="Nhập số tài khoản thụ hưởng" name="accountToNo"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Ngân hàng thụ hưởng</label>
-                                </td>
-                                <td colspan="3">
-                                    <form:select path="bankBranch">
-                                        <c:forEach items="${branches}" var="value">
-                                            <form:option value="${value}">${value}</form:option>
-                                        </c:forEach>
-                                    </form:select>
                                 </td>
                             </tr>
                             <tr>

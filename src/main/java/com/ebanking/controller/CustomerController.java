@@ -74,7 +74,7 @@ public class CustomerController {
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
         
-        return "home";
+        return "customer/home";
     }
 
     @GetMapping("/info")
@@ -87,7 +87,7 @@ public class CustomerController {
         String chucaidau = customer.getEmail().substring(0, 1);
         modelMap.addAttribute("chucaidau", chucaidau);
         
-        return "viewcustomerinfo";
+        return "customer/viewcustomerinfo";
     }
 
     @GetMapping("/account/{id}")
@@ -105,7 +105,7 @@ public class CustomerController {
         SearchTransactionModel searchTransactionModel = new SearchTransactionModel();
         modelMap.addAttribute("searchTransaction", searchTransactionModel);
 
-        return "viewaccountinfo";
+        return "customer/viewaccountinfo";
     }
 
     @PostMapping("/account/searchTransaction")
@@ -127,7 +127,7 @@ public class CustomerController {
 
         List<Transaction> transactions = transactionService.getTransactionsByDateAndAccountId(date1, date2, id);
         modelMap.addAttribute("transactions", transactions);
-        return "viewtransactionlist";
+        return "customer/viewtransactionlist";
     }
 
     @GetMapping("/account/transaction/{id}")
@@ -143,7 +143,7 @@ public class CustomerController {
         Transaction transaction = transactionService.getTransaction(id);
         modelMap.addAttribute("transaction", transaction);
 
-        return "viewtransactioninfo";
+        return "customer/viewtransactioninfo";
     }
 
     @GetMapping("/account/list")
@@ -159,7 +159,7 @@ public class CustomerController {
         List<Account> accounts = customer.getAccounts();
         modelMap.addAttribute("listAccount", accounts);
 
-        return "viewaccountlist";
+        return "customer/viewaccountlist";
     }
 
     @GetMapping("/account/transaction/search")
@@ -177,7 +177,7 @@ public class CustomerController {
         SearchTransactionModel searchTransactionModel = new SearchTransactionModel();
         modelMap.addAttribute("searchTransaction", searchTransactionModel);
 
-        return "searchtransaction";
+        return "customer/searchtransaction";
     }
 
     @GetMapping("/internaltransfermoney")
@@ -195,7 +195,7 @@ public class CustomerController {
         InternalTransferModel internalTransferModel = new InternalTransferModel();
         modelMap.addAttribute("internalTransferModel", internalTransferModel);
 
-        return "internaltransfermoney";
+        return "customer/internaltransfermoney";
     }
 
     @PostMapping("/enterInternalTransactionInformation")
@@ -222,21 +222,21 @@ public class CustomerController {
             modelMap.addAttribute("error", "Số tiền chuyển trong một giao dịch không được vượt quá 50.000.000 VNĐ. Xin quý khách vui lòng thử lại. Chân thành cảm ơn quý khách.");
             List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
-            return "internaltransfermoney";
+            return "customer/internaltransfermoney";
         }
         if (remain < 50000) {
             modelMap.addAttribute("error", "Tài khoản của quý khách không đủ để thực hiện giao dịch này. Quý khách vui lòng chuyển thêm tiền vào thẻ để tiếp tục sử dụng dịch vụ này của chúng tôi. Chân thành cảm ơn quý khách.");
             List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
-            return "internaltransfermoney";
+            return "customer/internaltransfermoney";
         } else if (accountTo != null) {
             modelMap.addAttribute("internalTransferModel", internalTransferModel);
-            return "confirminternaltransactioninformation";
+            return "customer/confirminternaltransactioninformation";
         } else {
             modelMap.addAttribute("error", "Không tìm thấy tài khoản thụ hưởng chỉ định. Vui lòng kiểm tra lại thông tin. Cảm ơn quý khách");
             List<Account> accounts = accountService.getCustomerAccount(customer.getId());
             modelMap.addAttribute("listAccount", accounts);
-            return "internaltransfermoney";
+            return "customer/internaltransfermoney";
         }
 
     }
@@ -264,12 +264,12 @@ public class CustomerController {
             String otp = OTP.createOTP();
             modelMap.addAttribute("otp", otp);
             emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
-            return "confirminternaltransaction";
+            return "customer/confirminternaltransaction";
         } else {
             String error = "Wrong input captcha. Please check your input captcha and try again!";
             modelMap.addAttribute("internalTransferModel", internalTransferModel);
             modelMap.addAttribute("error", error);
-            return "confirminternaltransactioninformation";
+            return "customer/confirminternaltransactioninformation";
         }
     }
 
@@ -296,12 +296,12 @@ public class CustomerController {
 
             Transaction transaction = accountService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
             modelMap.addAttribute("transaction", transaction);
-            return "successinternaltransaction";
+            return "customer/successinternaltransaction";
         } else {
             String error = "Wrong otp. Please check your input captcha and try again!";
             modelMap.addAttribute("internalTransferModel", internalTransferModel);
             modelMap.addAttribute("error", error);
-            return "confirmtransaction";
+            return "customer/confirmtransaction";
         }
     }
 
@@ -323,7 +323,7 @@ public class CustomerController {
         ExternalTransferModel externalTransferModel = new ExternalTransferModel();
         modelMap.addAttribute("externalTransferModel", externalTransferModel);
 
-        return "externaltransfermoney";
+        return "customer/externaltransfermoney";
     }
 
     @PostMapping("/enterExternalTransactionInformation")
@@ -353,7 +353,7 @@ public class CustomerController {
             List<String> listBranches = bankService.getListBranches();
             listBranches.remove("VietComBank");
             modelMap.addAttribute("branches", listBranches);
-            return "externaltransfermoney";
+            return "customer/externaltransfermoney";
         }
         if (remain < 50000) {
             modelMap.addAttribute("error", "Tài khoản của quý khách không đủ để thực hiện giao dịch này. Quý khách vui lòng chuyển thêm tiền vào thẻ để tiếp tục sử dụng dịch vụ này của chúng tôi. Chân thành cảm ơn quý khách.");
@@ -362,10 +362,10 @@ public class CustomerController {
             List<String> listBranches = bankService.getListBranches();
             listBranches.remove("VietComBank");
             modelMap.addAttribute("branches", listBranches);
-            return "externaltransfermoney";
+            return "customer/externaltransfermoney";
         } else if (accountTo != null) {
             modelMap.addAttribute("externalTransferModel", externalTransferModel);
-            return "confirmexternaltransactioninformation";
+            return "customer/confirmexternaltransactioninformation";
         } else {
             modelMap.addAttribute("error", "Không tìm thấy tài khoản thụ hưởng chỉ định. Vui lòng kiểm tra lại thông tin. Cảm ơn quý khách");
             List<Account> accounts = accountService.getCustomerAccount(customer.getId());
@@ -373,7 +373,7 @@ public class CustomerController {
             List<String> listBranches = bankService.getListBranches();
             listBranches.remove("VietComBank");
             modelMap.addAttribute("branches", listBranches);
-            return "externaltransfermoney";
+            return "customer/externaltransfermoney";
         }
 
     }
@@ -402,12 +402,12 @@ public class CustomerController {
             String otp = OTP.createOTP();
             modelMap.addAttribute("otp", otp);
             emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
-            return "confirmexternaltransaction";
+            return "customer/confirmexternaltransaction";
         } else {
             String error = "Wrong input captcha. Please check your input captcha and try again!";
             modelMap.addAttribute("externalTransferModel", externalTransferModel);
             modelMap.addAttribute("error", error);
-            return "confirmexternaltransactioninformation";
+            return "customer/confirmexternaltransactioninformation";
         }
     }
 
@@ -434,12 +434,12 @@ public class CustomerController {
 
             Transaction transaction = webService.TransferMoney(accountFrom, accountTo, amount, message, type, feeCarier, fee);
             modelMap.addAttribute("transaction", transaction);
-            return "successexternaltransaction";
+            return "customer/successexternaltransaction";
         } else {
             String error = "Wrong otp. Please check your input captcha and try again!";
             modelMap.addAttribute("externalTransferModel", externalTransferModel);
             modelMap.addAttribute("error", error);
-            return "confirmexternaltransaction";
+            return "customer/confirmexternaltransaction";
         }
     }
 }

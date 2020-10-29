@@ -50,7 +50,7 @@ public class ChangePasswordController {
         ChangePasswordModel changePasswordModel = new ChangePasswordModel();
         modelMap.addAttribute("changePasswordModel", changePasswordModel);
         
-        return "changepassword";
+        return "customer/changepassword";
     }
     
     @PostMapping("/confirmChangePassword")
@@ -63,21 +63,21 @@ public class ChangePasswordController {
                 if(changePasswordModel.getNewPassword().equals(changePasswordModel.getReNewPassword())) {
                     String newPassword = encrytedPassword.encrytePassword(changePasswordModel.getNewPassword());
                     userService.changePassword(user, newPassword);
-                    return "changepasswordsuccess";
+                    return "customer/changepasswordsuccess";
                 }
                 else {
                     modelMap.addAttribute("error", "Mật khẩu mới và Nhập lại mật khẩu mới không trùng nhau. Vui lòng thử lại. Cảm ơn quý khách.");
-                    return "changepassword";
+                    return "customer/changepassword";
                 }
             }
             else {
                 modelMap.addAttribute("error", "Mật khẩu hiện tại không đúng. Vui lòng thử lại. Cảm ơn quý khách.");
-                return "changepassword";
+                return "customer/changepassword";
             }
         }
         else {
             modelMap.addAttribute("error", "Captcha nhập sai. Mong quý khách vui lòng thử lại. Cảm ơn quý khách.");
-            return "changepassword";
+            return "customer/changepassword";
         }
     }
 }

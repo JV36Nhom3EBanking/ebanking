@@ -73,7 +73,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
+                        <li class="breadcrumb-item"><a href="index.html">Welcome, Admin : ${name}</a></li>
                         <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
                     </ol>
                 </nav>

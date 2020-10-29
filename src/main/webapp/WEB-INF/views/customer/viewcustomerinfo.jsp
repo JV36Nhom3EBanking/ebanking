@@ -1,7 +1,7 @@
 <%-- 
-    Document   : changepassword
-    Created on : Oct 18, 2020, 1:27:11 PM
-    Author     : Huy
+    Document   : viewaccountinfo
+    Created on : Oct 1, 2020, 7:47:41 PM
+    Author     : Huy Hoang
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -73,59 +73,86 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Đổi mật khẩu</li>
+                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Thông tin cá nhân</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- //breadcrumb -->
-        
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
+                        <a class="active" href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a class="active" href="<c:url value="/customer/changePassword"/>" >Change Password</a>
+                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
                         <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
                         <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
-                    
-                <div class="contact-form mt-md-0 mt-sm-5 mt-4">
-                    <h4 class="mb-4 w3f_title title_center">Đổi mật khẩu</h4>
-                    <form:form name="contactform" method="POST" action="${pageContext.request.contextPath}/customer/confirmChangePassword" modelAttribute="changePasswordModel">
-                        <div class="form-group">
-                            <label>Mật khẩu hiện tại</label> <form:input type="password" class="form-control" path="password" required="required"
-                                        placeholder="Enter Password" name="password"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mật khẩu mới</label> <form:input type="password" class="form-control" path="newPassword" required="required"
-                                        placeholder="Enter New Password" name="newPassword"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Nhập lại mật khẩu mới</label> <form:input type="password" class="form-control" path="reNewPassword" required="required"
-                                        placeholder="Enter New Password Again" name="reNewPassword"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Captcha</label> 
-                            <img src="${pageContext.request.contextPath }/captcha">
-                            <br>
-                            <form:input type="text" name="captcha" class="form-control" required="required" style="margin-top: 20px;" path="captcha"/>
-                            <br>
-                        </div>
-                        <p style=" color: red;">${error}</p>
-                        <div style="margin-bottom: 20px;">
-                            <form:button type="submit" class="btn btn-default">Xác nhận</form:button>
-                            <form:button type="button" class="btn btn-primary" style="margin-left: 20px;">Cancel</form:button>
-                            </div>
-                    </form:form>
+                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
+                    <h4 class="mb-4 w3f_title title_center">Thông tin cá nhân của bạn</h4>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Thông tin cá nhân</td>
+                        </tr>
+                        <tr>
+                            <td>Tên khách hàng</td>
+                            <td>${customer.getName()}</td>
+                            <td>Ngày sinh</td>
+                            <td>${customer.getBirthdate()}</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td>${customer.getAddress()}</td>
+                            <td>Quận</td>
+                            <td>${customer.getDistrict()}</td>
+                        </tr>
+                        <tr>
+                            <td>Thành phố</td>
+                            <td>${customer.getCity()}</td>
+                            <td>Giới tính</td>
+                            <td>${customer.getGender()}</td>
+                        </tr>
+                        <tr>
+                            <td>Quốc tịch</td>
+                            <td>${customer.getNationality()}</td>
+                            <td>Chứng minh nhân dân</td>
+                            <td>${customer.getCmnd()}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>${customer.getEmail()}</td>
+                            <td>Số điện thoại</td>
+                            <td>${customer.getPhone()}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
+                        </tr>
+                        <tr>
+                            <td>Số tài khoản</td>
+                            <td>Ngày mở</td>
+                            <td>Số dư hiện tại</td>
+                            <td></td>
+                        </tr>                       
+                        <c:forEach var="value" items="${customer.getAccounts() }">
+                            <tr>
+                                <td>${value.getId()}</td>
+                                <td>${value.getOpenDate()}</td>
+                                <td><span class="currency">${value.getBalance()}</span> VNĐ</td>
+                                <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </div>
             </div>
         </div>
+
+
 
         <!-- footer -->
         <footer class="footer py-5">

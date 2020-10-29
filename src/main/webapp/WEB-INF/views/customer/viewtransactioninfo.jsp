@@ -1,7 +1,7 @@
 <%-- 
     Document   : viewtransactioninfo
-    Created on : Oct 3, 2020, 6:16:35 PM
-    Author     : Huy Hoang
+    Created on : Oct 4, 2020, 11:25:54 PM
+    Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -85,34 +85,49 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
                         <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
                         <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="<c:url value="/customer/internaltransfermoney"/>">Internal Transfer Money</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Danh sách giao dịch của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Thông tin chi tiết giao dịch</h4>
                     <table class="table table-bordered">
                         <tr>
-                            <td style="background-color: greenyellow;">Số tài khoản</td>
-                            <td colspan="2">${account.getId()}</td>
+                            <td colspan="4" style="background-color: greenyellow;">Chi tiết giao dịch</td>
                         </tr>
-                        <tr style="background-color: greenyellow;">
+                        <tr>
                             <td>Mã giao dịch</td>
+                            <td>${transaction.getId()}</td>
+                            <td>Loại giao dịch</td>
+                            <td>${transaction.getType()}</td>
+                        </tr>
+                        <tr>
+                            <td>Tài khoản thực hiện</td>
+                            <td>${transaction.getAccount1().getId()}</td>
+                            <td>Tài khoản thụ hưởng</td>
+                            <td>${transaction.getAccount2().getId()}</td>
+                        </tr>
+                        <tr>
+                            <td>Chủ tài khoản thực hiện</td>
+                            <td>${transaction.getAccount1().getCustomer().getName()}</td>
+                            <td>Chủ tài khoản thụ hưởng</td>
+                            <td>${transaction.getAccount2().getCustomer().getName()}</td>
+                        </tr>
+                        <tr>
+                            <td>Số tiền</td>
+                            <td><span class="currency">${transaction.getAmount()}</span> VNĐ</td>
                             <td>Ngày giao dịch</td>
-                            <td></td>   
-                        </tr>              
-                        <c:forEach var="value" items="${transactions }">
-                            <tr>
-                                <td>${value.getId()}</td>
-                                <td>${value.getTransactionDate()}</td>
-                                <td><a href="<c:url value="/customer/account/transaction/${value.getId()}"/>">Xem chi tiết</a></td>
-                            </tr>
-                        </c:forEach>
+                            <td>${transaction.getTransactionDate()}</td>
+                        </tr>
+                        <tr>
+                            <td>Tin nhắn</td>
+                            <td colspan="3">${transaction.getMessage()}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -191,3 +206,4 @@
         <jsp:include page="/WEB-INF/views/footer.jsp" />
     </body>
 </html>
+

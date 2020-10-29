@@ -1,11 +1,11 @@
 <%-- 
-    Document   : viewaccountlist
-    Created on : Oct 5, 2020, 12:57:38 AM
+    Document   : searchtransaction
+    Created on : Oct 5, 2020, 10:17:47 AM
     Author     : Huy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +74,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Thông tin tài khoản</li>
+                        <li class="breadcrumb-item" aria-current="page">Thống kê giao dịch</li>
                     </ol>
                 </nav>
             </div>
@@ -85,35 +85,43 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/trangchu"/>">Home</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
                         <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a class="active" href="<c:url value="/customer/account/list"/>">View Account Information</a>
+                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
                         <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
+                        <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
                         <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
                         <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">
-                    <h4 class="mb-4 w3f_title title_center">Danh sách tài khoản của bạn</h4>
+                    <h4 class="mb-4 w3f_title title_center">Tìm kiếm giao dịch</h4>
                     <table class="table table-bordered">
                         <tr>
-                            <td colspan="4" style="background-color: greenyellow;">Danh sách tài khoản</td>
+                            <td colspan="4" style="background-color: greenyellow;">Lựa chọn thông tin</td>
                         </tr>
                         <tr>
-                            <td>Số tài khoản</td>
-                            <td>Ngày mở tài khoản</td>
-                            <td>Số dư hiện tại</td>
-                            <td></td>
+                            <td colspan="4">
+                                <form:form name="contactform" method="POST" modelAttribute="searchTransaction" action="/ebanking/customer/account/searchTransaction">
+                                    <div class="form-group">
+                                        <label>Số tài khoản</label>
+                                        <form:select path="id">
+                                            <form:option value="0">--Please select an account--</form:option>
+                                            <form:options items="${listAccount}" itemValue="id"
+                                                          itemLabel="id" />
+                                        </form:select>
+                                        <br>
+                                        <label>Từ ngày</label> 
+                                        <form:input type="date" class="form-control" path="dateFrom"
+                                                    id="dateFrom" placeholder="Enter DateFrom" name="dateFrom"/>
+                                        <label>Đến ngày</label> 
+                                        <form:input type="date" class="form-control" path="dateTo"
+                                                    id="dateTo" placeholder="Enter DateTo" name="dateTo"/>
+                                        <form:button type="submit" class="btn btn-default" style="margin-top: 20px;">Tìm kiếm</form:button>
+                                        </div>
+                                </form:form>
+                            </td>
                         </tr>
-                        <c:forEach var="value" items="${listAccount }">
-                            <tr>
-                                <td>${value.getId()}</td>
-                                <td>${value.getOpenDate()}</td>
-                                <td><span class="currency">${value.getBalance()}</span> VNĐ</td>
-                                <td><a href="<c:url value="/customer/account/${value.getId()}"/>">Xem chi tiết</a></td>
-                            </tr>
-                        </c:forEach>
                     </table>
                 </div>
             </div>
