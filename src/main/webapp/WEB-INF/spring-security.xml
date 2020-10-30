@@ -20,8 +20,9 @@
         </security:authentication-provider>    
     </security:authentication-manager>
     
-<!--    <security:http auto-config="false" use-expressions="true"
+    <security:http auto-config="false" use-expressions="true"
                    entry-point-ref="loginUrlAuthenticationEntryPoint">
+        <security:custom-filter ref="customUsernamePasswordAuthenticationFilter" after="FORM_LOGIN_FILTER"/>
         <security:csrf disabled="true"/>
         <security:intercept-url pattern="/customer/*" 
                                 access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
@@ -29,21 +30,19 @@
                                 access="hasRole('ROLE_ADMIN')"/>
  
         <security:access-denied-handler error-page="/login"/>
-        <security:custom-filter ref="customUsernamePasswordAuthenticationFilter" before="FORM_LOGIN_FILTER"/>
- 
         <security:logout logout-url="/logout"
-                invalidate-session="true"
-                logout-success-url="/login?logout=true"/>
+                         invalidate-session="true"
+                         logout-success-url="/login?logout=true"/>
     </security:http>
     
     <bean id="loginUrlAuthenticationEntryPoint"
           class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-        <constructor-arg value="/"/>
+        <constructor-arg value="/login"/>
     </bean>
     
     <bean id="customUsernamePasswordAuthenticationFilter"
-                class="com.ebanking.security.CustomUsernamePasswordAuthenticationFilter">
-        <property name="filterProcessesUrl" value="/login" />
+          class="com.ebanking.security.CustomUsernamePasswordAuthenticationFilter">
+        <property name="filterProcessesUrl" value="/j_spring_security_check" />
         <property name="authenticationFailureHandler" ref="failureHandler"/>
         <property name="authenticationSuccessHandler" ref="myAuthenticationSuccessHandler"/>
         <property name="authenticationManager" ref="authenticationManager"/>
@@ -53,12 +52,12 @@
           class="com.ebanking.security.MySimpleUrlAuthenticationSuccessHandler" />
  
     <bean id="failureHandler"
-                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+          class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
         <property name="defaultFailureUrl" value="/login?error=true"/>
-    </bean>-->
+    </bean>
     
     
-    <security:http auto-config="true">
+    <!--    <security:http auto-config="true">
         <security:csrf disabled="true"/>
         <security:form-login login-page="/login" 
                              login-processing-url="/j_spring_security_check"
@@ -74,7 +73,7 @@
     
     <bean id="myAuthenticationSuccessHandler"
               class="com.ebanking.security.MySimpleUrlAuthenticationSuccessHandler" />
-    
+    -->
     <bean id="passwordEncoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <constructor-arg name="strength" value="10" />
