@@ -57,8 +57,6 @@ public class Transaction implements Serializable {
         this.account2 = account2;
     }
 
-    
-
     public int getId() {
         return id;
     }
