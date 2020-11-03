@@ -12,9 +12,14 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +44,6 @@ public class PDFBuilder extends AbstractITextPdfView {
         // get data model which is passed by the Spring container
         Transaction transaction = (Transaction) model.get("transaction");
 
-        
         addMetaData(doc);
         addTitlePage(doc);
         addContent(doc, transaction);
@@ -52,42 +56,101 @@ public class PDFBuilder extends AbstractITextPdfView {
         document.addAuthor("EBanking");
         document.addCreator("EBanking");
     }
-    
+
     private void addTitlePage(Document document) throws DocumentException {
         Paragraph preface = new Paragraph();
-        
+
         addEmptyLine(preface, 1);
-        Paragraph title = new Paragraph("Thông tin chi tiết giao dịch" , catFont);
+        Paragraph title = new Paragraph("Transaction Information", catFont);
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
         addEmptyLine(preface, 1);
-        
-        preface.add(new Paragraph("Biên lai được in bởi : " + System.getProperty("user.name") + ", " + new Date(), smallBold));
-        
+
+        preface.add(new Paragraph("Receipt was printed by : " + System.getProperty("user.name") + ", " + new Date(), smallBold));
+
         document.add(preface);
     }
-    
+
     private void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
     }
-    
+
     private void addContent(Document document, Transaction transaction) throws DocumentException {
         Paragraph content = new Paragraph();
-        
+
         addEmptyLine(content, 3);
+
+
+        PdfPTable table = new PdfPTable(2);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Transaction ID"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        PdfPCell c2 = new PdfPCell(new Phrase(transaction.getId() + ""));
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c2);
+
+        c1 = new PdfPCell(new Phrase("Transaction Type"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c2 = new PdfPCell(new Phrase(transaction.getType()));
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c2);
+
+        c1 = new PdfPCell(new Phrase("Account Number From"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c2 = new PdfPCell(new Phrase(transaction.getAccount1().getId() + ""));
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c2);
+
+        c1 = new PdfPCell(new Phrase("Account Number To"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c2 = new PdfPCell(new Phrase(transaction.getAccount2().getId() + ""));
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c2);
+
+        c1 = new PdfPCell(new Phrase("Amount"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c2 = new PdfPCell(new Phrase(formatCurrency(transaction.getAmount()) + " VND"));
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c2);
+
+        c1 = new PdfPCell(new Phrase("Date Transfer"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c2 = new PdfPCell(new Phrase(transaction.getTransactionDate() + ""));
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c2);
         
-        content.add(new Paragraph("Mã giao dịch             : " + transaction.getId()));
-        content.add(new Paragraph("Loại giao dịch           : " + transaction.getType()));
-        content.add(new Paragraph("Số tài khoản chuyển tiền : " + transaction.getAccount1().getId()));
-        content.add(new Paragraph("Số tài khoản thụ hưởng   : " + transaction.getAccount2().getId()));
-        content.add(new Paragraph("Số tiền giao dịch        : " + transaction.getAmount()));
-        content.add(new Paragraph("Tin nhắn                 : " + transaction.getMessage()));
-        content.add(new Paragraph("Ngày thực hiện giao dịch : " + transaction.getTransactionDate()));
-        
-        content.setAlignment(Element.ALIGN_CENTER);
-        
+        c1 = new PdfPCell(new Phrase("Message"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c2 = new PdfPCell(new Phrase(transaction.getMessage()));
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c2);
+
+        content.add(table);
+
         document.add(content);
+    }
+
+    private String formatCurrency(int n) {
+        NumberFormat currentLocale = NumberFormat.getInstance();
+        Locale localeVI = new Locale("vi", "VI");
+        NumberFormat vi = NumberFormat.getInstance(localeVI);
+        
+        return vi.format(n);
     }
 }

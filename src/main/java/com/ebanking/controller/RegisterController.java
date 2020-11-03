@@ -94,7 +94,7 @@ public class RegisterController {
                         String content = "Chào mừng đến với hệ thống EBanking " + "\n"
                                 + "Bấm vào link sau để kích hoạt tài khoản của bạn : "
                                 + "http://localhost:8080/ebanking/activation/" + user.getId();
-                        emailService.sendEmail("huyhoang76114@gmail.com", "Kích hoạt tài khoản", content);
+                        emailService.sendEmail(customer.getEmail(), "Kích hoạt tài khoản", content);
                         return "registersuccess";
                     } else {
                         String error = "Đã xảy ra lỗi. Quý khách vui lòng thử lại. Mong quý khách thông cảm.";

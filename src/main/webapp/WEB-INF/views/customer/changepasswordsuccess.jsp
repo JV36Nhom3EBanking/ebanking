@@ -40,7 +40,7 @@
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="<c:url value="/trangchu"/>">Trang chủ</a></li>
+                        <li class="active"><a href="<c:url value="/customer/trangchu"/>">Trang chủ</a></li>
                         <li class=""><a href="about.html">Về chúng tôi</a></li>
                         <li class=""><a href="services.html">Các dịch vụ</a></li>
                         <li class=""><a href="contact.html">Liên hệ</a></li>
@@ -74,7 +74,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/customer/trangchu"/>">Trang chủ</a></li>
                         <li class="breadcrumb-item" aria-current="page">Welcome, ${name}</li>
                     </ol>
                 </nav>

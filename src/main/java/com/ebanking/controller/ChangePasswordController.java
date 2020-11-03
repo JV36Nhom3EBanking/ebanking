@@ -71,12 +71,12 @@ public class ChangePasswordController {
                 }
             }
             else {
-                modelMap.addAttribute("error", "Mật khẩu hiện tại không đúng. Vui lòng thử lại. Cảm ơn quý khách.");
+                modelMap.addAttribute("error", "Mật khẩu hiện tại không khớp. Vui lòng thử lại. Cảm ơn quý khách.");
                 return "customer/changepassword";
             }
         }
         else {
-            modelMap.addAttribute("error", "Captcha nhập sai. Mong quý khách vui lòng thử lại. Cảm ơn quý khách.");
+            modelMap.addAttribute("error", "Captcha nhập nhầm. Mong quý khách vui lòng thử lại. Cảm ơn quý khách.");
             return "customer/changepassword";
         }
     }

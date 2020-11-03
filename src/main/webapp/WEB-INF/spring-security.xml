@@ -26,6 +26,8 @@
         <security:csrf disabled="true"/>
         <security:intercept-url pattern="/customer/*" 
                                 access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/downloadPDF/*" 
+                                access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
         <security:intercept-url pattern="/admin/*" 
                                 access="hasRole('ROLE_ADMIN')"/>
  

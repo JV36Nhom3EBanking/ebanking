@@ -128,6 +128,14 @@
                             <td>Tin nhắn</td>
                             <td colspan="3">${transaction.getMessage()}</td>
                         </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div style="float: right;">
+                                    <a href="<c:url value="/downloadPDF/${transaction.getId()}"></c:url>" target="_blank" class="btn btn-default" style="margin-left: 50px;">In biên lai</a>
+                                    <a href="<c:url value="/customer/trangchu"/>" class="btn btn-default" style="margin-left: 50px;">Trở về trang chủ</a>
+                                </div>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

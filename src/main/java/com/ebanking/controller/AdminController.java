@@ -224,7 +224,7 @@ public class AdminController {
         Bank bank = bankService.getBank(openAccountModel.getDistrict(), openAccountModel.getCity());
 
         if (customer == null) {
-            modelMap.addAttribute("error", "Nhập sai thông tin khách hàng. Xin thử lại.");
+            modelMap.addAttribute("error", "Nhập nhầm thông tin khách hàng. Xin thử lại.");
             List<String> listDistrict = bankService.getListInternalDistrict();
             List<String> listCity = bankService.getListInternalCity();
             modelMap.addAttribute("district", listDistrict);
@@ -233,7 +233,7 @@ public class AdminController {
         }
 
         if (bank == null) {
-            modelMap.addAttribute("error", "Nhập sai thông tin ngân hàng quản lý. Xin thử lại.");
+            modelMap.addAttribute("error", "Nhập nhầm thông tin ngân hàng quản lý. Xin thử lại.");
             List<String> listDistrict = bankService.getListInternalDistrict();
             List<String> listCity = bankService.getListInternalCity();
             modelMap.addAttribute("district", listDistrict);
@@ -286,9 +286,15 @@ public class AdminController {
         int id = Integer.parseInt(httpServletRequest.getParameter("accountid"));
         Account account = accountService.getAccount(id);
 
-        modelMap.addAttribute("account", account);
+        if (account != null) {
+            modelMap.addAttribute("account", account);
 
-        return "admin/changebalancepage";
+            return "admin/changebalancepage";
+        } else {
+            modelMap.addAttribute("error", "Không tìm thấy tài khoản chỉ định. Vui lòng kiểm tra lại thông tin.");
+            return "admin/changebalance";
+        }
+
     }
 
     @PostMapping("/changeBalanceProcess")

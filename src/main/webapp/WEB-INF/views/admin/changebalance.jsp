@@ -101,6 +101,7 @@
                         <input type="text" id="accountid" name="accountid" style="margin-left: 30px;"/>
                         <input class="btn btn-default" type="submit" value="Tìm kiếm" style="margin-left: 20px;"/>
                     </form>
+                    <p style=" color: red;">${error}</p>
                 </div>
             </div>
         </div>

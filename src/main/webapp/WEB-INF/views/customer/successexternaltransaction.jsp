@@ -130,9 +130,9 @@
                         </tr>
                         <tr>
                             <td colspan="4">
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Tiếp tục giao dịch</a>
-                                <a href="<c:url value="/downloadPDF/${transaction.getId()}"></c:url>" class="btn btn-default" style="margin-left: 50px;">In biên lai</a>
-                                <a href="#" class="btn btn-default" style="margin-left: 50px;">Trở về trang chủ</a>
+                                <a href="<c:url value="/customer/internaltransfermoney"/>" class="btn btn-default" style="margin-left: 50px;">Tiếp tục giao dịch</a>
+                                <a href="<c:url value="/downloadPDF/${transaction.getId()}"></c:url>" target="_blank" class="btn btn-default" style="margin-left: 50px;">In biên lai</a>
+                                <a href="<c:url value="/customer/externaltransfermoney"/>" class="btn btn-default" style="margin-left: 50px;">Trở về trang chủ</a>
                             </td>
                         </tr>
                     </table>
