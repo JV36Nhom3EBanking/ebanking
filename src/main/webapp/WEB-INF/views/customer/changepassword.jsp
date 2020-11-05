@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>E B@nking Login</title>
+        <title>E B@nking - Đổi mật khẩu</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script>
@@ -33,7 +33,7 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/customer/trangchu"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
@@ -41,9 +41,9 @@
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
                         <li class="active"><a href="<c:url value="/customer/trangchu"/>">Trang chủ</a></li>
-                        <li class=""><a href="about.html">Về chúng tôi</a></li>
-                        <li class=""><a href="services.html">Các dịch vụ</a></li>
-                        <li class=""><a href="contact.html">Liên hệ</a></li>
+                        <li class=""><a href="<c:url value="/customer/trangchu"/>">Về chúng tôi</a></li>
+                        <li class=""><a href="<c:url value="/customer/trangchu"/>">Các dịch vụ</a></li>
+                        <li class=""><a href="<c:url value="/customer/trangchu"/>">Liên hệ</a></li>
                             <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
@@ -73,7 +73,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<c:url value="/customer/trangchu"/>">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/customer/trangchu"/>">Xin chào, ${name}</a></li>
                         <li class="breadcrumb-item" aria-current="page">Đổi mật khẩu</li>
                     </ol>
                 </nav>
@@ -85,30 +85,30 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a class="active" href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Trang chủ</a>
+                        <a href="<c:url value="/customer/info"/>">Xem thông tin cá nhân</a>
+                        <a href="<c:url value="/customer/account/list"/>">Xen thông tin tài khoản</a>
+                        <a class="active" href="<c:url value="/customer/changePassword"/>">Đổi mật khẩu</a>
+                        <a href="<c:url value="/customer/account/transaction/search"/>">Xem lịch sử giao dịch</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>">Chuyển tiền cùng ngân hàng</a>
+                        <a href="<c:url value="/customer/externaltransfermoney"/>">Chuyển tiền ngoài ngân hàng</a>
                     </div>
                 </div>
                     
-                <div class="contact-form mt-md-0 mt-sm-5 mt-4">
+                <div class="mt-md-0 mt-sm-5 mt-4" style="width: 20%; margin: auto;">
                     <h4 class="mb-4 w3f_title title_center">Đổi mật khẩu</h4>
                     <form:form name="contactform" method="POST" action="${pageContext.request.contextPath}/customer/confirmChangePassword" modelAttribute="changePasswordModel">
                         <div class="form-group">
                             <label>Mật khẩu hiện tại</label> <form:input type="password" class="form-control" path="password" required="required"
-                                        placeholder="Enter Password" name="password"/>
+                                        placeholder="Nhập mật khẩu hiện tại" name="password"/>
                         </div>
                         <div class="form-group">
                             <label>Mật khẩu mới</label> <form:input type="password" class="form-control" path="newPassword" required="required"
-                                        placeholder="Enter New Password" name="newPassword"/>
+                                        placeholder="Nhập mật khẩu mới" name="newPassword"/>
                         </div>
                         <div class="form-group">
                             <label>Nhập lại mật khẩu mới</label> <form:input type="password" class="form-control" path="reNewPassword" required="required"
-                                        placeholder="Enter New Password Again" name="reNewPassword"/>
+                                        placeholder="Nhập lại mật khẩu mới" name="reNewPassword"/>
                         </div>
                         <div class="form-group">
                             <label>Captcha</label> 
@@ -120,7 +120,7 @@
                         <p style=" color: red;">${error}</p>
                         <div style="margin-bottom: 20px;">
                             <form:button type="submit" class="btn btn-default">Xác nhận</form:button>
-                            <form:button type="button" class="btn btn-primary" style="margin-left: 20px;">Cancel</form:button>
+                            <form:button type="button" class="btn btn-default" style="margin-left: 70px;"><a style="color: black;" href="<c:url value="/customer/trangchu"/>">Hủy bỏ</a></form:button>
                             </div>
                     </form:form>
                 </div>

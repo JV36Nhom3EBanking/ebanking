@@ -245,7 +245,7 @@ public class AdminController {
         account.setOpenDate(LocalDate.now());
         account.setBalance(50000);
         account.setType("ATM");
-        account.setStatus("actived");
+        account.setStatus("kích hoạt");
         account.setCustomer(customer);
         account.setBank(bank);
 

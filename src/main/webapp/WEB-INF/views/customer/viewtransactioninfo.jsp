@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>E B@nking Login</title>
+        <title>E B@nking - Xem thông tin giao dịch</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script>
@@ -33,17 +33,17 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/customer/trangchu"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
-                        <li class=""><a href="about.html">Về chúng tôi</a></li>
-                        <li class=""><a href="services.html">Các dịch vụ</a></li>
-                        <li class=""><a href="contact.html">Liên hệ</a></li>
+                        <li class="active"><a href="<c:url value="/customer/trangchu"/>">Trang chủ</a></li>
+                        <li class=""><a href="<c:url value="/customer/trangchu"/>">Về chúng tôi</a></li>
+                        <li class=""><a href="<c:url value="/customer/trangchu"/>">Các dịch vụ</a></li>
+                        <li class=""><a href="<c:url value="/customer/trangchu"/>">Liên hệ</a></li>
                             <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
@@ -73,7 +73,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/customer/trangchu"/>">Xin chào, ${name}</a></li>
                         <li class="breadcrumb-item" aria-current="page">Danh sách tài khoản</li>
                     </ol>
                 </nav>
@@ -85,13 +85,13 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/customer/trangchu"/>">Home</a>
-                        <a href="<c:url value="/customer/info"/>">View Customer Profile</a>
-                        <a href="<c:url value="/customer/account/list"/>">View Account Information</a>
-                        <a href="<c:url value="/customer/changePassword"/>" >Change Password</a>
-                        <a class="active" href="<c:url value="/customer/account/transaction/search"/>">View Transaction</a>
-                        <a href="<c:url value="/customer/internaltransfermoney"/>" >Internal Transfer Money</a>
-                        <a href="<c:url value="/customer/externaltransfermoney"/>" >External Transfer Money</a>
+                        <a href="<c:url value="/customer/trangchu"/>">Trang chủ</a>
+                        <a href="<c:url value="/customer/info"/>">Xem thông tin cá nhân</a>
+                        <a href="<c:url value="/customer/account/list"/>">Xen thông tin tài khoản</a>
+                        <a href="<c:url value="/customer/changePassword"/>">Đổi mật khẩu</a>
+                        <a class="active" href="<c:url value="/customer/account/transaction/search"/>">Xem lịch sử giao dịch</a>
+                        <a href="<c:url value="/customer/internaltransfermoney"/>">Chuyển tiền cùng ngân hàng</a>
+                        <a href="<c:url value="/customer/externaltransfermoney"/>">Chuyển tiền ngoài ngân hàng</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">

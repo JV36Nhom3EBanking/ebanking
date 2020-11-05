@@ -86,59 +86,45 @@ public class PDFBuilder extends AbstractITextPdfView {
         PdfPTable table = new PdfPTable(2);
 
         PdfPCell c1 = new PdfPCell(new Phrase("Transaction ID"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         PdfPCell c2 = new PdfPCell(new Phrase(transaction.getId() + ""));
-        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
 
         c1 = new PdfPCell(new Phrase("Transaction Type"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c2 = new PdfPCell(new Phrase(transaction.getType()));
-        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
 
         c1 = new PdfPCell(new Phrase("Account Number From"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c2 = new PdfPCell(new Phrase(transaction.getAccount1().getId() + ""));
-        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
 
         c1 = new PdfPCell(new Phrase("Account Number To"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c2 = new PdfPCell(new Phrase(transaction.getAccount2().getId() + ""));
-        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
 
         c1 = new PdfPCell(new Phrase("Amount"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c2 = new PdfPCell(new Phrase(formatCurrency(transaction.getAmount()) + " VND"));
-        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
 
         c1 = new PdfPCell(new Phrase("Date Transfer"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c2 = new PdfPCell(new Phrase(transaction.getTransactionDate() + ""));
-        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
         
         c1 = new PdfPCell(new Phrase("Message"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         c2 = new PdfPCell(new Phrase(transaction.getMessage()));
-        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
 
         content.add(table);

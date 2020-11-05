@@ -33,26 +33,19 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
-                        <li class=""><a href="about.html">Về chúng tôi</a></li>
-                        <li class=""><a href="services.html">Các dịch vụ</a></li>
-                        <li class=""><a href="contact.html">Liên hệ</a></li>
-                            <c:choose>
-                                <c:when test="${chucaidau != null}">
-                                <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
-                                <li><a href="<c:url value="/logout"></c:url>">Đăng xuất</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
-                                </c:otherwise>
-                            </c:choose>
+                        <li class="active"><a href="<c:url value="/"/>">Trang chủ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Về chúng tôi</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Các dịch vụ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Liên hệ</a></li>
+                        <li class="last-grid"><a href="<c:url value="/login"/>">Bắt đầu ngay</a></li>
+
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -73,7 +66,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/"/>">Trang chủ</a></li>
                         <li class="breadcrumb-item" aria-current="page">Kích hoạt tài khoản</li>
                     </ol>
                 </nav>

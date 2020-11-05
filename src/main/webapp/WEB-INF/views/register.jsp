@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>E B@nking Login</title>
+        <title>E B@nking - Đăng ký</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script>
@@ -20,6 +20,9 @@
 
             function hideURLbar() {
                 window.scrollTo(0, 1);
+            }
+            function cancel() {
+                window.location.href = 'http://localhost:8080/ebanking/';
             }
         </script>
         <jsp:include page="/WEB-INF/views/header.jsp" />
@@ -33,18 +36,18 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
-                        <li class=""><a href="about.html">Về chúng tôi</a></li>
-                        <li class=""><a href="services.html">Các dịch vụ</a></li>
-                        <li class=""><a href="contact.html">Liên hệ</a></li>
-                        <li class="last-grid"><a href="#">Bắt đầu ngay</a></li>
+                        <li class="active"><a href="<c:url value="/"/>">Trang chủ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Về chúng tôi</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Các dịch vụ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Liên hệ</a></li>
+                        <li class="last-grid"><a href="<c:url value="/login"/>">Bắt đầu ngay</a></li>
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -65,7 +68,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/"/>">Trang chủ</a></li>
                         <li class="breadcrumb-item" aria-current="page">Đăng ký</li>
                     </ol>
                 </nav>
@@ -83,7 +86,7 @@
                                 <td>
                                     <div>
                                         <label>Họ và tên</label> <form:input type="text" class="form-control" path="name" required="required"
-                                                    id="name" placeholder="Enter Name" name="name"/>
+                                                    id="name" placeholder="Nhập họ và tên" name="name"/>
                                     </div>
                                 </td>
                                 <td>
@@ -93,7 +96,7 @@
                                             <form:radiobutton path="gender" required="required"
                                                               value="Nam"/> Nam
                                             <form:radiobutton path="gender" required="required" style="margin-left: 50px;"
-                                                              value="Nu"/> Nữ
+                                                              value="Nữ"/> Nữ
                                         </div>
                                     </div>
                                 </td>
@@ -102,14 +105,14 @@
                                 <td>
                                     <div>
                                         <label>Ngày sinh</label> <form:input type="date" class="form-control" path="birthdate" required="required"
-                                                    id="birthdate" placeholder="Enter Password" name="birthdate"/>
+                                                    id="birthdate" name="birthdate"/>
                                         
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <label>Tên đăng nhập</label> <form:input type="text" class="form-control" path="username" required="required"
-                                                    id="username" placeholder="Enter Username" name="username"/>
+                                                    id="username" placeholder="Nhập tên đăng nhập" name="username"/>
                                     </div>
                                 </td>
                             </tr>
@@ -117,13 +120,13 @@
                                 <td>
                                     <div>
                                         <label>Mật khẩu</label> <form:input type="password" class="form-control" path="password" required="required"
-                                                    id="password" placeholder="Enter Password" name="password"/>
+                                                    id="password" placeholder="Nhập mật khẩu" name="password"/>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <label>Nhập lại mật khẩu</label> <form:input type="password" class="form-control" path="rePassword" required="required"
-                                                    id="rePassword" placeholder="Enter Password Again" name="rePassword"/>
+                                                    id="rePassword" placeholder="Nhập lại mật khẩu" name="rePassword"/>
                                     </div>
                                 </td>
                             </tr>
@@ -131,13 +134,13 @@
                                 <td>
                                     <div>
                                         <label>Địa chỉ</label> <form:input type="text" class="form-control" path="address" required="required"
-                                                    id="address" placeholder="Enter Address" name="address"/>
+                                                    id="address" placeholder="Nhập địa chỉ" name="address"/>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <label>Quận</label> <form:input type="text" class="form-control" path="district" required="required"
-                                                    id="district" placeholder="Enter District" name="district"/>
+                                                    id="district" placeholder="Nhập quận" name="district"/>
                                     </div>
                                 </td>
                             </tr>
@@ -145,25 +148,25 @@
                                 <td>
                                     <div>
                                         <label>Thành phố</label> <form:input type="text" class="form-control" path="city" required="required"
-                                                    id="city" placeholder="Enter City" name="city"/>
+                                                    id="city" placeholder="Nhập thành phố" name="city"/>
                                     </div>
                                 </td>
                                 <td>
                                     <label>Quốc tịch</label> <form:input type="text" class="form-control" path="nationality" required="required"
-                                                id="nationality" placeholder="Enter Nationality" name="nationality"/>
+                                                id="nationality" placeholder="Nhập quốc tịch" name="nationality"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div>
                                         <label>CMND</label> <form:input type="text" class="form-control" path="cmnd" required="required"
-                                                    id="cmnd" placeholder="Enter CMND" name="cmnd"/>
+                                                    id="cmnd" placeholder="Nhập CMND" name="cmnd"/>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
                                         <label>Số điện thoại</label> <form:input type="text" class="form-control" path="phone" required="required"
-                                                    id="phone" placeholder="Enter Phone" name="phone"/>
+                                                    id="phone" placeholder="Nhập số điện thoại" name="phone"/>
                                     </div>
                                 </td>
                             </tr>
@@ -171,7 +174,7 @@
                                 <td>
                                     <div>
                                         <label style="margin-top: 9px; margin-bottom: 26px;">Email</label> <form:input type="text" class="form-control" path="email" required="required"
-                                                    id="email" placeholder="Enter Email" name="email"/>
+                                                    id="email" placeholder="Nhập Email" name="email"/>
                                     </div>
                                 </td>
                                 <td>
@@ -188,7 +191,7 @@
                                 <td colspan="2">
                                     <div style="margin-top: 50px; float: right;">
                                         <form:button type="submit" class="btn btn-default" style="margin-right: 20px;">Đăng ký</form:button>
-                                        <form:button type="button" class="btn btn-primary">Cancel</form:button>
+                                        <button type="button" class="btn btn-primary" onclick="cancel()" style="margin-left: 20px;">Hủy bỏ</button>
                                         </div>
                                     </td>
                                 </tr>

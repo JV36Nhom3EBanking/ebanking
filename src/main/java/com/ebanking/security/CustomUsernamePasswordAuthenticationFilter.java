@@ -40,7 +40,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
         HttpSession httpSession = request.getSession();
         String captcha = httpSession.getAttribute("captcha_security").toString();
         if (!verifyCaptcha.equals(captcha)) {
-            throw new AuthenticationServiceException("Please check captcha again");
+            throw new AuthenticationServiceException("Wrong captcha");
         }
         return super.attemptAuthentication(request, response);
     }

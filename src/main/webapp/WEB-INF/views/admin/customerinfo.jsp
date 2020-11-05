@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>E B@nking Login</title>
+        <title>E B@nking - Trang Admin - Thông tin khách hàng</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script>
@@ -33,17 +33,17 @@
                 <nav class="py-3 d-lg-flex">
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><span class="fa fa-university"></span>
+                            <a href="<c:url value="/admin/trangchu"/>"><span class="fa fa-university"></span>
                                 E-Banking </a>
                         </h1>
                     </div>
                     <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
-                        <li class="active"><a href="index.html">Trang chủ</a></li>
-                        <li class=""><a href="about.html">Về chúng tôi</a></li>
-                        <li class=""><a href="services.html">Các dịch vụ</a></li>
-                        <li class=""><a href="contact.html">Liên hệ</a></li>
+                        <li class="active"><a href="<c:url value="/admin/trangchu"/>">Trang chủ</a></li>
+                        <li class=""><a href="<c:url value="/admin/trangchu"/>">Về chúng tôi</a></li>
+                        <li class=""><a href="<c:url value="/admin/trangchu"/>">Các dịch vụ</a></li>
+                        <li class=""><a href="<c:url value="/admin/trangchu"/>">Liên hệ</a></li>
                             <c:choose>
                                 <c:when test="${chucaidau != null}">
                                 <li><a class="circle-avatar" href="<c:url value = ''/>">${chucaidau}</a></li>
@@ -73,7 +73,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Welcome, ${name}</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/admin/trangchu"/>">Xin chào, Admin : ${name}</a></li>
                         <li class="breadcrumb-item" aria-current="page">Thông tin cá nhân khách hàng</li>
                     </ol>
                 </nav>
@@ -85,12 +85,12 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-3">
                     <div class="sidebar">
-                        <a href="<c:url value="/admin/trangchu"/>">Home</a>
-                        <a class="active" href="<c:url value="/admin/customer"/>">View List Customer</a>
-                        <a href="<c:url value="/admin/account"/>">View List Account</a>
-                        <a href="<c:url value="/admin/transaction"/>">View List Transaction</a>
-                        <a href="<c:url value="/admin/openAccount"/>">Open Account</a>
-                        <a href="<c:url value="/admin/changeBalance"/>">Change Balance</a>
+                        <a href="<c:url value="/admin/trangchu"/>">Trang chủ</a>
+                        <a class="active" href="<c:url value="/admin/customer"/>">Xem danh sách khách hàng</a>
+                        <a href="<c:url value="/admin/account"/>">Xem danh sách tài khoản</a>
+                        <a href="<c:url value="/admin/transaction"/>">Xem danh sách giao dịch</a>
+                        <a href="<c:url value="/admin/openAccount"/>">Mở tài khoản</a>
+                        <a href="<c:url value="/admin/changeBalance"/>">Đổi số dư</a>
                     </div>
                 </div>
                 <div class="mt-md-0 mt-sm-5 mt-4" style="width: 70%;">

@@ -28,9 +28,9 @@
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
                         <li class="active"><a href="<c:url value="/"/>">Trang chủ</a></li>
-                        <li class=""><a href="about.html">Về chúng tôi</a></li>
-                        <li class=""><a href="services.html">Các dịch vụ</a></li>
-                        <li class=""><a href="contact.html">Liên hệ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Về chúng tôi</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Các dịch vụ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Liên hệ</a></li>
                         <li class="last-grid"><a href="<c:url value="/login"/>">Bắt đầu ngay</a></li>
                     </ul>
                 </nav>

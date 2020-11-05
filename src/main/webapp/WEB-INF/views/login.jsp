@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>E B@nking Login</title>
+        <title>E B@nking - Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script>
@@ -40,9 +40,9 @@
                     <input type="checkbox" id="drop" />
                     <ul class="menu ml-auto mt-1">
                         <li class="active"><a href="<c:url value="/"/>">Trang chủ</a></li>
-                        <li class=""><a href="about.html">Về chúng tôi</a></li>
-                        <li class=""><a href="services.html">Các dịch vụ</a></li>
-                        <li class=""><a href="contact.html">Liên hệ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Về chúng tôi</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Các dịch vụ</a></li>
+                        <li class=""><a href="<c:url value="/"/>">Liên hệ</a></li>
                         <li class="last-grid"><a href="<c:url value="/login"/>">Bắt đầu ngay</a></li>
                     </ul>
                 </nav>
@@ -64,7 +64,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="<c:url value="/"/>">Trang chủ</a></li>
                         <li class="breadcrumb-item" aria-current="page">Đăng nhập</li>
                     </ol>
                 </nav>
@@ -78,12 +78,12 @@
                     <h4 class="mb-4 w3f_title title_center">ĐĂNG NHẬP</h4>
                     <form name="contactform" id="contactform" method="POST" action="j_spring_security_check">
                         <div class="form-group">
-                            <label>Username</label> <input type="text" class="form-control" required="required"
-                                                           id="username" placeholder="Enter Username" name="username"/>
+                            <label>Tên đăng nhập</label> <input type="text" class="form-control" required="required"
+                                                                id="username" placeholder="Nhập tên đăng nhập" name="username"/>
                         </div>
                         <div class="form-group">
-                            <label>Password</label> <input type="password" class="form-control" required="required"
-                                                           id="password" placeholder="Enter Password" name="password"/>
+                            <label>Mật khẩu</label> <input type="password" class="form-control" required="required"
+                                                           id="password" placeholder="Nhập mật khẩu" name="password"/>
                         </div>
                         <div class="form-group">
                             <label>Captcha</label> 
@@ -94,13 +94,23 @@
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" 
                                value="${_csrf.token}"/>
-                        <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-                            <p style="color:red;">Error:
-                                <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/></p>
-                            </c:if>  
+                        <c:choose>
+                            <c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'Bad credentials'}">
+                                <p style="color:red;">Bạn đã nhập nhầm tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.</p>
+                            </c:when>
+                            <c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'User is disabled'}">
+                                <p style="color:red;">Tài khoản chưa được kích hoạt. Hãy kích hoạt tài khoản và thử lại.</p>
+                            </c:when>
+                            <c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message == 'Wrong captcha'}">
+                                <p style="color:red;">Bạn đã nhập nhầm captcha. Vui lòng thử lại.</p>
+                            </c:when>
+                        </c:choose>
+                        <c:if test="${logout == 'true'}">
+                            <p>Bạn đã đăng xuất khỏi hệ thống</p>
+                        </c:if>        
                         <div style="margin-bottom: 20px;">
-                            <button type="submit" class="btn btn-default">Submit</button>
-                            <button type="button" class="btn btn-primary" onclick="cancel()" style="margin-left: 20px;">Cancel</button>
+                            <button type="submit" class="btn btn-default">Đăng nhập</button>
+                            <button type="button" class="btn btn-primary" onclick="cancel()" style="margin-left: 20px;">Hủy bỏ</button>
                         </div>
 
                         <p style="margin-bottom: 20px;">Chưa có tài khoản? <a href="<c:url value="/register"/>">Đăng kí ngay</a></p>

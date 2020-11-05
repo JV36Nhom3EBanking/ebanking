@@ -39,49 +39,6 @@ public class LoginController {
 
     @GetMapping
     public String Default(HttpSession httpSession, ModelMap modelMap) {
-        if (httpSession.getAttribute("user") != null) {
-            Customer customer = (Customer) httpSession.getAttribute("user");
-            modelMap.addAttribute("customer", customer);
-            String name = customer.getName();
-            modelMap.addAttribute("name", name);
-            String chucaidau = customer.getEmail().substring(0, 1);
-            modelMap.addAttribute("chucaidau", chucaidau);
-            System.out.println(customer.getAccounts().get(0).getBalance());
-            return "redirect:/trangchu";
-        }
-        else {
-            LoginModel loginModel = new LoginModel();
-            modelMap.addAttribute("loginModel", loginModel);
             return "login";
-        }   
     }
-
-//    @PostMapping(value = "/confirmLogin")
-//    public String Login(@ModelAttribute("loginModel") LoginModel loginModel, Model model, HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
-//        String captcha = httpSession.getAttribute("captcha_security").toString();
-//	String verifyCaptcha = loginModel.getCaptcha();
-//        if (verifyCaptcha.equals(captcha)) {
-//            if (customerService.login(loginModel.getUsername(), loginModel.getPassword()) || tellerService.login(loginModel.getUsername(), loginModel.getPassword())) {
-//                Customer customer = customerService.findByUsername(loginModel.getUsername());
-//                if(customer.getStatus().equals("actived")) {
-//                    model.addAttribute("user", customer);
-//                    return "redirect:/trangchu";
-//                }
-//                else {
-//                    model.addAttribute("user", customer);
-//                    return "activation";
-//                }
-//            } else {
-//
-//                String error = "Wrong username or password. Please check again!";
-//                model.addAttribute("error", error);
-//                return "login";
-//            }
-//        } else {
-//
-//            String error = "Wrong input captcha. Please check your input captcha and try again!";
-//            model.addAttribute("error", error);
-//            return "login";
-//        }
-//    }
 }

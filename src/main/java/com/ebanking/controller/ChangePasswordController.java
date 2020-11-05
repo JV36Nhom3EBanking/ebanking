@@ -56,6 +56,13 @@ public class ChangePasswordController {
     @PostMapping("/confirmChangePassword")
     public String changePassword(@ModelAttribute ChangePasswordModel changePasswordModel, ModelMap modelMap, HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("user");
+        Customer customer = user.getCustomer();
+        modelMap.addAttribute("customer", customer);
+        String name = customer.getName();
+        modelMap.addAttribute("name", name);
+        String chucaidau = customer.getEmail().substring(0, 1);
+        modelMap.addAttribute("chucaidau", chucaidau);
+        
         String captcha = httpSession.getAttribute("captcha_security").toString();
         String verifyCaptcha = changePasswordModel.getCaptcha();
         if(captcha.equals(verifyCaptcha)) {
