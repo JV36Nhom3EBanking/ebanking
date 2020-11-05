@@ -263,7 +263,7 @@ public class CustomerController {
 
             String otp = OTP.createOTP();
             modelMap.addAttribute("otp", otp);
-            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
+            emailService.sendEmail(customer.getEmail(), "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
             return "customer/confirminternaltransaction";
         } else {
             String error = "Wrong input captcha. Please check your input captcha and try again!";
@@ -401,7 +401,7 @@ public class CustomerController {
 
             String otp = OTP.createOTP();
             modelMap.addAttribute("otp", otp);
-            emailService.sendEmail("huyhoang76114@gmail.com", "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
+            emailService.sendEmail(customer.getEmail(), "Ebanking OTP", "Hệ thống Ebanking xin thông báo mã OTP của quý khách là : " + otp);
             return "customer/confirmexternaltransaction";
         } else {
             String error = "Wrong input captcha. Please check your input captcha and try again!";
